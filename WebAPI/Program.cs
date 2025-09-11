@@ -1,3 +1,11 @@
+using Application.DAO_interfaces;
+using Application.LogicImplementations;
+using Application.LogicInterfaces;
+using FileData.DAOs;
+// Removed the problematic line
+// using Application.LogicImplementations; // This namespace does not exist
+using FileData;
+
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
@@ -6,6 +14,10 @@ builder.Services.AddControllers();
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
+
+builder.Services.AddScoped<FileContext>();
+builder.Services.AddScoped<IUserDao, UserFileDao>();
+builder.Services.AddScoped<IUserLogic, UserLogic>();
 
 var app = builder.Build();
 
