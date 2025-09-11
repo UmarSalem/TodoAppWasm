@@ -1,29 +1,40 @@
+# Continuous integration pipeline for development work.
+# Builds, tests, and publishes a Docker image for the web API.
 name: Development CI
 
 on:
   push:
-    branches: [developing]
+    branches: [development] # Run on pushes to the development branch
   pull_request:
-    branches: [developing]
+    branches: [development] # Run on pull requests targeting development
 
 jobs:
   build:
     runs-on: ubuntu-latest
     steps:
+      # Fetch the repository content
       - name: Check out repository
         uses: actions/checkout@v4
 
+      # Install the .NET SDK used by the solution
       - name: Setup .NET
         uses: actions/setup-dotnet@v3
         with:
           dotnet-version: 8.x
 
+      # Restore NuGet packages for the solution
       - name: Restore dependencies
         run: dotnet restore TodoAppWasm.sln
 
+      # Build the solution without restoring again
       - name: Build
         run: dotnet build TodoAppWasm.sln --no-restore
 
+      # Execute unit tests to validate the build
+      - name: Test
+        run: dotnet test TodoAppWasm.sln --no-build
+
+      # Authenticate Docker client with GitHub Container Registry
       - name: Login to GHCR
         uses: docker/login-action@v3
         with:
@@ -31,8 +42,10 @@ jobs:
           username: ${{ github.actor }}
           password: ${{ secrets.GITHUB_TOKEN }}
 
+      # Build a Docker image for the WebAPI project
       - name: Build Docker image
         run: docker build WebAPI/ -t ghcr.io/${{ github.repository_owner }}/todoappwasm:${{ github.sha }}
 
+      # Push the image to GitHub Container Registry
       - name: Push Docker image
         run: docker push ghcr.io/${{ github.repository_owner }}/todoappwasm:${{ github.sha }}
