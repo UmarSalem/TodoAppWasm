@@ -1,0 +1,22 @@
+name: CI
+
+# Trigger workflow on every push and pull request
+on:
+  push:
+  pull_request:
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3 # Checkout repository code
+      - name: Setup .NET
+        uses: actions/setup-dotnet@v3
+        with:
+          dotnet-version: '8.0.x' # Install .NET SDK
+      - name: Restore
+        run: dotnet restore # Restore dependencies
+      - name: Build
+        run: dotnet build --no-restore # Build the solution
+      - name: Test
+        run: dotnet test --no-build --verbosity normal # Execute unit tests
