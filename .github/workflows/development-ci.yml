@@ -48,7 +48,7 @@ jobs:
 
       # Build a Docker image for the WebAPI project
       - name: Build Docker image
-        run: docker build WebAPI/ -t ghcr.io/${{ env.REPO_OWNER_LC }}/todoappwasm:${{ github.sha }}
+        run: docker build -f WebAPI/Dockerfile . -t ghcr.io/${{ env.REPO_OWNER_LC }}/todoappwasm:${{ github.sha }}
 
       # Push the image to GitHub Container Registry
       - name: Push Docker image
