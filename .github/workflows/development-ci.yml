@@ -2,6 +2,10 @@
 # Builds, tests, and publishes a Docker image for the web API.
 name: Development CI
 
+permissions:
+  contents: read
+  packages: write
+  
 on:
   push:
     branches: [development] # Run on pushes to the development branch
