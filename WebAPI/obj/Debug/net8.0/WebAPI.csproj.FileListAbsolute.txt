@@ -40,3 +40,4 @@ C:\Users\admin\source\repos\.Net_Project\TodoAppWasm\WebAPI\obj\Debug\net8.0\ref
 C:\Users\admin\source\repos\.Net_Project\TodoAppWasm\WebAPI\obj\Debug\net8.0\WebAPI.pdb
 C:\Users\admin\source\repos\.Net_Project\TodoAppWasm\WebAPI\obj\Debug\net8.0\WebAPI.genruntimeconfig.cache
 C:\Users\admin\source\repos\.Net_Project\TodoAppWasm\WebAPI\obj\Debug\net8.0\ref\WebAPI.dll
+C:\Users\admin\source\repos\.Net_Project\TodoAppWasm\WebAPI\bin\Debug\net8.0\data.json
