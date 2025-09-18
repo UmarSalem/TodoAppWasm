@@ -1,231 +1,38 @@
 {
   "Version": 1,
   "WorkspaceRootPath": "C:\\Users\\admin\\source\\repos\\.Net_Project\\TodoAppWasm\\",
-  "Documents": [
-    {
-      "AbsoluteMoniker": "D:0:0:{0B32A85B-8376-411A-9F00-91FE527F2EB6}|WebAPI\\WebAPI.csproj|c:\\users\\admin\\source\\repos\\.net_project\\todoappwasm\\webapi\\program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{0B32A85B-8376-411A-9F00-91FE527F2EB6}|WebAPI\\WebAPI.csproj|solutionrelative:webapi\\program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{B1F3FF28-BB3F-4CED-A4FD-0C3D3F9536E2}|Application\\Application.csproj|c:\\users\\admin\\source\\repos\\.net_project\\todoappwasm\\application\\logicimplementations\\userlogic.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{B1F3FF28-BB3F-4CED-A4FD-0C3D3F9536E2}|Application\\Application.csproj|solutionrelative:application\\logicimplementations\\userlogic.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{B1F3FF28-BB3F-4CED-A4FD-0C3D3F9536E2}|Application\\Application.csproj|c:\\users\\admin\\source\\repos\\.net_project\\todoappwasm\\application\\logicinterfaces\\iuserlogic.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{B1F3FF28-BB3F-4CED-A4FD-0C3D3F9536E2}|Application\\Application.csproj|solutionrelative:application\\logicinterfaces\\iuserlogic.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{72E47790-8BDA-407B-B9A0-E93D1880D964}|FileData\\FileData.csproj|c:\\users\\admin\\source\\repos\\.net_project\\todoappwasm\\filedata\\daos\\userfiledao.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{72E47790-8BDA-407B-B9A0-E93D1880D964}|FileData\\FileData.csproj|solutionrelative:filedata\\daos\\userfiledao.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{72E47790-8BDA-407B-B9A0-E93D1880D964}|FileData\\FileData.csproj|c:\\users\\admin\\source\\repos\\.net_project\\todoappwasm\\filedata\\filecontext.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{72E47790-8BDA-407B-B9A0-E93D1880D964}|FileData\\FileData.csproj|solutionrelative:filedata\\filecontext.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{72E47790-8BDA-407B-B9A0-E93D1880D964}|FileData\\FileData.csproj|c:\\users\\admin\\source\\repos\\.net_project\\todoappwasm\\filedata\\datacontainer.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{72E47790-8BDA-407B-B9A0-E93D1880D964}|FileData\\FileData.csproj|solutionrelative:filedata\\datacontainer.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{72E47790-8BDA-407B-B9A0-E93D1880D964}|FileData\\FileData.csproj|c:\\users\\admin\\source\\repos\\.net_project\\todoappwasm\\filedata\\class1.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{72E47790-8BDA-407B-B9A0-E93D1880D964}|FileData\\FileData.csproj|solutionrelative:filedata\\class1.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{0B32A85B-8376-411A-9F00-91FE527F2EB6}|WebAPI\\WebAPI.csproj|c:\\users\\admin\\source\\repos\\.net_project\\todoappwasm\\webapi\\controllers\\userscontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{0B32A85B-8376-411A-9F00-91FE527F2EB6}|WebAPI\\WebAPI.csproj|solutionrelative:webapi\\controllers\\userscontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{B1F3FF28-BB3F-4CED-A4FD-0C3D3F9536E2}|Application\\Application.csproj|c:\\users\\admin\\source\\repos\\.net_project\\todoappwasm\\application\\daointerfaces\\iuserdao.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{B1F3FF28-BB3F-4CED-A4FD-0C3D3F9536E2}|Application\\Application.csproj|solutionrelative:application\\daointerfaces\\iuserdao.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{A4C320CA-9634-4376-9966-1C2C1BC48132}|Shared\\Shared.csproj|c:\\users\\admin\\source\\repos\\.net_project\\todoappwasm\\shared\\dtos\\usercreationdto.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{A4C320CA-9634-4376-9966-1C2C1BC48132}|Shared\\Shared.csproj|solutionrelative:shared\\dtos\\usercreationdto.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{A4C320CA-9634-4376-9966-1C2C1BC48132}|Shared\\Shared.csproj|c:\\users\\admin\\source\\repos\\.net_project\\todoappwasm\\shared\\models\\user.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{A4C320CA-9634-4376-9966-1C2C1BC48132}|Shared\\Shared.csproj|solutionrelative:shared\\models\\user.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{A4C320CA-9634-4376-9966-1C2C1BC48132}|Shared\\Shared.csproj|c:\\users\\admin\\source\\repos\\.net_project\\todoappwasm\\shared\\models\\todo.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{A4C320CA-9634-4376-9966-1C2C1BC48132}|Shared\\Shared.csproj|solutionrelative:shared\\models\\todo.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    }
-  ],
+  "Documents": [],
   "DocumentGroupContainers": [
     {
-      "Orientation": 0,
-      "VerticalTabListWidth": 150,
+      "Orientation": 1,
+      "VerticalTabListWidth": 256,
       "DocumentGroups": [
         {
-          "DockedWidth": 200,
-          "SelectedChildIndex": 1,
+          "DockedHeight": 366,
+          "SelectedChildIndex": -1,
           "Children": [
-            {
-              "$type": "Document",
-              "DocumentIndex": 6,
-              "Title": "Class1.cs",
-              "DocumentMoniker": "C:\\Users\\admin\\source\\repos\\.Net_Project\\TodoAppWasm\\FileData\\Class1.cs",
-              "RelativeDocumentMoniker": "FileData\\Class1.cs",
-              "ToolTip": "C:\\Users\\admin\\source\\repos\\.Net_Project\\TodoAppWasm\\FileData\\Class1.cs",
-              "RelativeToolTip": "FileData\\Class1.cs",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-09-03T13:20:34.194Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 0,
-              "Title": "Program.cs",
-              "DocumentMoniker": "C:\\Users\\admin\\source\\repos\\.Net_Project\\TodoAppWasm\\WebAPI\\Program.cs",
-              "RelativeDocumentMoniker": "WebAPI\\Program.cs",
-              "ToolTip": "C:\\Users\\admin\\source\\repos\\.Net_Project\\TodoAppWasm\\WebAPI\\Program.cs",
-              "RelativeToolTip": "WebAPI\\Program.cs",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAAA8AAAAhAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-08-29T09:49:37.129Z",
-              "EditorCaption": ""
-            },
             {
               "$type": "Bookmark",
               "Name": "ST:0:0:{3ae79031-e1bc-11d0-8f78-00a0c9110057}"
             },
             {
-              "$type": "Document",
-              "DocumentIndex": 3,
-              "Title": "UserFileDao.cs",
-              "DocumentMoniker": "C:\\Users\\admin\\source\\repos\\.Net_Project\\TodoAppWasm\\FileData\\DAOs\\UserFileDao.cs",
-              "RelativeDocumentMoniker": "FileData\\DAOs\\UserFileDao.cs",
-              "ToolTip": "C:\\Users\\admin\\source\\repos\\.Net_Project\\TodoAppWasm\\FileData\\DAOs\\UserFileDao.cs",
-              "RelativeToolTip": "FileData\\DAOs\\UserFileDao.cs",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAACEAAAApAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-08-29T09:47:26.192Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 7,
-              "Title": "UsersController.cs",
-              "DocumentMoniker": "C:\\Users\\admin\\source\\repos\\.Net_Project\\TodoAppWasm\\WebAPI\\Controllers\\UsersController.cs",
-              "RelativeDocumentMoniker": "WebAPI\\Controllers\\UsersController.cs",
-              "ToolTip": "C:\\Users\\admin\\source\\repos\\.Net_Project\\TodoAppWasm\\WebAPI\\Controllers\\UsersController.cs",
-              "RelativeToolTip": "WebAPI\\Controllers\\UsersController.cs",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAASAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-08-29T09:32:11.159Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 1,
-              "Title": "UserLogic.cs",
-              "DocumentMoniker": "C:\\Users\\admin\\source\\repos\\.Net_Project\\TodoAppWasm\\Application\\LogicImplementations\\UserLogic.cs",
-              "RelativeDocumentMoniker": "Application\\LogicImplementations\\UserLogic.cs",
-              "ToolTip": "C:\\Users\\admin\\source\\repos\\.Net_Project\\TodoAppWasm\\Application\\LogicImplementations\\UserLogic.cs",
-              "RelativeToolTip": "Application\\LogicImplementations\\UserLogic.cs",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAYAAAAiAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-08-29T09:16:17.029Z",
-              "EditorCaption": ""
-            },
-            {
               "$type": "Bookmark",
               "Name": "ST:1:0:{3ae79031-e1bc-11d0-8f78-00a0c9110057}"
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 2,
-              "Title": "IUserLogic.cs",
-              "DocumentMoniker": "C:\\Users\\admin\\source\\repos\\.Net_Project\\TodoAppWasm\\Application\\LogicInterfaces\\IUserLogic.cs",
-              "RelativeDocumentMoniker": "Application\\LogicInterfaces\\IUserLogic.cs",
-              "ToolTip": "C:\\Users\\admin\\source\\repos\\.Net_Project\\TodoAppWasm\\Application\\LogicInterfaces\\IUserLogic.cs",
-              "RelativeToolTip": "Application\\LogicInterfaces\\IUserLogic.cs",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAgAAAAlAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-08-28T10:18:18.178Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 9,
-              "Title": "UserCreationDto.cs",
-              "DocumentMoniker": "C:\\Users\\admin\\source\\repos\\.Net_Project\\TodoAppWasm\\Shared\\DTOs\\UserCreationDto.cs",
-              "RelativeDocumentMoniker": "Shared\\DTOs\\UserCreationDto.cs",
-              "ToolTip": "C:\\Users\\admin\\source\\repos\\.Net_Project\\TodoAppWasm\\Shared\\DTOs\\UserCreationDto.cs",
-              "RelativeToolTip": "Shared\\DTOs\\UserCreationDto.cs",
-              "ViewState": "AgIAAAwAAAAAAAAAAAA3wA8AAAAAAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-08-29T09:09:09.015Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 8,
-              "Title": "IUserDao.cs",
-              "DocumentMoniker": "C:\\Users\\admin\\source\\repos\\.Net_Project\\TodoAppWasm\\Application\\DAOInterfaces\\IUserDao.cs",
-              "RelativeDocumentMoniker": "Application\\DAOInterfaces\\IUserDao.cs",
-              "ToolTip": "C:\\Users\\admin\\source\\repos\\.Net_Project\\TodoAppWasm\\Application\\DAOInterfaces\\IUserDao.cs",
-              "RelativeToolTip": "Application\\DAOInterfaces\\IUserDao.cs",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAkAAAAJAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-08-28T10:24:52.37Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 4,
-              "Title": "FileContext.cs",
-              "DocumentMoniker": "C:\\Users\\admin\\source\\repos\\.Net_Project\\TodoAppWasm\\FileData\\FileContext.cs",
-              "RelativeDocumentMoniker": "FileData\\FileContext.cs",
-              "ToolTip": "C:\\Users\\admin\\source\\repos\\.Net_Project\\TodoAppWasm\\FileData\\FileContext.cs",
-              "RelativeToolTip": "FileData\\FileContext.cs",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAADAAAAANAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-08-28T08:38:59.257Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 5,
-              "Title": "DataContainer.cs",
-              "DocumentMoniker": "C:\\Users\\admin\\source\\repos\\.Net_Project\\TodoAppWasm\\FileData\\DataContainer.cs",
-              "RelativeDocumentMoniker": "FileData\\DataContainer.cs",
-              "ToolTip": "C:\\Users\\admin\\source\\repos\\.Net_Project\\TodoAppWasm\\FileData\\DataContainer.cs",
-              "RelativeToolTip": "FileData\\DataContainer.cs",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAAA0AAAAEAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-08-28T08:38:54.876Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 11,
-              "Title": "Todo.cs",
-              "DocumentMoniker": "C:\\Users\\admin\\source\\repos\\.Net_Project\\TodoAppWasm\\Shared\\Models\\Todo.cs",
-              "RelativeDocumentMoniker": "Shared\\Models\\Todo.cs",
-              "ToolTip": "C:\\Users\\admin\\source\\repos\\.Net_Project\\TodoAppWasm\\Shared\\Models\\Todo.cs",
-              "RelativeToolTip": "Shared\\Models\\Todo.cs",
-              "ViewState": "AgIAAAkAAAAAAAAAAAAAABQAAAAAAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-08-26T15:57:38.775Z"
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 10,
-              "Title": "User.cs",
-              "DocumentMoniker": "C:\\Users\\admin\\source\\repos\\.Net_Project\\TodoAppWasm\\Shared\\Models\\User.cs",
-              "RelativeDocumentMoniker": "Shared\\Models\\User.cs",
-              "ToolTip": "C:\\Users\\admin\\source\\repos\\.Net_Project\\TodoAppWasm\\Shared\\Models\\User.cs",
-              "RelativeToolTip": "Shared\\Models\\User.cs",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAAA4AAAArAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-08-26T15:56:11.229Z"
             }
           ]
         },
         {
-          "DockedWidth": 341,
+          "DockedHeight": 565,
+          "SelectedChildIndex": -1,
+          "Children": [
+            {
+              "$type": "Bookmark",
+              "Name": "ST:0:0:{40ea2e6b-2121-4bb8-a43e-c83c04b51041}"
+            }
+          ]
+        },
+        {
+          "DockedHeight": 79,
           "SelectedChildIndex": -1,
           "Children": [
             {
@@ -234,15 +41,11 @@
             },
             {
               "$type": "Bookmark",
-              "Name": "ST:0:0:{34e76e81-ee4a-11d0-ae2e-00a0c90fffc3}"
-            },
-            {
-              "$type": "Bookmark",
               "Name": "ST:0:0:{d78612c7-9962-4b83-95d9-268046dad23a}"
             },
             {
               "$type": "Bookmark",
-              "Name": "ST:0:0:{40ea2e6b-2121-4bb8-a43e-c83c04b51041}"
+              "Name": "ST:0:0:{34e76e81-ee4a-11d0-ae2e-00a0c90fffc3}"
             }
           ]
         }

@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Application.DAO_interfaces;
+using Shared.DTOs;
 using Shared.Models;
 
 namespace FileData.DAOs
@@ -33,13 +34,23 @@ public class UserFileDao : IUserDao
 
             return Task.FromResult(user);
         }
-
         public Task<User?> GetByUsernameAsync(string userName)
         {
             User? existing = context.Users.FirstOrDefault(u =>
                 u.UserName.Equals(userName, StringComparison.OrdinalIgnoreCase)
             );
             return Task.FromResult(existing);
+        }
+
+
+        public Task<IEnumerable<User>> GetAllAsync(SearchUserParametersDto searchUserParametersDto)
+        {
+          IEnumerable<User> Users =context.Users.AsEnumerable();
+            if (searchUserParametersDto.UsernameContains != null)
+            {
+                Users = context.Users.Where(u => u.UserName.Contains(searchUserParametersDto.UsernameContains, StringComparison.OrdinalIgnoreCase));
+            }
+            return Task.FromResult(Users);
         }
 
     }
