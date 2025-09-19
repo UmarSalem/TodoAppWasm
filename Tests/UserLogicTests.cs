@@ -35,6 +35,24 @@ public class UserLogicTests
         }
     }
 
+    public Task<IEnumerable<User>> GetAllAsync(SearchUserParametersDto searchParameters)
+        {
+            IEnumerable<User> result = Users.AsEnumerable();
+
+            if (!string.IsNullOrWhiteSpace(searchParameters.UsernameContains))
+            {
+                result = result.Where(user => user.UserName != null &&
+                    user.UserName.Contains(searchParameters.UsernameContains, StringComparison.OrdinalIgnoreCase));
+            }
+
+            if (searchParameters.UserId != null)
+            {
+                result = result.Where(user => user.Id == searchParameters.UserId);
+            }
+
+            return Task.FromResult(result);
+        }
+   
     /// <summary>
     /// Creates a new user when the username is available.
     /// </summary>
