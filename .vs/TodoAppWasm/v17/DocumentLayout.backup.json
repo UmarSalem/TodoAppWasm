@@ -1,7 +1,12 @@
 {
   "Version": 1,
   "WorkspaceRootPath": "C:\\Users\\admin\\source\\repos\\.Net_Project\\TodoAppWasm\\",
-  "Documents": [],
+  "Documents": [
+    {
+      "AbsoluteMoniker": "D:0:0:{72E47790-8BDA-407B-B9A0-E93D1880D964}|FileData\\FileData.csproj|c:\\users\\admin\\source\\repos\\.net_project\\todoappwasm\\filedata\\daos\\userfiledao.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{72E47790-8BDA-407B-B9A0-E93D1880D964}|FileData\\FileData.csproj|solutionrelative:filedata\\daos\\userfiledao.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    }
+  ],
   "DocumentGroupContainers": [
     {
       "Orientation": 1,
@@ -9,7 +14,7 @@
       "DocumentGroups": [
         {
           "DockedHeight": 366,
-          "SelectedChildIndex": -1,
+          "SelectedChildIndex": 2,
           "Children": [
             {
               "$type": "Bookmark",
@@ -18,6 +23,19 @@
             {
               "$type": "Bookmark",
               "Name": "ST:1:0:{3ae79031-e1bc-11d0-8f78-00a0c9110057}"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 0,
+              "Title": "UserFileDao.cs",
+              "DocumentMoniker": "C:\\Users\\admin\\source\\repos\\.Net_Project\\TodoAppWasm\\FileData\\DAOs\\UserFileDao.cs",
+              "RelativeDocumentMoniker": "FileData\\DAOs\\UserFileDao.cs",
+              "ToolTip": "C:\\Users\\admin\\source\\repos\\.Net_Project\\TodoAppWasm\\FileData\\DAOs\\UserFileDao.cs",
+              "RelativeToolTip": "FileData\\DAOs\\UserFileDao.cs",
+              "ViewState": "AgIAAB4AAAAAAAAAAAAowDYAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-09-19T08:12:12.542Z",
+              "EditorCaption": ""
             }
           ]
         },
