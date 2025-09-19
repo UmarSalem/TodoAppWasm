@@ -14,12 +14,12 @@ namespace Shared.DTOs
 
         public string Email { get; set; }
 
-        public string EmailConfirmed { get; set; }
+        public string EmailConfirmed { get; set; } = string.Empty;
 
-        public string EmailConfirmedBy { get; set; }
-        public string EmailConfirmedSubject { get; set; }
+        public string EmailConfirmedBy { get; set; } = string.Empty;
+        public string EmailConfirmedSubject { get; set; } = string.Empty;
 
-        public string EmailConfirmedBody { get; set; }
+        public string EmailConfirmedBody { get; set; } = string.Empty;
 
         public UserCreationDto(String userName, String password, String email)
 

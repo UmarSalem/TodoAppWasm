@@ -14,7 +14,7 @@ namespace Shared.Models
         public string Title { get; set; }
         public bool IsCompleted { get; }
 
-        public string Description { get; set; }
+        public string Description { get; set; } = string.Empty;
 
         public Todo( User owner, string title) { Owner = owner; Title = title; }
 

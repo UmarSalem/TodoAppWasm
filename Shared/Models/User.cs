@@ -10,8 +10,8 @@ namespace Shared.Models
     {
         public int Id { get; set; }
 
-        public string UserName { get; set; }
+        public string UserName { get; set; } = string.Empty;
 
-        public List<Todo> Todos { get; set; }
+        public List<Todo> Todos { get; set; } = new();
     }
 }
