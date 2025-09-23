@@ -27,15 +27,7 @@ public class UserLogicTests
             Users.Add(user);
             return Task.FromResult(user);
         }
-
-        public Task<User?> GetByUsernameAsync(string userName)
-        {
-            User? user = Users.FirstOrDefault(u => u.UserName == userName);
-            return Task.FromResult(user);
-        }
-    }
-
-    public Task<IEnumerable<User>> GetAllAsync(SearchUserParametersDto searchParameters)
+        public Task<IEnumerable<User>> GetAllAsync(SearchUserParametersDto searchParameters)
         {
             IEnumerable<User> result = Users.AsEnumerable();
 
@@ -52,6 +44,15 @@ public class UserLogicTests
 
             return Task.FromResult(result);
         }
+
+        public Task<User?> GetByUsernameAsync(string userName)
+        {
+            User? user = Users.FirstOrDefault(u => u.UserName == userName);
+            return Task.FromResult(user);
+        }
+    }
+
+    
    
     /// <summary>
     /// Creates a new user when the username is available.

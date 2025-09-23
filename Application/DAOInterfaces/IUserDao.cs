@@ -11,12 +11,11 @@ namespace Application.DAO_interfaces
     public interface IUserDao
     {
         Task<User> CreateAsync(User user);
-        Task<User?> GetByUsernameAsync(String userName);
+      Task<User?> GetByUsernameAsync(string userName);
 
         //Task<User?> GetByEmailAsync(String email);
 
         Task<IEnumerable<User>> GetAllAsync(SearchUserParametersDto searchUserParametersDto);
-        
-
+             
     }
 }
