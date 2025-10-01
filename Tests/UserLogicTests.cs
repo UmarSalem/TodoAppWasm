@@ -24,9 +24,20 @@ public class UserLogicTests
 
         public Task<User> CreateAsync(User user)
         {
+            // Simulate auto-increment ID assignment
+            user.Id = Users.Any() ? Users.Max(u => u.Id) + 1 : 1;
             Users.Add(user);
             return Task.FromResult(user);
         }
+
+        public Task<User?> GetByUsernameAsync(string userName)
+        {
+            User? user = Users.FirstOrDefault(u =>
+                u.UserName != null &&
+                u.UserName.Equals(userName, StringComparison.OrdinalIgnoreCase));
+            return Task.FromResult(user);
+        }
+
         public Task<IEnumerable<User>> GetAllAsync(SearchUserParametersDto searchParameters)
         {
             IEnumerable<User> result = Users.AsEnumerable();
@@ -45,9 +56,9 @@ public class UserLogicTests
             return Task.FromResult(result);
         }
 
-        public Task<User?> GetByUsernameAsync(string userName)
+        public Task<User?> GetByIdAsync(int id)
         {
-            User? user = Users.FirstOrDefault(u => u.UserName == userName);
+            User? user = Users.FirstOrDefault(u => u.Id == id);
             return Task.FromResult(user);
         }
     }
