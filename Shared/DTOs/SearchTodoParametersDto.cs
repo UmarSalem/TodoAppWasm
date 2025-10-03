@@ -8,7 +8,7 @@ namespace Shared.DTOs
 {
     public class SearchTodoParametersDto
     {
-        public string? Username { get; set; }
+        public string? UserName { get; set; }
         public int ? UserId { get; set; }
         public bool? CompletedStatus { get; set; }
         public string? Titlecontains { get; set; }
@@ -17,9 +17,9 @@ namespace Shared.DTOs
 
             public string? Emailcontains { get; set; }
 
-        public SearchTodoParametersDto (string? username, int? userId, bool? completedStatus, string? titlecontains, string? descriptioncontains, string? emailcontains)
+        public SearchTodoParametersDto (string? userName, int? userId, bool? completedStatus, string? titlecontains, string? descriptioncontains, string? emailcontains)
         {
-            Username = username;
+            UserName = userName;
             UserId = userId;
             CompletedStatus = completedStatus;
             Titlecontains = titlecontains;

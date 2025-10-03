@@ -32,6 +32,25 @@ namespace WebAPI.Controllers
 
 
         }
+
+        [HttpGet]
+        public async Task<ActionResult<IEnumerable<Todo>>> GetAsync([FromQuery] string? userName, [FromQuery] int? userId, [FromQuery] bool? completedStatus, [FromQuery] string? titleContains, [FromQuery] string? descriptionsContain, [FromBody] string? emailContain)
+        {
+            try
+            {
+                SearchTodoParametersDto parameters = new (userName, userId, completedStatus, titleContains, descriptionsContain, emailContain);
+                var todos = await todoLogic.GetAsync(parameters);
+                    return Ok(todos);
+
+            }
+
+            catch (Exception e)
+
+            {
+                Console.WriteLine(e);
+                return StatusCode(500, e.Message);
+            }
+        }
     }
 
 }

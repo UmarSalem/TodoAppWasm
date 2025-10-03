@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Application.DAOInterfaces;
+using Shared.DTOs;
 using Shared.Models;
 
 namespace FileData.DAOs
@@ -30,6 +31,36 @@ namespace FileData.DAOs
         context.Todos.Add(todo);
             context.SaveChanges();
             return Task.FromResult(todo);
+        }
+
+        public Task<IEnumerable<Todo>> GetAsync(SearchTodoParametersDto searchParams)
+        {
+            IEnumerable<Todo> result = context.Todos.AsEnumerable();
+
+            if (!string.IsNullOrEmpty(searchParams.UserName))
+            {
+                // we know username is unique, so just fetch the first
+                result = context.Todos.Where(todo =>
+                    todo.Owner.UserName.Equals(searchParams.UserName, StringComparison.OrdinalIgnoreCase));
+            }
+
+            if (searchParams.UserId != null)
+            {
+                result = result.Where(t => t.Owner.Id == searchParams.UserId);
+            }
+
+            if (searchParams.CompletedStatus != null)
+            {
+                result = result.Where(t => t.IsCompleted == searchParams.CompletedStatus);
+            }
+
+            if (!string.IsNullOrEmpty(searchParams.Titlecontains))
+            {
+                result = result.Where(t =>
+                    t.Title.Contains(searchParams.Titlecontains, StringComparison.OrdinalIgnoreCase));
+            }
+
+            return Task.FromResult(result);
         }
     }
 }

@@ -36,6 +36,11 @@ namespace Application.LogicImplementations
             return created;
         }
 
+        public Task<IEnumerable<Todo>> GetAsync(SearchTodoParametersDto searchParametersDto)
+        {
+            return todoDao.GetAsync(searchParametersDto);
+        }
+
         private void ValidateTodo(TodoCreationDto dto)
         {
             if (string.IsNullOrEmpty(dto.Title)) throw new Exception("Title cannot be empty.");
