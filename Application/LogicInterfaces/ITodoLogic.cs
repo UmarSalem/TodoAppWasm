@@ -12,6 +12,7 @@ namespace Application.LogicInterfaces
     {
         Task<Todo> CreateAsync(TodoCreationDto dto);
         Task<IEnumerable<Todo>> GetAsync(SearchTodoParametersDto searchParametersDto);
-          
+
+        Task UpdateAsync(TodoUpdateDto todo);
     }
 }

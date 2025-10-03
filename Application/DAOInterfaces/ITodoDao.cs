@@ -12,6 +12,8 @@ namespace Application.DAOInterfaces
     {
         Task<Todo> CreateAsync(Todo todo);
         Task<IEnumerable<Todo>> GetAsync(SearchTodoParametersDto searchParameterDto);
+        Task UpdateAsync(Todo todo);
 
+        Task<Todo?> GetByIdAsync(int todoId);
     }
 }

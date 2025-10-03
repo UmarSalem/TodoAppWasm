@@ -1,4 +1,5 @@
-﻿using Application.LogicInterfaces;
+﻿using System.Linq.Expressions;
+using Application.LogicInterfaces;
 using Microsoft.AspNetCore.Mvc;
 using Shared.DTOs;
 using Shared.Models;
@@ -38,9 +39,9 @@ namespace WebAPI.Controllers
         {
             try
             {
-                SearchTodoParametersDto parameters = new (userName, userId, completedStatus, titleContains, descriptionsContain, emailContain);
+                SearchTodoParametersDto parameters = new(userName, userId, completedStatus, titleContains, descriptionsContain, emailContain);
                 var todos = await todoLogic.GetAsync(parameters);
-                    return Ok(todos);
+                return Ok(todos);
 
             }
 
@@ -51,6 +52,26 @@ namespace WebAPI.Controllers
                 return StatusCode(500, e.Message);
             }
         }
-    }
 
+        [HttpPatch]
+        public async Task<ActionResult> UpdateAsync([FromBody] TodoUpdateDto dto)
+        {
+            try
+            {
+                await todoLogic.UpdateAsync(dto);
+                return Ok();
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine(e);
+                return StatusCode(500, e.Message);
+            }
+
+
+
+
+
+        }
+
+    }
 }
