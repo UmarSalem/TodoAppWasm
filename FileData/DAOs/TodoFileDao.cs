@@ -33,6 +33,20 @@ namespace FileData.DAOs
             return Task.FromResult(todo);
         }
 
+        public Task DeleteAsync(int id)
+        {
+            Todo? existing = context.Todos.FirstOrDefault(todo => todo.Id == id);
+            if (existing == null)
+            {
+                throw new Exception($"Todo with id {id} does not exist!");
+            }
+
+            context.Todos.Remove(existing);
+            context.SaveChanges();
+
+            return Task.CompletedTask;
+        }
+
         public Task<IEnumerable<Todo>> GetAsync(SearchTodoParametersDto searchParams)
         {
             IEnumerable<Todo> result = context.Todos.AsEnumerable();

@@ -36,6 +36,22 @@ namespace Application.LogicImplementations
             return created;
         }
 
+        public async Task DeleteAsync(int id)
+        {
+            Todo? todo = await todoDao.GetByIdAsync(id);
+            if (todo == null)
+            {
+                throw new Exception($"Todo with ID {id} was not found!");
+            }
+
+            if (!todo.IsCompleted)
+            {
+                throw new Exception("Cannot delete un-completed Todo!");
+            }
+
+            await todoDao.DeleteAsync(id);
+        }
+
         public Task<IEnumerable<Todo>> GetAsync(SearchTodoParametersDto searchParametersDto)
         {
             return todoDao.GetAsync(searchParametersDto);
@@ -91,5 +107,17 @@ namespace Application.LogicImplementations
             if (string.IsNullOrEmpty(dto.Title)) throw new Exception("Title cannot be empty.");
             // other validation stuff
         }
-    }
+
+        public async Task<TodoBasicDto> GetByIdAsync(int id)
+        {
+            Todo? todo = await todoDao.GetByIdAsync(id);
+            if (todo == null)
+            {
+                throw new Exception($"Todo with id {id} not found");
+            }
+
+            return new TodoBasicDto(todo.Id, todo.Owner.UserName, todo.Title, todo.IsCompleted);
+        }
+
+            }
 }

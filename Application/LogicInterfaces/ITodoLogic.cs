@@ -14,5 +14,10 @@ namespace Application.LogicInterfaces
         Task<IEnumerable<Todo>> GetAsync(SearchTodoParametersDto searchParametersDto);
 
         Task UpdateAsync(TodoUpdateDto todo);
+
+        Task DeleteAsync(int id);
+
+        Task<TodoBasicDto> GetByIdAsync(int id);
+
     }
 }

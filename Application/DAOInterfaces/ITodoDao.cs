@@ -15,5 +15,7 @@ namespace Application.DAOInterfaces
         Task UpdateAsync(Todo todo);
 
         Task<Todo?> GetByIdAsync(int todoId);
+
+        Task DeleteAsync(int id);
     }
 }
