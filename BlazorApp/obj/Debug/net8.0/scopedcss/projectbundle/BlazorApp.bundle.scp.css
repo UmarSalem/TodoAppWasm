@@ -160,6 +160,35 @@ main[b-kc989pta5g] {
         overflow-y: auto;
     }
 }
+/* /Pages/CreateTodo.razor.rz.scp.css */
+
+
+.card[b-ltel9h5hsw] {
+    box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2);
+    transition: 0.3s;
+    width: 250px;
+    padding: 25px;
+    text-align: center;
+    margin: auto;
+    margin-top: 50px;
+    border-radius: 15px;
+}
+
+.field[b-ltel9h5hsw] {
+    margin-top: 20px;
+}
+
+.acceptbtn[b-ltel9h5hsw] {
+    background-color: lightgreen;
+    border-radius: 5px;
+    padding: 5px;
+    padding-left: 10px;
+    padding-right: 10px;
+}
+
+.button-row[b-ltel9h5hsw] {
+    margin-top: 15px;
+}
 /* /Pages/CreateUser.razor.rz.scp.css */
 
 

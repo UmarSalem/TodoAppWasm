@@ -21,8 +21,8 @@ var apiBase = builder.Configuration["ApiBase"] ?? "http://localhost:5112/";
 // Bind each interface to its HttpClient-based implementation (typed clients)
 builder.Services.AddHttpClient<IUserService, UserHttpClient>(c =>
     c.BaseAddress = new Uri(apiBase));
-
-//builder.Services.AddHttpClient<ITodoService, TodoHttpClient>(c =>
-//    c.BaseAddress = new Uri(apiBase));
+//builder.Services.AddScoped<ITodoService, TodoHttpClient>();
+builder.Services.AddHttpClient<ITodoService, TodoHttpClient>(c =>
+    c.BaseAddress = new Uri(apiBase));
 
 await builder.Build().RunAsync();
