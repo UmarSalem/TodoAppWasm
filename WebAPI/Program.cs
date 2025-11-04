@@ -5,6 +5,7 @@ using FileData.DAOs;
 // Removed the problematic line
 // using Application.LogicImplementations; // This namespace does not exist
 using FileData;
+using Application.DAOInterfaces;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -18,13 +19,21 @@ builder.Services.AddSwaggerGen();
 builder.Services.AddScoped<FileContext>();
 builder.Services.AddScoped<IUserDao, UserFileDao>();
 builder.Services.AddScoped<IUserLogic, UserLogic>();
+builder.Services.AddScoped<ITodoLogic, TodoLogic>();
+builder.Services.AddScoped<ITodoDao, TodoFileDao>();
 
 var app = builder.Build();
+
+app.UseCors(x => x
+    .AllowAnyMethod()
+    .AllowAnyHeader()
+    .SetIsOriginAllowed(origin => true) // allow any origin
+    .AllowCredentials());
 
 // Configure the HTTP request pipeline.
 // if (app.Environment.IsDevelopment())
 
-    app.UseSwagger();
+app.UseSwagger();
     app.UseSwaggerUI();
 
 
