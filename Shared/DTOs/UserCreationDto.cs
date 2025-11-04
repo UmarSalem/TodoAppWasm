@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Text.Json.Serialization;
 using System.Threading.Tasks;
 
 namespace Shared.DTOs
@@ -21,19 +22,20 @@ namespace Shared.DTOs
 
         public string? EmailConfirmedBody { get; set; }
 
-        //public UserCreationDto(String userName, String password, String email)
-
-        //{
-        //    UserName = userName;
-        //    Password = password;
-        //    Email = email;
-        //}
-
-        public UserCreationDto(String userName)
+        [JsonConstructor]
+        public UserCreationDto(String userName, String? password, String? email)
 
         {
             UserName = userName;
+            Password = password;
+            Email = email;
         }
+
+        //public UserCreationDto(String userName)
+
+        //{
+        //    UserName = userName;
+        //}
 
 
 
