@@ -1057,13 +1057,10 @@ C:\Users\admin\source\repos\.Net_Project\TodoAppWasm\BlazorApp\obj\Debug\net8.0\
 C:\Users\admin\source\repos\.Net_Project\TodoAppWasm\BlazorApp\obj\Debug\net8.0\compressed\scrxjpfcoc-tptq2av103.gz
 C:\Users\admin\source\repos\.Net_Project\TodoAppWasm\BlazorApp\obj\Debug\net8.0\compressed\1fybnanqqp-lfu7j35m59.gz
 C:\Users\admin\source\repos\.Net_Project\TodoAppWasm\BlazorApp\obj\Debug\net8.0\compressed\ofpowj728f-oyz0vx2fzb.gz
-C:\Users\admin\source\repos\.Net_Project\TodoAppWasm\BlazorApp\obj\Debug\net8.0\compressed\py7b9idezw-aos1fsxz86.gz
-C:\Users\admin\source\repos\.Net_Project\TodoAppWasm\BlazorApp\obj\Debug\net8.0\compressed\h5gxq7ypzm-gvew1vbp0r.gz
-C:\Users\admin\source\repos\.Net_Project\TodoAppWasm\BlazorApp\obj\Debug\net8.0\compressed\g3qkioy3jp-iyaaiwcv90.gz
-C:\Users\admin\source\repos\.Net_Project\TodoAppWasm\BlazorApp\obj\Debug\net8.0\compressed\tcdnzmmz41-uiwitvoq39.gz
-C:\Users\admin\source\repos\.Net_Project\TodoAppWasm\BlazorApp\obj\Debug\net8.0\compressed\e8x9j5c3gt-zv1vrexa8d.gz
-C:\Users\admin\source\repos\.Net_Project\TodoAppWasm\BlazorApp\obj\Debug\net8.0\compressed\elg2uvrrc6-gn6grsoyeh.gz
-C:\Users\admin\source\repos\.Net_Project\TodoAppWasm\BlazorApp\obj\Debug\net8.0\compressed\k4a7psrd0j-qlv1g2tugt.gz
+C:\Users\admin\source\repos\.Net_Project\TodoAppWasm\BlazorApp\obj\Debug\net8.0\compressed\py7b9idezw-pqa5o5co8c.gz
+C:\Users\admin\source\repos\.Net_Project\TodoAppWasm\BlazorApp\obj\Debug\net8.0\compressed\h5gxq7ypzm-8etzj4c55v.gz
+C:\Users\admin\source\repos\.Net_Project\TodoAppWasm\BlazorApp\obj\Debug\net8.0\compressed\g3qkioy3jp-rjszqblrzz.gz
+C:\Users\admin\source\repos\.Net_Project\TodoAppWasm\BlazorApp\obj\Debug\net8.0\compressed\tcdnzmmz41-qhn4lore4k.gz
 C:\Users\admin\source\repos\.Net_Project\TodoAppWasm\BlazorApp\obj\Debug\net8.0\staticwebassets.build.json
 C:\Users\admin\source\repos\.Net_Project\TodoAppWasm\BlazorApp\obj\Debug\net8.0\staticwebassets.development.json
 C:\Users\admin\source\repos\.Net_Project\TodoAppWasm\BlazorApp\obj\Debug\net8.0\staticwebassets.build.endpoints.json
@@ -1079,3 +1076,6 @@ C:\Users\admin\source\repos\.Net_Project\TodoAppWasm\BlazorApp\obj\Debug\net8.0\
 C:\Users\admin\source\repos\.Net_Project\TodoAppWasm\BlazorApp\obj\Debug\net8.0\refint\BlazorApp.dll
 C:\Users\admin\source\repos\.Net_Project\TodoAppWasm\BlazorApp\obj\Debug\net8.0\BlazorApp.pdb
 C:\Users\admin\source\repos\.Net_Project\TodoAppWasm\BlazorApp\obj\Debug\net8.0\ref\BlazorApp.dll
+C:\Users\admin\source\repos\.Net_Project\TodoAppWasm\BlazorApp\obj\Debug\net8.0\compressed\e8x9j5c3gt-cadactlvno.gz
+C:\Users\admin\source\repos\.Net_Project\TodoAppWasm\BlazorApp\obj\Debug\net8.0\compressed\elg2uvrrc6-y0dwijkbyi.gz
+C:\Users\admin\source\repos\.Net_Project\TodoAppWasm\BlazorApp\obj\Debug\net8.0\compressed\k4a7psrd0j-t7g6hctseg.gz
