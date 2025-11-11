@@ -36,10 +36,6 @@ build_metadata.AdditionalFiles.CssScope =
 build_metadata.AdditionalFiles.TargetPath = UGFnZXNcSG9tZS5yYXpvcg==
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/admin/source/repos/.Net_Project/TodoAppWasm/BlazorApp/Pages/ViewTodos.razor]
-build_metadata.AdditionalFiles.TargetPath = UGFnZXNcVmlld1RvZG9zLnJhem9y
-build_metadata.AdditionalFiles.CssScope = 
-
 [C:/Users/admin/source/repos/.Net_Project/TodoAppWasm/BlazorApp/Pages/Weather.razor]
 build_metadata.AdditionalFiles.TargetPath = UGFnZXNcV2VhdGhlci5yYXpvcg==
 build_metadata.AdditionalFiles.CssScope = 
@@ -63,6 +59,10 @@ build_metadata.AdditionalFiles.CssScope = b-ltel9h5hsw
 [C:/Users/admin/source/repos/.Net_Project/TodoAppWasm/BlazorApp/Pages/CreateUser.razor]
 build_metadata.AdditionalFiles.TargetPath = UGFnZXNcQ3JlYXRlVXNlci5yYXpvcg==
 build_metadata.AdditionalFiles.CssScope = b-4nu5our0n5
+
+[C:/Users/admin/source/repos/.Net_Project/TodoAppWasm/BlazorApp/Pages/ViewTodos.razor]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXNcVmlld1RvZG9zLnJhem9y
+build_metadata.AdditionalFiles.CssScope = b-ybhfzczk3y
 
 [C:/Users/admin/source/repos/.Net_Project/TodoAppWasm/BlazorApp/Pages/ViewUsers.razor]
 build_metadata.AdditionalFiles.TargetPath = UGFnZXNcVmlld1VzZXJzLnJhem9y
