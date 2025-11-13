@@ -3,6 +3,30 @@
   "WorkspaceRootPath": "C:\\Users\\admin\\source\\repos\\.Net_Project\\TodoAppWasm\\",
   "Documents": [
     {
+      "AbsoluteMoniker": "D:0:0:{834EDE8C-7436-4862-BDD2-74CE658F0EC0}|BlazorApp\\BlazorApp.csproj|c:\\users\\admin\\source\\repos\\.net_project\\todoappwasm\\blazorapp\\pages\\home.razor||{40D31677-CBC0-4297-A9EF-89D907823A98}",
+      "RelativeMoniker": "D:0:0:{834EDE8C-7436-4862-BDD2-74CE658F0EC0}|BlazorApp\\BlazorApp.csproj|solutionrelative:blazorapp\\pages\\home.razor||{40D31677-CBC0-4297-A9EF-89D907823A98}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{834EDE8C-7436-4862-BDD2-74CE658F0EC0}|BlazorApp\\BlazorApp.csproj|c:\\users\\admin\\source\\repos\\.net_project\\todoappwasm\\blazorapp\\layout\\mainlayout.razor||{40D31677-CBC0-4297-A9EF-89D907823A98}",
+      "RelativeMoniker": "D:0:0:{834EDE8C-7436-4862-BDD2-74CE658F0EC0}|BlazorApp\\BlazorApp.csproj|solutionrelative:blazorapp\\layout\\mainlayout.razor||{40D31677-CBC0-4297-A9EF-89D907823A98}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{834EDE8C-7436-4862-BDD2-74CE658F0EC0}|BlazorApp\\BlazorApp.csproj|c:\\users\\admin\\source\\repos\\.net_project\\todoappwasm\\blazorapp\\layout\\navmenu.razor||{40D31677-CBC0-4297-A9EF-89D907823A98}",
+      "RelativeMoniker": "D:0:0:{834EDE8C-7436-4862-BDD2-74CE658F0EC0}|BlazorApp\\BlazorApp.csproj|solutionrelative:blazorapp\\layout\\navmenu.razor||{40D31677-CBC0-4297-A9EF-89D907823A98}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{834EDE8C-7436-4862-BDD2-74CE658F0EC0}|BlazorApp\\BlazorApp.csproj|c:\\users\\admin\\source\\repos\\.net_project\\todoappwasm\\blazorapp\\pages\\uicomponents\\fancycheckbox.razor.css||{A5401142-F49D-43DB-90B1-F57BA349E55C}",
+      "RelativeMoniker": "D:0:0:{834EDE8C-7436-4862-BDD2-74CE658F0EC0}|BlazorApp\\BlazorApp.csproj|solutionrelative:blazorapp\\pages\\uicomponents\\fancycheckbox.razor.css||{A5401142-F49D-43DB-90B1-F57BA349E55C}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{834EDE8C-7436-4862-BDD2-74CE658F0EC0}|BlazorApp\\BlazorApp.csproj|c:\\users\\admin\\source\\repos\\.net_project\\todoappwasm\\blazorapp\\pages\\uicomponents\\fancycheckbox.razor||{40D31677-CBC0-4297-A9EF-89D907823A98}",
+      "RelativeMoniker": "D:0:0:{834EDE8C-7436-4862-BDD2-74CE658F0EC0}|BlazorApp\\BlazorApp.csproj|solutionrelative:blazorapp\\pages\\uicomponents\\fancycheckbox.razor||{40D31677-CBC0-4297-A9EF-89D907823A98}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{834EDE8C-7436-4862-BDD2-74CE658F0EC0}|BlazorApp\\BlazorApp.csproj|c:\\users\\admin\\source\\repos\\.net_project\\todoappwasm\\blazorapp\\pages\\createtodo.razor.css||{A5401142-F49D-43DB-90B1-F57BA349E55C}",
+      "RelativeMoniker": "D:0:0:{834EDE8C-7436-4862-BDD2-74CE658F0EC0}|BlazorApp\\BlazorApp.csproj|solutionrelative:blazorapp\\pages\\createtodo.razor.css||{A5401142-F49D-43DB-90B1-F57BA349E55C}"
+    },
+    {
       "AbsoluteMoniker": "D:0:0:{FC3880C4-B19D-4A0A-8551-B656CBAB1BD1}|HttpClients\\HttpClients.csproj|c:\\users\\admin\\source\\repos\\.net_project\\todoappwasm\\httpclients\\implementations\\todohttpclient.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{FC3880C4-B19D-4A0A-8551-B656CBAB1BD1}|HttpClients\\HttpClients.csproj|solutionrelative:httpclients\\implementations\\todohttpclient.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
@@ -21,10 +45,6 @@
     {
       "AbsoluteMoniker": "D:0:0:{834EDE8C-7436-4862-BDD2-74CE658F0EC0}|BlazorApp\\BlazorApp.csproj|c:\\users\\admin\\source\\repos\\.net_project\\todoappwasm\\blazorapp\\pages\\viewtodos.razor||{40D31677-CBC0-4297-A9EF-89D907823A98}",
       "RelativeMoniker": "D:0:0:{834EDE8C-7436-4862-BDD2-74CE658F0EC0}|BlazorApp\\BlazorApp.csproj|solutionrelative:blazorapp\\pages\\viewtodos.razor||{40D31677-CBC0-4297-A9EF-89D907823A98}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{834EDE8C-7436-4862-BDD2-74CE658F0EC0}|BlazorApp\\BlazorApp.csproj|c:\\users\\admin\\source\\repos\\.net_project\\todoappwasm\\blazorapp\\layout\\navmenu.razor||{40D31677-CBC0-4297-A9EF-89D907823A98}",
-      "RelativeMoniker": "D:0:0:{834EDE8C-7436-4862-BDD2-74CE658F0EC0}|BlazorApp\\BlazorApp.csproj|solutionrelative:blazorapp\\layout\\navmenu.razor||{40D31677-CBC0-4297-A9EF-89D907823A98}"
     },
     {
       "AbsoluteMoniker": "D:0:0:{0B32A85B-8376-411A-9F00-91FE527F2EB6}|WebAPI\\WebAPI.csproj|c:\\users\\admin\\source\\repos\\.net_project\\todoappwasm\\webapi\\controllers\\todoscontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
@@ -51,10 +71,6 @@
       "RelativeMoniker": "D:0:0:{834EDE8C-7436-4862-BDD2-74CE658F0EC0}|BlazorApp\\BlazorApp.csproj|solutionrelative:blazorapp\\wwwroot\\css\\styles.css||{A5401142-F49D-43DB-90B1-F57BA349E55C}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{834EDE8C-7436-4862-BDD2-74CE658F0EC0}|BlazorApp\\BlazorApp.csproj|c:\\users\\admin\\source\\repos\\.net_project\\todoappwasm\\blazorapp\\pages\\createtodo.razor.css||{A5401142-F49D-43DB-90B1-F57BA349E55C}",
-      "RelativeMoniker": "D:0:0:{834EDE8C-7436-4862-BDD2-74CE658F0EC0}|BlazorApp\\BlazorApp.csproj|solutionrelative:blazorapp\\pages\\createtodo.razor.css||{A5401142-F49D-43DB-90B1-F57BA349E55C}"
-    },
-    {
       "AbsoluteMoniker": "D:0:0:{834EDE8C-7436-4862-BDD2-74CE658F0EC0}|BlazorApp\\BlazorApp.csproj|c:\\users\\admin\\source\\repos\\.net_project\\todoappwasm\\blazorapp\\program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{834EDE8C-7436-4862-BDD2-74CE658F0EC0}|BlazorApp\\BlazorApp.csproj|solutionrelative:blazorapp\\program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
@@ -73,10 +89,6 @@
     {
       "AbsoluteMoniker": "D:0:0:{834EDE8C-7436-4862-BDD2-74CE658F0EC0}|BlazorApp\\BlazorApp.csproj|c:\\users\\admin\\source\\repos\\.net_project\\todoappwasm\\blazorapp\\properties\\launchsettings.json||{90A6B3A7-C1A3-4009-A288-E2FF89E96FA0}",
       "RelativeMoniker": "D:0:0:{834EDE8C-7436-4862-BDD2-74CE658F0EC0}|BlazorApp\\BlazorApp.csproj|solutionrelative:blazorapp\\properties\\launchsettings.json||{90A6B3A7-C1A3-4009-A288-E2FF89E96FA0}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{834EDE8C-7436-4862-BDD2-74CE658F0EC0}|BlazorApp\\BlazorApp.csproj|c:\\users\\admin\\source\\repos\\.net_project\\todoappwasm\\blazorapp\\layout\\mainlayout.razor||{40D31677-CBC0-4297-A9EF-89D907823A98}",
-      "RelativeMoniker": "D:0:0:{834EDE8C-7436-4862-BDD2-74CE658F0EC0}|BlazorApp\\BlazorApp.csproj|solutionrelative:blazorapp\\layout\\mainlayout.razor||{40D31677-CBC0-4297-A9EF-89D907823A98}"
     },
     {
       "AbsoluteMoniker": "D:0:0:{1DA2557A-AEED-496D-97E3-9EBB097B7CF4}|Tests\\Tests.csproj|c:\\users\\admin\\source\\repos\\.net_project\\todoappwasm\\tests\\userlogictests.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
@@ -125,8 +137,8 @@
       "VerticalTabListWidth": 256,
       "DocumentGroups": [
         {
-          "DockedHeight": 601,
-          "SelectedChildIndex": 5,
+          "DockedHeight": 513,
+          "SelectedChildIndex": 2,
           "Children": [
             {
               "$type": "Bookmark",
@@ -138,20 +150,33 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 2,
-              "Title": "ViewTodos.razor.css",
-              "DocumentMoniker": "C:\\Users\\admin\\source\\repos\\.Net_Project\\TodoAppWasm\\BlazorApp\\Pages\\ViewTodos.razor.css",
-              "RelativeDocumentMoniker": "BlazorApp\\Pages\\ViewTodos.razor.css",
-              "ToolTip": "C:\\Users\\admin\\source\\repos\\.Net_Project\\TodoAppWasm\\BlazorApp\\Pages\\ViewTodos.razor.css",
-              "RelativeToolTip": "BlazorApp\\Pages\\ViewTodos.razor.css",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAABIAAAAQAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.003000|",
-              "WhenOpened": "2025-11-11T12:59:12.363Z",
+              "DocumentIndex": 0,
+              "Title": "Home.razor",
+              "DocumentMoniker": "C:\\Users\\admin\\source\\repos\\.Net_Project\\TodoAppWasm\\BlazorApp\\Pages\\Home.razor",
+              "RelativeDocumentMoniker": "BlazorApp\\Pages\\Home.razor",
+              "ToolTip": "C:\\Users\\admin\\source\\repos\\.Net_Project\\TodoAppWasm\\BlazorApp\\Pages\\Home.razor",
+              "RelativeToolTip": "BlazorApp\\Pages\\Home.razor",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAUAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
+              "WhenOpened": "2025-11-11T13:50:07.742Z",
               "EditorCaption": ""
             },
             {
               "$type": "Document",
               "DocumentIndex": 4,
+              "Title": "FancyCheckBox.razor",
+              "DocumentMoniker": "C:\\Users\\admin\\source\\repos\\.Net_Project\\TodoAppWasm\\BlazorApp\\Pages\\UIComponents\\FancyCheckBox.razor",
+              "RelativeDocumentMoniker": "BlazorApp\\Pages\\UIComponents\\FancyCheckBox.razor",
+              "ToolTip": "C:\\Users\\admin\\source\\repos\\.Net_Project\\TodoAppWasm\\BlazorApp\\Pages\\UIComponents\\FancyCheckBox.razor",
+              "RelativeToolTip": "BlazorApp\\Pages\\UIComponents\\FancyCheckBox.razor",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAABIAAAAYAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
+              "WhenOpened": "2025-11-11T13:26:21.206Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 10,
               "Title": "ViewTodos.razor",
               "DocumentMoniker": "C:\\Users\\admin\\source\\repos\\.Net_Project\\TodoAppWasm\\BlazorApp\\Pages\\ViewTodos.razor",
               "RelativeDocumentMoniker": "BlazorApp\\Pages\\ViewTodos.razor",
@@ -159,12 +184,11 @@
               "RelativeToolTip": "BlazorApp\\Pages\\ViewTodos.razor",
               "ViewState": "AgIAAAYAAAAAAAAAAAAcwBAAAAAeAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
-              "WhenOpened": "2025-11-04T20:18:16.321Z",
-              "EditorCaption": ""
+              "WhenOpened": "2025-11-04T20:18:16.321Z"
             },
             {
               "$type": "Document",
-              "DocumentIndex": 1,
+              "DocumentIndex": 7,
               "Title": "ITodoService.cs",
               "DocumentMoniker": "C:\\Users\\admin\\source\\repos\\.Net_Project\\TodoAppWasm\\HttpClients\\ClientInterfaces\\ITodoService.cs",
               "RelativeDocumentMoniker": "HttpClients\\ClientInterfaces\\ITodoService.cs",
@@ -172,31 +196,30 @@
               "RelativeToolTip": "HttpClients\\ClientInterfaces\\ITodoService.cs",
               "ViewState": "AgIAAAAAAAAAAAAAAAAAABAAAAAeAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-11-04T19:34:49.118Z",
+              "WhenOpened": "2025-11-04T19:34:49.118Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 1,
+              "Title": "MainLayout.razor",
+              "DocumentMoniker": "C:\\Users\\admin\\source\\repos\\.Net_Project\\TodoAppWasm\\BlazorApp\\Layout\\MainLayout.razor",
+              "RelativeDocumentMoniker": "BlazorApp\\Layout\\MainLayout.razor",
+              "ToolTip": "C:\\Users\\admin\\source\\repos\\.Net_Project\\TodoAppWasm\\BlazorApp\\Layout\\MainLayout.razor",
+              "RelativeToolTip": "BlazorApp\\Layout\\MainLayout.razor",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAABAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
+              "WhenOpened": "2025-10-29T09:33:21.78Z",
               "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 0,
-              "Title": "TodoHttpClient.cs",
-              "DocumentMoniker": "C:\\Users\\admin\\source\\repos\\.Net_Project\\TodoAppWasm\\HttpClients\\Implementations\\TodoHttpClient.cs",
-              "RelativeDocumentMoniker": "HttpClients\\Implementations\\TodoHttpClient.cs",
-              "ToolTip": "C:\\Users\\admin\\source\\repos\\.Net_Project\\TodoAppWasm\\HttpClients\\Implementations\\TodoHttpClient.cs",
-              "RelativeToolTip": "HttpClients\\Implementations\\TodoHttpClient.cs",
-              "ViewState": "AgIAABMAAAAAAAAAAAAYwBsAAAAJAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-11-04T19:37:06.057Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 5,
+              "DocumentIndex": 2,
               "Title": "NavMenu.razor",
               "DocumentMoniker": "C:\\Users\\admin\\source\\repos\\.Net_Project\\TodoAppWasm\\BlazorApp\\Layout\\NavMenu.razor",
               "RelativeDocumentMoniker": "BlazorApp\\Layout\\NavMenu.razor",
               "ToolTip": "C:\\Users\\admin\\source\\repos\\.Net_Project\\TodoAppWasm\\BlazorApp\\Layout\\NavMenu.razor",
               "RelativeToolTip": "BlazorApp\\Layout\\NavMenu.razor",
-              "ViewState": "AgIAABUAAAAAAAAAAAAAAC0AAAAOAAAAAAAAAA==",
+              "ViewState": "AgIAAAwAAAAAAAAAAAAAAC0AAAAOAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
               "WhenOpened": "2025-11-04T19:44:22.191Z",
               "EditorCaption": ""
@@ -204,6 +227,57 @@
             {
               "$type": "Document",
               "DocumentIndex": 3,
+              "Title": "FancyCheckBox.razor.css",
+              "DocumentMoniker": "C:\\Users\\admin\\source\\repos\\.Net_Project\\TodoAppWasm\\BlazorApp\\Pages\\UIComponents\\FancyCheckBox.razor.css",
+              "RelativeDocumentMoniker": "BlazorApp\\Pages\\UIComponents\\FancyCheckBox.razor.css",
+              "ToolTip": "C:\\Users\\admin\\source\\repos\\.Net_Project\\TodoAppWasm\\BlazorApp\\Pages\\UIComponents\\FancyCheckBox.razor.css",
+              "RelativeToolTip": "BlazorApp\\Pages\\UIComponents\\FancyCheckBox.razor.css",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAABMAAAAZAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.003000|",
+              "WhenOpened": "2025-11-11T13:31:29.604Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 6,
+              "Title": "TodoHttpClient.cs",
+              "DocumentMoniker": "C:\\Users\\admin\\source\\repos\\.Net_Project\\TodoAppWasm\\HttpClients\\Implementations\\TodoHttpClient.cs",
+              "RelativeDocumentMoniker": "HttpClients\\Implementations\\TodoHttpClient.cs",
+              "ToolTip": "C:\\Users\\admin\\source\\repos\\.Net_Project\\TodoAppWasm\\HttpClients\\Implementations\\TodoHttpClient.cs",
+              "RelativeToolTip": "HttpClients\\Implementations\\TodoHttpClient.cs",
+              "ViewState": "AgIAABMAAAAAAAAAAAAzwBsAAAAJAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-11-04T19:37:06.057Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 5,
+              "Title": "CreateTodo.razor.css",
+              "DocumentMoniker": "C:\\Users\\admin\\source\\repos\\.Net_Project\\TodoAppWasm\\BlazorApp\\Pages\\CreateTodo.razor.css",
+              "RelativeDocumentMoniker": "BlazorApp\\Pages\\CreateTodo.razor.css",
+              "ToolTip": "C:\\Users\\admin\\source\\repos\\.Net_Project\\TodoAppWasm\\BlazorApp\\Pages\\CreateTodo.razor.css",
+              "RelativeToolTip": "BlazorApp\\Pages\\CreateTodo.razor.css",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAABEAAAAMAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.003000|",
+              "WhenOpened": "2025-11-04T19:49:16.701Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 8,
+              "Title": "ViewTodos.razor.css",
+              "DocumentMoniker": "C:\\Users\\admin\\source\\repos\\.Net_Project\\TodoAppWasm\\BlazorApp\\Pages\\ViewTodos.razor.css",
+              "RelativeDocumentMoniker": "BlazorApp\\Pages\\ViewTodos.razor.css",
+              "ToolTip": "C:\\Users\\admin\\source\\repos\\.Net_Project\\TodoAppWasm\\BlazorApp\\Pages\\ViewTodos.razor.css",
+              "RelativeToolTip": "BlazorApp\\Pages\\ViewTodos.razor.css",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAABIAAAAQAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.003000|",
+              "WhenOpened": "2025-11-11T12:59:12.363Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 9,
               "Title": "CreateUser.razor",
               "DocumentMoniker": "C:\\Users\\admin\\source\\repos\\.Net_Project\\TodoAppWasm\\BlazorApp\\Pages\\CreateUser.razor",
               "RelativeDocumentMoniker": "BlazorApp\\Pages\\CreateUser.razor",
@@ -211,12 +285,11 @@
               "RelativeToolTip": "BlazorApp\\Pages\\CreateUser.razor",
               "ViewState": "AgIAAAAAAAAAAAAAAAAAAA8AAAAgAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
-              "WhenOpened": "2025-10-27T19:38:20.032Z",
-              "EditorCaption": ""
+              "WhenOpened": "2025-10-27T19:38:20.032Z"
             },
             {
               "$type": "Document",
-              "DocumentIndex": 6,
+              "DocumentIndex": 11,
               "Title": "TodosController.cs",
               "DocumentMoniker": "C:\\Users\\admin\\source\\repos\\.Net_Project\\TodoAppWasm\\WebAPI\\Controllers\\TodosController.cs",
               "RelativeDocumentMoniker": "WebAPI\\Controllers\\TodosController.cs",
@@ -228,7 +301,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 7,
+              "DocumentIndex": 12,
               "Title": "UserCreationDto.cs",
               "DocumentMoniker": "C:\\Users\\admin\\source\\repos\\.Net_Project\\TodoAppWasm\\Shared\\DTOs\\UserCreationDto.cs",
               "RelativeDocumentMoniker": "Shared\\DTOs\\UserCreationDto.cs",
@@ -240,7 +313,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 8,
+              "DocumentIndex": 13,
               "Title": "IUserService.cs",
               "DocumentMoniker": "C:\\Users\\admin\\source\\repos\\.Net_Project\\TodoAppWasm\\HttpClients\\ClientInterfaces\\IUserService.cs",
               "RelativeDocumentMoniker": "HttpClients\\ClientInterfaces\\IUserService.cs",
@@ -252,7 +325,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 9,
+              "DocumentIndex": 14,
               "Title": "Todo.cs",
               "DocumentMoniker": "C:\\Users\\admin\\source\\repos\\.Net_Project\\TodoAppWasm\\Shared\\Models\\Todo.cs",
               "RelativeDocumentMoniker": "Shared\\Models\\Todo.cs",
@@ -264,7 +337,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 10,
+              "DocumentIndex": 15,
               "Title": "index.html",
               "DocumentMoniker": "C:\\Users\\admin\\source\\repos\\.Net_Project\\TodoAppWasm\\BlazorApp\\wwwroot\\index.html",
               "RelativeDocumentMoniker": "BlazorApp\\wwwroot\\index.html",
@@ -276,7 +349,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 14,
+              "DocumentIndex": 18,
               "Title": "CreateTodo.razor",
               "DocumentMoniker": "C:\\Users\\admin\\source\\repos\\.Net_Project\\TodoAppWasm\\BlazorApp\\Pages\\CreateTodo.razor",
               "RelativeDocumentMoniker": "BlazorApp\\Pages\\CreateTodo.razor",
@@ -288,19 +361,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 12,
-              "Title": "CreateTodo.razor.css",
-              "DocumentMoniker": "C:\\Users\\admin\\source\\repos\\.Net_Project\\TodoAppWasm\\BlazorApp\\Pages\\CreateTodo.razor.css",
-              "RelativeDocumentMoniker": "BlazorApp\\Pages\\CreateTodo.razor.css",
-              "ToolTip": "C:\\Users\\admin\\source\\repos\\.Net_Project\\TodoAppWasm\\BlazorApp\\Pages\\CreateTodo.razor.css",
-              "RelativeToolTip": "BlazorApp\\Pages\\CreateTodo.razor.css",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAABwAAAAAAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.003000|",
-              "WhenOpened": "2025-11-04T19:49:16.701Z"
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 11,
+              "DocumentIndex": 16,
               "Title": "styles.css",
               "DocumentMoniker": "C:\\Users\\admin\\source\\repos\\.Net_Project\\TodoAppWasm\\BlazorApp\\wwwroot\\css\\styles.css",
               "RelativeDocumentMoniker": "BlazorApp\\wwwroot\\css\\styles.css",
@@ -312,7 +373,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 13,
+              "DocumentIndex": 17,
               "Title": "Program.cs",
               "DocumentMoniker": "C:\\Users\\admin\\source\\repos\\.Net_Project\\TodoAppWasm\\BlazorApp\\Program.cs",
               "RelativeDocumentMoniker": "BlazorApp\\Program.cs",
@@ -324,7 +385,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 15,
+              "DocumentIndex": 19,
               "Title": "ViewUsers.razor",
               "DocumentMoniker": "C:\\Users\\admin\\source\\repos\\.Net_Project\\TodoAppWasm\\BlazorApp\\Pages\\ViewUsers.razor",
               "RelativeDocumentMoniker": "BlazorApp\\Pages\\ViewUsers.razor",
@@ -336,7 +397,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 16,
+              "DocumentIndex": 20,
               "Title": "BlazorApp.csproj",
               "DocumentMoniker": "C:\\Users\\admin\\source\\repos\\.Net_Project\\TodoAppWasm\\BlazorApp\\BlazorApp.csproj",
               "RelativeDocumentMoniker": "BlazorApp\\BlazorApp.csproj",
@@ -348,7 +409,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 17,
+              "DocumentIndex": 21,
               "Title": "launchSettings.json",
               "DocumentMoniker": "C:\\Users\\admin\\source\\repos\\.Net_Project\\TodoAppWasm\\BlazorApp\\Properties\\launchSettings.json",
               "RelativeDocumentMoniker": "BlazorApp\\Properties\\launchSettings.json",
@@ -360,19 +421,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 18,
-              "Title": "MainLayout.razor",
-              "DocumentMoniker": "C:\\Users\\admin\\source\\repos\\.Net_Project\\TodoAppWasm\\BlazorApp\\Layout\\MainLayout.razor",
-              "RelativeDocumentMoniker": "BlazorApp\\Layout\\MainLayout.razor",
-              "ToolTip": "C:\\Users\\admin\\source\\repos\\.Net_Project\\TodoAppWasm\\BlazorApp\\Layout\\MainLayout.razor",
-              "RelativeToolTip": "BlazorApp\\Layout\\MainLayout.razor",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAABAAAAAAAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
-              "WhenOpened": "2025-10-29T09:33:21.78Z"
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 19,
+              "DocumentIndex": 22,
               "Title": "UserLogicTests.cs",
               "DocumentMoniker": "C:\\Users\\admin\\source\\repos\\.Net_Project\\TodoAppWasm\\Tests\\UserLogicTests.cs",
               "RelativeDocumentMoniker": "Tests\\UserLogicTests.cs",
@@ -384,7 +433,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 20,
+              "DocumentIndex": 23,
               "Title": "UserHttpClient.cs",
               "DocumentMoniker": "C:\\Users\\admin\\source\\repos\\.Net_Project\\TodoAppWasm\\HttpClients\\Implementations\\UserHttpClient.cs",
               "RelativeDocumentMoniker": "HttpClients\\Implementations\\UserHttpClient.cs",
@@ -396,7 +445,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 21,
+              "DocumentIndex": 24,
               "Title": "User.cs",
               "DocumentMoniker": "C:\\Users\\admin\\source\\repos\\.Net_Project\\TodoAppWasm\\Shared\\Models\\User.cs",
               "RelativeDocumentMoniker": "Shared\\Models\\User.cs",
@@ -408,7 +457,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 22,
+              "DocumentIndex": 25,
               "Title": "UsersController.cs",
               "DocumentMoniker": "C:\\Users\\admin\\source\\repos\\.Net_Project\\TodoAppWasm\\WebAPI\\Controllers\\UsersController.cs",
               "RelativeDocumentMoniker": "WebAPI\\Controllers\\UsersController.cs",
@@ -420,7 +469,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 23,
+              "DocumentIndex": 26,
               "Title": "Class1.cs",
               "DocumentMoniker": "C:\\Users\\admin\\source\\repos\\.Net_Project\\TodoAppWasm\\HttpClients\\Class1.cs",
               "RelativeDocumentMoniker": "HttpClients\\Class1.cs",
@@ -432,7 +481,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 25,
+              "DocumentIndex": 28,
               "Title": "TodoUpdateDto.cs",
               "DocumentMoniker": "C:\\Users\\admin\\source\\repos\\.Net_Project\\TodoAppWasm\\Shared\\DTOs\\TodoUpdateDto.cs",
               "RelativeDocumentMoniker": "Shared\\DTOs\\TodoUpdateDto.cs",
@@ -444,7 +493,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 26,
+              "DocumentIndex": 29,
               "Title": "SearchTodoParametersDto.cs",
               "DocumentMoniker": "C:\\Users\\admin\\source\\repos\\.Net_Project\\TodoAppWasm\\Shared\\DTOs\\SearchTodoParametersDto.cs",
               "RelativeDocumentMoniker": "Shared\\DTOs\\SearchTodoParametersDto.cs",
@@ -456,7 +505,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 24,
+              "DocumentIndex": 27,
               "Title": "TodoFileDao.cs",
               "DocumentMoniker": "C:\\Users\\admin\\source\\repos\\.Net_Project\\TodoAppWasm\\FileData\\DAOs\\TodoFileDao.cs",
               "RelativeDocumentMoniker": "FileData\\DAOs\\TodoFileDao.cs",
@@ -468,7 +517,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 27,
+              "DocumentIndex": 30,
               "Title": "TodoCreationDto.cs",
               "DocumentMoniker": "C:\\Users\\admin\\source\\repos\\.Net_Project\\TodoAppWasm\\Shared\\DTOs\\TodoCreationDto.cs",
               "RelativeDocumentMoniker": "Shared\\DTOs\\TodoCreationDto.cs",
@@ -480,7 +529,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 28,
+              "DocumentIndex": 31,
               "Title": "SearchUserParametersDto.cs",
               "DocumentMoniker": "C:\\Users\\admin\\source\\repos\\.Net_Project\\TodoAppWasm\\Shared\\DTOs\\SearchUserParametersDto.cs",
               "RelativeDocumentMoniker": "Shared\\DTOs\\SearchUserParametersDto.cs",
@@ -493,7 +542,7 @@
           ]
         },
         {
-          "DockedHeight": 131,
+          "DockedHeight": 219,
           "SelectedChildIndex": -1,
           "Children": [
             {
