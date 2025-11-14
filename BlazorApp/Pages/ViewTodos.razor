@@ -1,6 +1,8 @@
 ﻿@page "/ViewTodos"
 @using Shared.Models
 @using HttpClients.ClientInterfaces
+@using UIComponents
+@using Shared.DTOs
 @inject ITodoService todoService
 
 <h3>Todos</h3>
@@ -62,7 +64,11 @@ else
                     <td>@item.Id</td>
                     <td>@item.Owner.UserName</td>
                     <td>@item.Title</td>
-                    <td>@item.IsCompleted</td>
+                    @* <td>@item.IsCompleted</td> *@
+
+                    <td>
+                        <FancyCheckBox IsCompleted="@item.IsCompleted" OnChange="@((status) => CompleteTodo(item, status))" />
+                    </td>
                 </tr>
             }
         </tbody>
@@ -100,4 +106,19 @@ else
             msg = e.Message;
         }
     }
+
+    private async Task CompleteTodo (Todo item, bool status)
+    {
+        TodoUpdateDto dto = new(item.Id)
+            { IsCompleted = status };
+        try
+        { await todoService.UpdateAsync(dto);
+        }
+        catch(Exception e)
+        { Console.WriteLine(e);
+            msg = e.Message;
+
+        }
+    }
+
 }

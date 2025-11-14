@@ -17,6 +17,8 @@ namespace HttpClients.ClientInterfaces
         bool? completedStatus,
         string? titleContains
     );
+        Task UpdateAsync(TodoUpdateDto dto);
+
 
     }
 
