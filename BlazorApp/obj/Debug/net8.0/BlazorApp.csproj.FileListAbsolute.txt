@@ -846,6 +846,7 @@ C:\Users\admin\source\repos\.Net_Project\TodoAppWasm\BlazorApp\obj\Debug\net8.0\
 C:\Users\admin\source\repos\.Net_Project\TodoAppWasm\BlazorApp\obj\Debug\net8.0\scopedcss\Layout\NavMenu.razor.rz.scp.css
 C:\Users\admin\source\repos\.Net_Project\TodoAppWasm\BlazorApp\obj\Debug\net8.0\scopedcss\Pages\CreateTodo.razor.rz.scp.css
 C:\Users\admin\source\repos\.Net_Project\TodoAppWasm\BlazorApp\obj\Debug\net8.0\scopedcss\Pages\CreateUser.razor.rz.scp.css
+C:\Users\admin\source\repos\.Net_Project\TodoAppWasm\BlazorApp\obj\Debug\net8.0\scopedcss\Pages\UIComponents\FancyCheckBox.razor.rz.scp.css
 C:\Users\admin\source\repos\.Net_Project\TodoAppWasm\BlazorApp\obj\Debug\net8.0\scopedcss\Pages\ViewTodos.razor.rz.scp.css
 C:\Users\admin\source\repos\.Net_Project\TodoAppWasm\BlazorApp\obj\Debug\net8.0\scopedcss\Pages\ViewUsers.razor.rz.scp.css
 C:\Users\admin\source\repos\.Net_Project\TodoAppWasm\BlazorApp\obj\Debug\net8.0\scopedcss\bundle\BlazorApp.styles.css
@@ -1058,10 +1059,13 @@ C:\Users\admin\source\repos\.Net_Project\TodoAppWasm\BlazorApp\obj\Debug\net8.0\
 C:\Users\admin\source\repos\.Net_Project\TodoAppWasm\BlazorApp\obj\Debug\net8.0\compressed\scrxjpfcoc-tptq2av103.gz
 C:\Users\admin\source\repos\.Net_Project\TodoAppWasm\BlazorApp\obj\Debug\net8.0\compressed\1fybnanqqp-lfu7j35m59.gz
 C:\Users\admin\source\repos\.Net_Project\TodoAppWasm\BlazorApp\obj\Debug\net8.0\compressed\ofpowj728f-oyz0vx2fzb.gz
-C:\Users\admin\source\repos\.Net_Project\TodoAppWasm\BlazorApp\obj\Debug\net8.0\compressed\py7b9idezw-y93s7izlv3.gz
-C:\Users\admin\source\repos\.Net_Project\TodoAppWasm\BlazorApp\obj\Debug\net8.0\compressed\g3qkioy3jp-ngz0rcb3us.gz
-C:\Users\admin\source\repos\.Net_Project\TodoAppWasm\BlazorApp\obj\Debug\net8.0\compressed\e8x9j5c3gt-a9v37bj8e8.gz
-C:\Users\admin\source\repos\.Net_Project\TodoAppWasm\BlazorApp\obj\Debug\net8.0\compressed\elg2uvrrc6-zn9qr1b8f6.gz
+C:\Users\admin\source\repos\.Net_Project\TodoAppWasm\BlazorApp\obj\Debug\net8.0\compressed\py7b9idezw-p1b9xgt2qj.gz
+C:\Users\admin\source\repos\.Net_Project\TodoAppWasm\BlazorApp\obj\Debug\net8.0\compressed\h5gxq7ypzm-3qm2vmmquk.gz
+C:\Users\admin\source\repos\.Net_Project\TodoAppWasm\BlazorApp\obj\Debug\net8.0\compressed\g3qkioy3jp-dwph2casg7.gz
+C:\Users\admin\source\repos\.Net_Project\TodoAppWasm\BlazorApp\obj\Debug\net8.0\compressed\tcdnzmmz41-biyspyanp9.gz
+C:\Users\admin\source\repos\.Net_Project\TodoAppWasm\BlazorApp\obj\Debug\net8.0\compressed\e8x9j5c3gt-j0nqjnpvj3.gz
+C:\Users\admin\source\repos\.Net_Project\TodoAppWasm\BlazorApp\obj\Debug\net8.0\compressed\elg2uvrrc6-rbvh5h2gux.gz
+C:\Users\admin\source\repos\.Net_Project\TodoAppWasm\BlazorApp\obj\Debug\net8.0\compressed\k4a7psrd0j-w17ty28w5w.gz
 C:\Users\admin\source\repos\.Net_Project\TodoAppWasm\BlazorApp\obj\Debug\net8.0\staticwebassets.build.json
 C:\Users\admin\source\repos\.Net_Project\TodoAppWasm\BlazorApp\obj\Debug\net8.0\staticwebassets.development.json
 C:\Users\admin\source\repos\.Net_Project\TodoAppWasm\BlazorApp\obj\Debug\net8.0\staticwebassets.build.endpoints.json
@@ -1077,6 +1081,3 @@ C:\Users\admin\source\repos\.Net_Project\TodoAppWasm\BlazorApp\obj\Debug\net8.0\
 C:\Users\admin\source\repos\.Net_Project\TodoAppWasm\BlazorApp\obj\Debug\net8.0\refint\BlazorApp.dll
 C:\Users\admin\source\repos\.Net_Project\TodoAppWasm\BlazorApp\obj\Debug\net8.0\BlazorApp.pdb
 C:\Users\admin\source\repos\.Net_Project\TodoAppWasm\BlazorApp\obj\Debug\net8.0\ref\BlazorApp.dll
-C:\Users\admin\source\repos\.Net_Project\TodoAppWasm\BlazorApp\obj\Debug\net8.0\compressed\h5gxq7ypzm-abdxiqqie8.gz
-C:\Users\admin\source\repos\.Net_Project\TodoAppWasm\BlazorApp\obj\Debug\net8.0\compressed\tcdnzmmz41-fn542tkg65.gz
-C:\Users\admin\source\repos\.Net_Project\TodoAppWasm\BlazorApp\obj\Debug\net8.0\compressed\k4a7psrd0j-65jeamw7t1.gz

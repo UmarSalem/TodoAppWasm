@@ -60,6 +60,10 @@ build_metadata.AdditionalFiles.CssScope = b-ltel9h5hsw
 build_metadata.AdditionalFiles.TargetPath = UGFnZXNcQ3JlYXRlVXNlci5yYXpvcg==
 build_metadata.AdditionalFiles.CssScope = b-4nu5our0n5
 
+[C:/Users/admin/source/repos/.Net_Project/TodoAppWasm/BlazorApp/Pages/UIComponents/FancyCheckBox.razor]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXNcVUlDb21wb25lbnRzXEZhbmN5Q2hlY2tCb3gucmF6b3I=
+build_metadata.AdditionalFiles.CssScope = b-c4x90g6hki
+
 [C:/Users/admin/source/repos/.Net_Project/TodoAppWasm/BlazorApp/Pages/ViewTodos.razor]
 build_metadata.AdditionalFiles.TargetPath = UGFnZXNcVmlld1RvZG9zLnJhem9y
 build_metadata.AdditionalFiles.CssScope = b-ybhfzczk3y

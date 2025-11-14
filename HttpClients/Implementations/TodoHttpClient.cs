@@ -19,7 +19,7 @@ namespace HttpClients.Implementations
 
         public async Task CreateAsync(TodoCreationDto dto)
         {
-           HttpResponseMessage response = await client.PostAsJsonAsync("/todos", dto);
+            HttpResponseMessage response = await client.PostAsJsonAsync("/todos", dto);
             if (!response.IsSuccessStatusCode)
             {
                 string content = await response.Content.ReadAsStringAsync();
@@ -72,6 +72,18 @@ namespace HttpClients.Implementations
             }
 
             return query;
+        }
+
+        public async Task UpdateAsync(TodoUpdateDto dto)
+        {
+            String dtoAsJson = JsonSerializer.Serialize(dto);
+            StringContent body = new StringContent(dtoAsJson, Encoding.UTF8, "application/json");
+            HttpResponseMessage response = await client.PatchAsync("/todos", body);
+            if (!response.IsSuccessStatusCode)
+            {
+                string content = await response.Content.ReadAsStringAsync();
+                throw new Exception(content);
+            }
         }
     }
 }
