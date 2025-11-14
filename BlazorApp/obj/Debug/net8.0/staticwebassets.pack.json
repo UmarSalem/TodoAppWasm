@@ -37,6 +37,10 @@
       "PackagePath": "staticwebassets\\icons\\clear_funnel.png"
     },
     {
+      "Id": "C:\\Users\\admin\\source\\repos\\.Net_Project\\TodoAppWasm\\BlazorApp\\wwwroot\\icons\\edit.gif",
+      "PackagePath": "staticwebassets\\icons\\edit.gif"
+    },
+    {
       "Id": "C:\\Users\\admin\\source\\repos\\.Net_Project\\TodoAppWasm\\BlazorApp\\wwwroot\\icons\\funnel.png",
       "PackagePath": "staticwebassets\\icons\\funnel.png"
     },
