@@ -18,8 +18,7 @@ namespace HttpClients.ClientInterfaces
         string? titleContains
     );
         Task UpdateAsync(TodoUpdateDto dto);
-
-
+        Task<TodoBasicDto> GetByIdAsync(int id);
     }
 
 }

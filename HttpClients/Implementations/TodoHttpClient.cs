@@ -85,5 +85,23 @@ namespace HttpClients.Implementations
                 throw new Exception(content);
             }
         }
+
+        public async Task<TodoBasicDto> GetByIdAsync(int id)
+        {
+            HttpResponseMessage response = await client.GetAsync($"/todos/{id}");
+            String content = await response.Content.ReadAsStringAsync();
+            if (!response.IsSuccessStatusCode)
+            {
+                throw new Exception(content);
+            }
+            TodoBasicDto todo = JsonSerializer.Deserialize<TodoBasicDto>(content,
+                new JsonSerializerOptions
+
+                {
+                    PropertyNameCaseInsensitive = true
+                }
+                )!;
+            return todo;
+        }
     }
 }

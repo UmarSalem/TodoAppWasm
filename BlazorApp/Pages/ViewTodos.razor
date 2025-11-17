@@ -1,4 +1,5 @@
 ﻿@page "/ViewTodos"
+@inject NavigationManager navMgr
 @using Shared.Models
 @using HttpClients.ClientInterfaces
 @using UIComponents
@@ -55,6 +56,7 @@ else
                 <th>Owner ID</th>
                 <th>Title</th>
                 <th>Completed?</th>
+                <th>Edit</th>
             </tr>
         </thead>
         <tbody>
@@ -65,9 +67,12 @@ else
                     <td>@item.Owner.UserName</td>
                     <td>@item.Title</td>
                     @* <td>@item.IsCompleted</td> *@
-
+                    cc
                     <td>
                         <FancyCheckBox IsCompleted="@item.IsCompleted" OnChange="@((status) => CompleteTodo(item, status))" />
+                    </td>
+                    <td>
+                        <img src="icons/edit.gif" class="funnel" @onclick="@(() => navMgr.NavigateTo($"/EditTodo/{item.Id}"))" />
                     </td>
                 </tr>
             }
