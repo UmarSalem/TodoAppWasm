@@ -103,5 +103,15 @@ namespace HttpClients.Implementations
                 )!;
             return todo;
         }
+
+        public async Task DeleteAsync(int id)
+        {
+            HttpResponseMessage response = await client.DeleteAsync($"Todos/{id}");
+            if (!response.IsSuccessStatusCode)
+            {
+                string content = await response.Content.ReadAsStringAsync();
+                throw new Exception(content);
+            }
+        }
     }
 }
