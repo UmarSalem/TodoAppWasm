@@ -1,6 +1,7 @@
 using Application.DAO_interfaces;
 using Application.LogicImplementations;
 using Application.LogicInterfaces;
+using EfcDataAccess.DAOs;
 using FileData.DAOs;
 // Removed the problematic line
 // using Application.LogicImplementations; // This namespace does not exist
@@ -17,10 +18,12 @@ builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
 builder.Services.AddScoped<FileContext>();
-builder.Services.AddScoped<IUserDao, UserFileDao>();
+//builder.Services.AddScoped<IUserDao, UserFileDao>();
+builder.Services.AddScoped<IUserDao, UserEfcDao>();
 builder.Services.AddScoped<IUserLogic, UserLogic>();
 builder.Services.AddScoped<ITodoLogic, TodoLogic>();
-builder.Services.AddScoped<ITodoDao, TodoFileDao>();
+//builder.Services.AddScoped<ITodoDao, TodoFileDao>();
+builder.Services.AddScoped<ITodoDao, TodoEfcDao>();
 
 var app = builder.Build();
 
