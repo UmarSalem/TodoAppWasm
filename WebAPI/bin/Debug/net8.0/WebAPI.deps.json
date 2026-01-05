@@ -9,6 +9,7 @@
       "WebAPI/1.0.0": {
         "dependencies": {
           "Application": "1.0.0",
+          "EfcDataAccess": "1.0.0",
           "FileData": "1.0.0",
           "Microsoft.VisualStudio.Azure.Containers.Tools.Targets": "1.21.0",
           "Swashbuckle.AspNetCore": "6.6.2"
@@ -71,6 +72,17 @@
         },
         "runtime": {
           "Application.dll": {
+            "assemblyVersion": "1.0.0.0",
+            "fileVersion": "1.0.0.0"
+          }
+        }
+      },
+      "EfcDataAccess/1.0.0": {
+        "dependencies": {
+          "Application": "1.0.0"
+        },
+        "runtime": {
+          "EfcDataAccess.dll": {
             "assemblyVersion": "1.0.0.0",
             "fileVersion": "1.0.0.0"
           }
@@ -153,6 +165,11 @@
       "hashPath": "swashbuckle.aspnetcore.swaggerui.6.6.2.nupkg.sha512"
     },
     "Application/1.0.0": {
+      "type": "project",
+      "serviceable": false,
+      "sha512": ""
+    },
+    "EfcDataAccess/1.0.0": {
       "type": "project",
       "serviceable": false,
       "sha512": ""

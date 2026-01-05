@@ -109,6 +109,19 @@
           "bin/placeholder/Application.dll": {}
         }
       },
+      "EfcDataAccess/1.0.0": {
+        "type": "project",
+        "framework": ".NETCoreApp,Version=v8.0",
+        "dependencies": {
+          "Application": "1.0.0"
+        },
+        "compile": {
+          "bin/placeholder/EfcDataAccess.dll": {}
+        },
+        "runtime": {
+          "bin/placeholder/EfcDataAccess.dll": {}
+        }
+      },
       "FileData/1.0.0": {
         "type": "project",
         "framework": ".NETCoreApp,Version=v8.0",
@@ -568,6 +581,11 @@
       "path": "../Application/Application.csproj",
       "msbuildProject": "../Application/Application.csproj"
     },
+    "EfcDataAccess/1.0.0": {
+      "type": "project",
+      "path": "../EfcDataAccess/EfcDataAccess.csproj",
+      "msbuildProject": "../EfcDataAccess/EfcDataAccess.csproj"
+    },
     "FileData/1.0.0": {
       "type": "project",
       "path": "../FileData/FileData.csproj",
@@ -582,6 +600,7 @@
   "projectFileDependencyGroups": {
     "net8.0": [
       "Application >= 1.0.0",
+      "EfcDataAccess >= 1.0.0",
       "FileData >= 1.0.0",
       "Microsoft.VisualStudio.Azure.Containers.Tools.Targets >= 1.21.0",
       "Swashbuckle.AspNetCore >= 6.6.2"
@@ -622,6 +641,9 @@
             "C:\\Users\\admin\\source\\repos\\.Net_Project\\TodoAppWasm\\Application\\Application.csproj": {
               "projectPath": "C:\\Users\\admin\\source\\repos\\.Net_Project\\TodoAppWasm\\Application\\Application.csproj"
             },
+            "C:\\Users\\admin\\source\\repos\\.Net_Project\\TodoAppWasm\\EfcDataAccess\\EfcDataAccess.csproj": {
+              "projectPath": "C:\\Users\\admin\\source\\repos\\.Net_Project\\TodoAppWasm\\EfcDataAccess\\EfcDataAccess.csproj"
+            },
             "C:\\Users\\admin\\source\\repos\\.Net_Project\\TodoAppWasm\\FileData\\FileData.csproj": {
               "projectPath": "C:\\Users\\admin\\source\\repos\\.Net_Project\\TodoAppWasm\\FileData\\FileData.csproj"
             }
@@ -638,7 +660,7 @@
         "auditLevel": "low",
         "auditMode": "direct"
       },
-      "SdkAnalysisLevel": "9.0.200"
+      "SdkAnalysisLevel": "9.0.300"
     },
     "frameworks": {
       "net8.0": {
@@ -672,7 +694,7 @@
             "privateAssets": "all"
           }
         },
-        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\9.0.201/PortableRuntimeIdentifierGraph.json"
+        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\9.0.308/PortableRuntimeIdentifierGraph.json"
       }
     }
   }
