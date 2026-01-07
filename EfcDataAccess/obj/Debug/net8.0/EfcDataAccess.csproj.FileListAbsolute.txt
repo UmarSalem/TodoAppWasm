@@ -1,4 +1,5 @@
 C:\Users\admin\source\repos\.Net_Project\TodoAppWasm\EfcDataAccess\bin\Debug\net8.0\EfcDataAccess.deps.json
+C:\Users\admin\source\repos\.Net_Project\TodoAppWasm\EfcDataAccess\bin\Debug\net8.0\EfcDataAccess.runtimeconfig.json
 C:\Users\admin\source\repos\.Net_Project\TodoAppWasm\EfcDataAccess\bin\Debug\net8.0\EfcDataAccess.dll
 C:\Users\admin\source\repos\.Net_Project\TodoAppWasm\EfcDataAccess\bin\Debug\net8.0\EfcDataAccess.pdb
 C:\Users\admin\source\repos\.Net_Project\TodoAppWasm\EfcDataAccess\bin\Debug\net8.0\Application.dll
@@ -15,4 +16,5 @@ C:\Users\admin\source\repos\.Net_Project\TodoAppWasm\EfcDataAccess\obj\Debug\net
 C:\Users\admin\source\repos\.Net_Project\TodoAppWasm\EfcDataAccess\obj\Debug\net8.0\EfcDataAccess.dll
 C:\Users\admin\source\repos\.Net_Project\TodoAppWasm\EfcDataAccess\obj\Debug\net8.0\refint\EfcDataAccess.dll
 C:\Users\admin\source\repos\.Net_Project\TodoAppWasm\EfcDataAccess\obj\Debug\net8.0\EfcDataAccess.pdb
+C:\Users\admin\source\repos\.Net_Project\TodoAppWasm\EfcDataAccess\obj\Debug\net8.0\EfcDataAccess.genruntimeconfig.cache
 C:\Users\admin\source\repos\.Net_Project\TodoAppWasm\EfcDataAccess\obj\Debug\net8.0\ref\EfcDataAccess.dll
