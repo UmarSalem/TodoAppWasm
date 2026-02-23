@@ -7,6 +7,7 @@ using FileData.DAOs;
 // using Application.LogicImplementations; // This namespace does not exist
 using FileData;
 using Application.DAOInterfaces;
+using EfcDataAccess;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -24,6 +25,7 @@ builder.Services.AddScoped<IUserLogic, UserLogic>();
 builder.Services.AddScoped<ITodoLogic, TodoLogic>();
 //builder.Services.AddScoped<ITodoDao, TodoFileDao>();
 builder.Services.AddScoped<ITodoDao, TodoEfcDao>();
+builder.Services.AddDbContext<TodoContext>();
 
 var app = builder.Build();
 
