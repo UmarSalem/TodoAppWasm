@@ -23,14 +23,21 @@ namespace EfcDataAccess.DAOs
            return newUser.Entity;
 }
 
-        public Task<IEnumerable<User>> GetAllAsync(SearchUserParametersDto searchUserParametersDto)
+        public async Task<IEnumerable<User>> GetAllAsync(SearchUserParametersDto searchUserParametersDto)
         {
-            throw new NotImplementedException();
+           IQueryable<User> usersQuery = context.Users.AsQueryable();
+            if (searchUserParametersDto.UsernameContains != null)
+            {
+                usersQuery = usersQuery.Where(u => u.UserName.ToLower().Contains(searchUserParametersDto.UsernameContains.ToLower()));
+            }
+            IEnumerable<User> result = await usersQuery.ToListAsync();
+            return result;
         }
 
-        public Task<User?> GetByIdAsync(int id)
+        public async Task<User?> GetByIdAsync(int id)
         {
-            throw new NotImplementedException();
+           User? user =  await context.Users.FindAsync(id);
+            return user;
         }
 
         public async Task<User?> GetByUsernameAsync(string userName)
