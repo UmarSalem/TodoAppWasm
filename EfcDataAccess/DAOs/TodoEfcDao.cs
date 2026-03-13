@@ -1,4 +1,5 @@
 ﻿using Application.DAOInterfaces;
+using Microsoft.EntityFrameworkCore.ChangeTracking;
 using Shared.DTOs;
 using Shared.Models;
 using System;
@@ -11,9 +12,17 @@ namespace EfcDataAccess.DAOs
 {
     public class TodoEfcDao : ITodoDao
     {
-        public Task<Todo> CreateAsync(Todo todo)
+
+        private readonly TodoContext _context;
+        public TodoEfcDao(TodoContext context) 
         {
-            throw new NotImplementedException();
+         _context = context;
+        }
+        public async Task<Todo> CreateAsync(Todo todo)
+        {
+          EntityEntry<Todo>  added = _context.Todos.Add(todo);
+          await _context.SaveChangesAsync();
+            return added.Entity;
         }
         public Task DeleteAsync(int id)
         {
