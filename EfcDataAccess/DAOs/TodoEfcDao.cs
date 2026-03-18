@@ -61,9 +61,12 @@ namespace EfcDataAccess.DAOs
             return result;
         }
 
-        public Task<Todo?> GetByIdAsync(int todoId)
+        public async Task<Todo?> GetByIdAsync(int todoId)
         {
-            throw new NotImplementedException();
+            Todo? found = await _context.Todos
+                .Include(todo => todo.Owner)
+                .SingleOrDefaultAsync(todo => todo.Id == todoId);
+            return found;
         }
 
         public Task UpdateAsync(Todo todo)
