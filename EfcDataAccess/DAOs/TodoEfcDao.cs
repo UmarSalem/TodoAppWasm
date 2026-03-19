@@ -69,9 +69,10 @@ namespace EfcDataAccess.DAOs
             return found;
         }
 
-        public Task UpdateAsync(Todo todo)
+        public async Task UpdateAsync(Todo todo)
         {
-            throw new NotImplementedException();
+            _context.Todos.Update(todo);
+            await _context.SaveChangesAsync();
         }
     }
 }
