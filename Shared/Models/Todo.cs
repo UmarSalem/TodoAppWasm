@@ -13,6 +13,7 @@ namespace Shared.Models
         [Key]
         public int Id { get; set; }
         public User Owner { get; }
+        public int OwnerId {get; set;}
         [MaxLength(50)]
         public string Title { get; set; }
         public bool IsCompleted { get; set; }
