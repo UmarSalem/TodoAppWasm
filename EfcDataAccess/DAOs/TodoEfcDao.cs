@@ -25,9 +25,16 @@ namespace EfcDataAccess.DAOs
           await _context.SaveChangesAsync();
             return added.Entity;
         }
-        public Task DeleteAsync(int id)
+        public async Task DeleteAsync(int id)
         {
-            throw new NotImplementedException();
+            Todo? existing = await GetByIdAsync(id);
+            if (existing == null)
+            {
+                throw new Exception($"Todo with id {id} not found");
+            }
+
+            _context.Todos.Remove(existing);
+            await _context.SaveChangesAsync();
         }
 
         public async Task<IEnumerable<Todo>> GetAsync(SearchTodoParametersDto searchParameterDto)
