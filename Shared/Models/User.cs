@@ -18,8 +18,8 @@ namespace Shared.Models
 
         //public List<Todo> Todos { get; set; }
 
-        [JsonIgnore]
+        //[JsonIgnore]
         //public ICollection<Todo> Todos { get; set; }
 
-    }
+    } 
 }
