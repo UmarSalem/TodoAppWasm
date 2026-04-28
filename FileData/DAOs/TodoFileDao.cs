@@ -68,10 +68,17 @@ namespace FileData.DAOs
                 result = result.Where(t => t.IsCompleted == searchParams.CompletedStatus);
             }
 
-            if (!string.IsNullOrEmpty(searchParams.Titlecontains))
+            if (!string.IsNullOrEmpty(searchParams.TitleContains))
             {
                 result = result.Where(t =>
-                    t.Title.Contains(searchParams.Titlecontains, StringComparison.OrdinalIgnoreCase));
+                    t.Title.Contains(searchParams.TitleContains, StringComparison.OrdinalIgnoreCase));
+            }
+
+            if (!string.IsNullOrEmpty(searchParams.DescriptionContains))
+            {
+                result = result.Where(t =>
+                    t.Description != null &&
+                    t.Description.Contains(searchParams.DescriptionContains, StringComparison.OrdinalIgnoreCase));
             }
 
             return Task.FromResult(result);

@@ -15,7 +15,8 @@ namespace HttpClients.ClientInterfaces
         string? userName,
         int? userId,
         bool? completedStatus,
-        string? titleContains
+        string? titleContains,
+        string? descriptionContains = null
     );
         Task UpdateAsync(TodoUpdateDto dto);
         Task<TodoBasicDto> GetByIdAsync(int id);
