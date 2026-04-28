@@ -46,13 +46,18 @@ namespace WebAPI.Controllers
         }
 
         [HttpGet]
-        public async Task<ActionResult<IEnumerable<User>>> GetAsync([FromQuery] string? username)
+        [ProducesResponseType(typeof(IEnumerable<UserReadDto>), StatusCodes.Status200OK)]
+        [ProducesResponseType(typeof(ApiErrorDto), StatusCodes.Status500InternalServerError)]
+        public async Task<ActionResult<IEnumerable<UserReadDto>>> GetAsync(
+            [FromQuery] string? usernameContains,
+            [FromQuery] int? userId)
         {
             try
             {
-                SearchUserParametersDto parameters = new(username);
+                SearchUserParametersDto parameters = new(usernameContains, userId);
                 IEnumerable<User> users = await userLogic.GetAsync(parameters);
-                return Ok(users);
+                IEnumerable<UserReadDto> response = users.Select(user => new UserReadDto(user.Id, user.UserName));
+                return Ok(response);
             }
             catch (Exception e)
             {

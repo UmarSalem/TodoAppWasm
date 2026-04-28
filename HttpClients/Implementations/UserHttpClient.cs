@@ -40,7 +40,7 @@ namespace HttpClients.Implementations
             string uri = "/users";
             if (!string.IsNullOrEmpty(usernameContains))
             {
-                uri += $"?username={usernameContains}";
+                uri += $"?usernameContains={usernameContains}";
             }
             HttpResponseMessage response = await _client.GetAsync(uri);
             string result = await response.Content.ReadAsStringAsync();
