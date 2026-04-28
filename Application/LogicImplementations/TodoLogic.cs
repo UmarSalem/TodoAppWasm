@@ -5,6 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using Application.DAO_interfaces;
 using Application.DAOInterfaces;
+using Application.Exceptions;
 using Application.LogicInterfaces;
 using Shared.DTOs;
 using Shared.Models;
@@ -27,11 +28,11 @@ namespace Application.LogicImplementations
             User? user = await userDao.GetByIdAsync(dto.OwnerId);
             if (user == null)
             {
-                throw new Exception($"User with id {dto.OwnerId} was not found.");
+                throw new NotFoundException($"User with id {dto.OwnerId} was not found.");
             }
 
             ValidateTodo(dto);
-            Todo todo = new Todo(user, dto.Title);
+            Todo todo = new Todo(dto.OwnerId, dto.Title, dto.Description);
             Todo created = await todoDao.CreateAsync(todo);
             return created;
         }
@@ -72,7 +73,7 @@ namespace Application.LogicImplementations
                 user = await userDao.GetByIdAsync((int)dto.OwnerId);
                 if (user == null)
                 {
-                    throw new Exception($"User with id {dto.OwnerId} was not found.");
+                    throw new NotFoundException($"User with id {dto.OwnerId} was not found.");
                 }
             }
 
@@ -81,11 +82,12 @@ namespace Application.LogicImplementations
                 throw new Exception("Cannot un-complete a completed Todo");
             }
 
-            User userToUse = user ?? existing.Owner;
+            int ownerIdToUse = dto.OwnerId ?? existing.OwnerId;
             string titleToUse = dto.Title ?? existing.Title;
+            string? descriptionToUse = dto.Description ?? existing.Description;
             bool completedToUse = dto.IsCompleted ?? existing.IsCompleted;
 
-            Todo updated = new(userToUse, titleToUse)
+            Todo updated = new(ownerIdToUse, titleToUse, descriptionToUse)
             {
                 IsCompleted = completedToUse,
                 Id = existing.Id,
@@ -98,14 +100,29 @@ namespace Application.LogicImplementations
 
         private void ValidateTodo(Todo dto)
         {
-            if (string.IsNullOrEmpty(dto.Title)) throw new Exception("Title cannot be empty.");
-            // other validation stuff
+            if (string.IsNullOrWhiteSpace(dto.Title))
+                throw new AppValidationException("Title is required.");
+
+            if (dto.Title.Length > 50)
+                throw new AppValidationException("Title must be 50 characters or fewer.");
+
+            if (dto.Description?.Length > 200)
+                throw new AppValidationException("Description must be 200 characters or fewer.");
         }
 
         private void ValidateTodo(TodoCreationDto dto)
         {
-            if (string.IsNullOrEmpty(dto.Title)) throw new Exception("Title cannot be empty.");
-            // other validation stuff
+            if (dto.OwnerId <= 0)
+                throw new AppValidationException("OwnerId must be greater than zero.");
+
+            if (string.IsNullOrWhiteSpace(dto.Title))
+                throw new AppValidationException("Title is required.");
+
+            if (dto.Title.Length > 50)
+                throw new AppValidationException("Title must be 50 characters or fewer.");
+
+            if (dto.Description?.Length > 200)
+                throw new AppValidationException("Description must be 200 characters or fewer.");
         }
 
         public async Task<TodoBasicDto> GetByIdAsync(int id)
@@ -116,7 +133,7 @@ namespace Application.LogicImplementations
                 throw new Exception($"Todo with id {id} not found");
             }
 
-            return new TodoBasicDto(todo.Id, todo.Owner.UserName, todo.Title, todo.IsCompleted);
+            return new TodoBasicDto(todo.Id, todo.Owner?.UserName ?? string.Empty, todo.Title, todo.IsCompleted);
         }
 
             }

@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Application.DAO_interfaces;
+using Application.Exceptions;
 using Application.LogicInterfaces;
 using Shared.DTOs;
 using Shared.Models;
@@ -23,11 +24,12 @@ namespace Application.LogicImplementations
   
  
                {
+                    ValidateData(usertoCreate);
+
                     User? existing = await userDao.GetByUsernameAsync(usertoCreate.UserName);
                         if (existing != null)
-                         throw new Exception("Username already taken!");
+                         throw new ConflictException("Username already taken!");
 
-                                 ValidateData(usertoCreate);
                                  User toCreate = new User
                                 {
                                     UserName = usertoCreate.UserName
@@ -42,11 +44,14 @@ namespace Application.LogicImplementations
         {
             string userName = userToCreate.UserName;
 
+            if (string.IsNullOrWhiteSpace(userName))
+                throw new AppValidationException("Username is required.");
+
             if (userName.Length < 3)
-                throw new Exception("Username must be at least 3 characters!");
+                throw new AppValidationException("Username must be at least 3 characters!");
 
             if (userName.Length > 15)
-                throw new Exception("Username must be less than 16 characters!");
+                throw new AppValidationException("Username must be less than 16 characters!");
         }
 
         public Task<IEnumerable<User>> GetAsync(SearchUserParametersDto searchParametersDto)
