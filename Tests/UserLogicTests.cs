@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Xunit;
+using Application.Exceptions;
 using Application.LogicImplementations;
 using Application.DAO_interfaces;
 using Shared.Models;
@@ -92,7 +93,7 @@ public class UserLogicTests
         var logic = new UserLogic(dao);
         var dto = new UserCreationDto("john", "pass", "mail@example.com");
 
-        await Assert.ThrowsAsync<Exception>(() => logic.CreateAsync(dto));
+        await Assert.ThrowsAsync<ConflictException>(() => logic.CreateAsync(dto));
     }
 
     /// <summary>
@@ -105,7 +106,7 @@ public class UserLogicTests
         var logic = new UserLogic(dao);
         var dto = new UserCreationDto("ab", "pass", "mail@example.com");
 
-        var ex = await Assert.ThrowsAsync<Exception>(() => logic.CreateAsync(dto));
+        var ex = await Assert.ThrowsAsync<AppValidationException>(() => logic.CreateAsync(dto));
         Assert.Equal("Username must be at least 3 characters!", ex.Message);
     }
 }

@@ -1,12 +1,10 @@
-﻿using Application.LogicInterfaces;
+using Application.Exceptions;
+using Application.LogicInterfaces;
 using Microsoft.AspNetCore.Mvc;
 using Shared.DTOs;
 using Shared.Models;
 
 namespace WebAPI.Controllers
-
-
-
 {
     [ApiController]
     [Route("[controller]")]
@@ -20,17 +18,30 @@ namespace WebAPI.Controllers
         }
 
         [HttpPost]
-        public async Task<ActionResult<User>> CreateAsync(UserCreationDto dto)
+        [ProducesResponseType(typeof(UserReadDto), StatusCodes.Status201Created)]
+        [ProducesResponseType(typeof(ApiErrorDto), StatusCodes.Status400BadRequest)]
+        [ProducesResponseType(typeof(ApiErrorDto), StatusCodes.Status409Conflict)]
+        [ProducesResponseType(typeof(ApiErrorDto), StatusCodes.Status500InternalServerError)]
+        public async Task<ActionResult<UserReadDto>> CreateAsync([FromBody] UserCreationDto dto)
         {
             try
             {
                 User user = await userLogic.CreateAsync(dto);
-                return Created($"/users/{user.Id}", user);
+                UserReadDto response = new(user.Id, user.UserName);
+                return Created($"/users/{user.Id}", response);
+            }
+            catch (AppValidationException e)
+            {
+                return BadRequest(new ApiErrorDto(e.Message));
+            }
+            catch (ConflictException e)
+            {
+                return Conflict(new ApiErrorDto(e.Message));
             }
             catch (Exception e)
             {
                 Console.WriteLine(e);
-                return StatusCode(500, e.Message);
+                return StatusCode(500, new ApiErrorDto("An unexpected error occurred while creating the user."));
             }
         }
 
@@ -46,15 +57,8 @@ namespace WebAPI.Controllers
             catch (Exception e)
             {
                 Console.WriteLine(e);
-                return StatusCode(500, e.Message);
+                return StatusCode(500, new ApiErrorDto("An unexpected error occurred while fetching users."));
             }
         }
-
-
     }
-
-
-
-
-
 }
