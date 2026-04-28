@@ -109,4 +109,45 @@ public class UserLogicTests
         var ex = await Assert.ThrowsAsync<AppValidationException>(() => logic.CreateAsync(dto));
         Assert.Equal("Username must be at least 3 characters!", ex.Message);
     }
+
+    [Fact]
+    public async Task GetAsync_ReturnsAllUsers_WhenNoFilterIsProvided()
+    {
+        var dao = new FakeUserDao();
+        dao.Users.Add(new User { Id = 1, UserName = "john" });
+        dao.Users.Add(new User { Id = 2, UserName = "sarah" });
+        var logic = new UserLogic(dao);
+
+        IEnumerable<User> users = await logic.GetAsync(new SearchUserParametersDto());
+
+        Assert.Equal(2, users.Count());
+    }
+
+    [Fact]
+    public async Task GetAsync_FiltersUsers_ByUsernameContains()
+    {
+        var dao = new FakeUserDao();
+        dao.Users.Add(new User { Id = 1, UserName = "john" });
+        dao.Users.Add(new User { Id = 2, UserName = "sarah" });
+        dao.Users.Add(new User { Id = 3, UserName = "joanna" });
+        var logic = new UserLogic(dao);
+
+        IEnumerable<User> users = await logic.GetAsync(new SearchUserParametersDto("jo"));
+
+        Assert.Equal(new[] { "john", "joanna" }, users.Select(user => user.UserName));
+    }
+
+    [Fact]
+    public async Task GetAsync_FiltersUsers_ByUserId()
+    {
+        var dao = new FakeUserDao();
+        dao.Users.Add(new User { Id = 1, UserName = "john" });
+        dao.Users.Add(new User { Id = 2, UserName = "sarah" });
+        var logic = new UserLogic(dao);
+
+        IEnumerable<User> users = await logic.GetAsync(new SearchUserParametersDto(userId: 2));
+
+        User user = Assert.Single(users);
+        Assert.Equal("sarah", user.UserName);
+    }
 }
