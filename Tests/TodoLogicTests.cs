@@ -104,6 +104,36 @@ public class TodoLogicTests
         }));
     }
 
+    [Fact]
+    public async Task DeleteAsync_DeletesTodo_WhenTodoIsCompleted()
+    {
+        var todoDao = new FakeTodoDao();
+        todoDao.Todos.Add(new Todo(1, "Completed todo") { Id = 1, IsCompleted = true });
+        var logic = new TodoLogic(todoDao, new FakeUserDao());
+
+        await logic.DeleteAsync(1);
+
+        Assert.Empty(todoDao.Todos);
+    }
+
+    [Fact]
+    public async Task DeleteAsync_ThrowsNotFound_WhenTodoDoesNotExist()
+    {
+        var logic = new TodoLogic(new FakeTodoDao(), new FakeUserDao());
+
+        await Assert.ThrowsAsync<NotFoundException>(() => logic.DeleteAsync(99));
+    }
+
+    [Fact]
+    public async Task DeleteAsync_ThrowsConflict_WhenTodoIsIncomplete()
+    {
+        var todoDao = new FakeTodoDao();
+        todoDao.Todos.Add(new Todo(1, "Incomplete todo") { Id = 1, IsCompleted = false });
+        var logic = new TodoLogic(todoDao, new FakeUserDao());
+
+        await Assert.ThrowsAsync<ConflictException>(() => logic.DeleteAsync(1));
+    }
+
     private class FakeTodoDao : ITodoDao
     {
         public IList<Todo> Todos { get; } = new List<Todo>();

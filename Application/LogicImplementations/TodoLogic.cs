@@ -42,12 +42,12 @@ namespace Application.LogicImplementations
             Todo? todo = await todoDao.GetByIdAsync(id);
             if (todo == null)
             {
-                throw new Exception($"Todo with ID {id} was not found!");
+                throw new NotFoundException($"Todo with id {id} was not found.");
             }
 
             if (!todo.IsCompleted)
             {
-                throw new Exception("Cannot delete un-completed Todo!");
+                throw new ConflictException("Cannot delete an incomplete todo.");
             }
 
             await todoDao.DeleteAsync(id);

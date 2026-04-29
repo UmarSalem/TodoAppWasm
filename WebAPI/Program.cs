@@ -5,6 +5,7 @@ using EfcDataAccess.DAOs;
 using FileData;
 using Application.DAOInterfaces;
 using EfcDataAccess;
+using WebAPI.Middleware;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -43,6 +44,8 @@ builder.Services.AddCors(options =>
 });
 
 var app = builder.Build();
+
+app.UseMiddleware<ApiExceptionMiddleware>();
 
 app.UseCors("FrontendPolicy");
 
