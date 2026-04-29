@@ -85,7 +85,11 @@ namespace EfcDataAccess.DAOs
 
         public async Task UpdateAsync(Todo todo)
         {
-            _context.Todos.Update(todo);
+            if (_context.Entry(todo).State == EntityState.Detached)
+            {
+                _context.Todos.Update(todo);
+            }
+
             await _context.SaveChangesAsync();
         }
     }
