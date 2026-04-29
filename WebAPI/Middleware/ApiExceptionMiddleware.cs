@@ -28,6 +28,8 @@ namespace WebAPI.Middleware
 
         private async Task HandleExceptionAsync(HttpContext context, Exception exception)
         {
+            // Application exceptions represent expected API outcomes, not server crashes.
+            // Mapping them here keeps status codes consistent across all controllers.
             int statusCode = exception switch
             {
                 AppValidationException => StatusCodes.Status400BadRequest,
@@ -40,6 +42,8 @@ namespace WebAPI.Middleware
                 ? "An unexpected error occurred."
                 : exception.Message;
 
+            // Only hide/log unexpected errors. Validation/not-found/conflict messages are safe
+            // to return because they explain what the client should fix.
             if (statusCode == StatusCodes.Status500InternalServerError)
             {
                 logger.LogError(exception, "Unhandled API exception.");

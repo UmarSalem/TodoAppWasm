@@ -24,6 +24,9 @@ namespace WebAPI.Controllers
         public async Task<ActionResult<TodoReadDto>> CreateAsync([FromBody] TodoCreationDto dto)
         {
             Todo created = await todoLogic.CreateAsync(dto);
+
+            // Return a read DTO instead of the EF/domain model so the API contract stays stable
+            // even if the internal database model changes later.
             TodoReadDto response = new(
                 created.Id,
                 created.OwnerId,
@@ -46,6 +49,9 @@ namespace WebAPI.Controllers
         {
             SearchTodoParametersDto parameters = new(userName, userId, completedStatus, titleContains, descriptionContains);
             var todos = await todoLogic.GetAsync(parameters);
+
+            // Controllers translate application results into API responses; filtering and
+            // business decisions stay in the application/data layers.
             IEnumerable<TodoReadDto> response = todos.Select(todo => new TodoReadDto(
                 todo.Id,
                 todo.OwnerId,
@@ -76,6 +82,8 @@ namespace WebAPI.Controllers
         public async Task<ActionResult> DeleteAsync([FromRoute] int id)
         {
             await todoLogic.DeleteAsync(id);
+
+            // DELETE has no response body on success; the status code is enough for the client.
             return NoContent();
         }
 
