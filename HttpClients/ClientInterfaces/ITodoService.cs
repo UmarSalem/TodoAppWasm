@@ -19,7 +19,7 @@ namespace HttpClients.ClientInterfaces
         string? descriptionContains = null
     );
         Task UpdateAsync(TodoUpdateDto dto);
-        Task<TodoBasicDto> GetByIdAsync(int id);
+        Task<TodoReadDto> GetByIdAsync(int id);
         Task DeleteAsync(int id);
 
     }

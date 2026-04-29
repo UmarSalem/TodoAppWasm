@@ -92,7 +92,7 @@ namespace HttpClients.Implementations
             }
         }
 
-        public async Task<TodoBasicDto> GetByIdAsync(int id)
+        public async Task<TodoReadDto> GetByIdAsync(int id)
         {
             HttpResponseMessage response = await client.GetAsync($"/todos/{id}");
             String content = await response.Content.ReadAsStringAsync();
@@ -100,7 +100,7 @@ namespace HttpClients.Implementations
             {
                 throw new Exception(content);
             }
-            TodoBasicDto todo = JsonSerializer.Deserialize<TodoBasicDto>(content,
+            TodoReadDto todo = JsonSerializer.Deserialize<TodoReadDto>(content,
                 new JsonSerializerOptions
 
                 {

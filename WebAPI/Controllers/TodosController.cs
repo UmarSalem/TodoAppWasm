@@ -88,11 +88,14 @@ namespace WebAPI.Controllers
         }
 
         [HttpGet("{id:int}")]
-        [ProducesResponseType(typeof(TodoBasicDto), StatusCodes.Status200OK)]
+        [ProducesResponseType(typeof(TodoReadDto), StatusCodes.Status200OK)]
+        [ProducesResponseType(typeof(ApiErrorDto), StatusCodes.Status404NotFound)]
         [ProducesResponseType(typeof(ApiErrorDto), StatusCodes.Status500InternalServerError)]
-        public async Task<ActionResult<TodoBasicDto>> GetById([FromRoute] int id)
+        public async Task<ActionResult<TodoReadDto>> GetById([FromRoute] int id)
         {
-            TodoBasicDto result = await todoLogic.GetByIdAsync(id);
+            // The middleware handles NotFoundException, so this method can stay focused
+            // on the happy path: ask the application layer for one todo and return it.
+            TodoReadDto result = await todoLogic.GetByIdAsync(id);
             return Ok(result);
         }
     }

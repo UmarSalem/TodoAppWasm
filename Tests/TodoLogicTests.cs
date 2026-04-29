@@ -134,6 +134,30 @@ public class TodoLogicTests
         await Assert.ThrowsAsync<ConflictException>(() => logic.DeleteAsync(1));
     }
 
+    [Fact]
+    public async Task GetByIdAsync_ReturnsTodoReadDto_WhenTodoExists()
+    {
+        var todoDao = new FakeTodoDao();
+        todoDao.Todos.Add(new Todo(2, "Read one todo", "Useful details") { Id = 5, IsCompleted = true });
+        var logic = new TodoLogic(todoDao, new FakeUserDao());
+
+        TodoReadDto result = await logic.GetByIdAsync(5);
+
+        Assert.Equal(5, result.Id);
+        Assert.Equal(2, result.OwnerId);
+        Assert.Equal("Read one todo", result.Title);
+        Assert.Equal("Useful details", result.Description);
+        Assert.True(result.IsCompleted);
+    }
+
+    [Fact]
+    public async Task GetByIdAsync_ThrowsNotFound_WhenTodoDoesNotExist()
+    {
+        var logic = new TodoLogic(new FakeTodoDao(), new FakeUserDao());
+
+        await Assert.ThrowsAsync<NotFoundException>(() => logic.GetByIdAsync(404));
+    }
+
     private class FakeTodoDao : ITodoDao
     {
         public IList<Todo> Todos { get; } = new List<Todo>();

@@ -17,7 +17,7 @@ namespace Application.LogicInterfaces
 
         Task DeleteAsync(int id);
 
-        Task<TodoBasicDto> GetByIdAsync(int id);
+        Task<TodoReadDto> GetByIdAsync(int id);
 
     }
 }
