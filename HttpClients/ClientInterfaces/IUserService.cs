@@ -4,13 +4,12 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Shared.DTOs;
-using Shared.Models;
 
 namespace HttpClients.ClientInterfaces
 {
     public interface IUserService
     {
-        Task<User> Create(UserCreationDto userCreationDto);
-        Task<IEnumerable<User>> AsyncGetUsers(string? usernameContains = null);
+        Task<UserReadDto> Create(UserCreationDto userCreationDto);
+        Task<IEnumerable<UserReadDto>> AsyncGetUsers(string? usernameContains = null);
     }
 }

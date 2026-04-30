@@ -12,6 +12,7 @@
 # User-specific files
 *.user
 *.suo
+.dotnet/
 
 # NuGet
 *.nupkg

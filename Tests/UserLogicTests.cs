@@ -74,7 +74,7 @@ public class UserLogicTests
     {
         var dao = new FakeUserDao();
         var logic = new UserLogic(dao);
-        var dto = new UserCreationDto("john", "pass", "mail@example.com");
+        var dto = new UserCreationDto("john");
 
         User created = await logic.CreateAsync(dto);
 
@@ -91,7 +91,7 @@ public class UserLogicTests
         var dao = new FakeUserDao();
         dao.Users.Add(new User { UserName = "john" });
         var logic = new UserLogic(dao);
-        var dto = new UserCreationDto("john", "pass", "mail@example.com");
+        var dto = new UserCreationDto("john");
 
         await Assert.ThrowsAsync<ConflictException>(() => logic.CreateAsync(dto));
     }
@@ -104,7 +104,7 @@ public class UserLogicTests
     {
         var dao = new FakeUserDao();
         var logic = new UserLogic(dao);
-        var dto = new UserCreationDto("ab", "pass", "mail@example.com");
+        var dto = new UserCreationDto("ab");
 
         var ex = await Assert.ThrowsAsync<AppValidationException>(() => logic.CreateAsync(dto));
         Assert.Equal("Username must be at least 3 characters!", ex.Message);

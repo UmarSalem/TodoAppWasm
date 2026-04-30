@@ -11,16 +11,6 @@
         <input type="text" @bind="username" @bind:event="oninput" />
     </div>
 
-    <div class="form-group field">
-        <label>Password:</label>
-        <input type="password" @bind="password" @bind:event="oninput" />
-    </div>
-
-    <div class="form-group field">
-        <label>Email:</label>
-        <input type="email" @bind="email" @bind:event="oninput" />
-    </div>
-
     @if (!string.IsNullOrEmpty(resultMsg))
     {
         <div style="color: @color">@resultMsg</div>
@@ -37,8 +27,6 @@
 
 @code {
     private string username = "";
-    private string? password;
-    private string? email;
     private string resultMsg = "";
     private string color = "";
 
@@ -48,13 +36,11 @@
 
         try
         {
-            var dto = new UserCreationDto(username, password, email);
+            var dto = new UserCreationDto(username);
             await userService.Create(dto);
 
-            // reset and notify
+            // Reset the form after the API confirms that the user was created.
             username = "";
-            password = null;
-            email = null;
             resultMsg = "User successfully created";
             color = "green";
         }

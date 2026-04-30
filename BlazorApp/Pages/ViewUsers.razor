@@ -1,5 +1,5 @@
 ﻿@page "/ViewUsers"
-@using Shared.Models
+@using Shared.DTOs
 @using HttpClients.ClientInterfaces
 @inject IUserService userService
 
@@ -23,7 +23,7 @@ else if (!users.Any())
 else
 {
     <div class="users-container">
-        @foreach (User user in users)
+        @foreach (UserReadDto user in users)
         {
             <div class="user-card">
                 <label>@user.UserName</label>
@@ -33,7 +33,7 @@ else
 }
 
 @code {
-    private IEnumerable<User>? users;
+    private IEnumerable<UserReadDto>? users;
     private string msg = "";
 
     protected override async Task OnInitializedAsync()
