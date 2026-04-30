@@ -11,6 +11,54 @@ namespace Tests;
 public class TodoLogicTests
 {
     [Fact]
+    public async Task CreateAsync_CreatesTodo_WhenOwnerExistsAndDataIsValid()
+    {
+        var todoDao = new FakeTodoDao();
+        var userDao = new FakeUserDao();
+        userDao.Users.Add(new User { Id = 1, UserName = "john" });
+        var logic = new TodoLogic(todoDao, userDao);
+
+        Todo created = await logic.CreateAsync(new TodoCreationDto(1, "Book dentist", "Annual checkup"));
+
+        Assert.Equal(1, created.OwnerId);
+        Assert.Equal("Book dentist", created.Title);
+        Assert.Equal("Annual checkup", created.Description);
+        Assert.Single(todoDao.Todos);
+    }
+
+    [Fact]
+    public async Task CreateAsync_ThrowsNotFound_WhenOwnerDoesNotExist()
+    {
+        var logic = new TodoLogic(new FakeTodoDao(), new FakeUserDao());
+
+        await Assert.ThrowsAsync<NotFoundException>(() =>
+            logic.CreateAsync(new TodoCreationDto(99, "Book dentist")));
+    }
+
+    [Fact]
+    public async Task CreateAsync_ThrowsValidation_WhenTitleIsEmpty()
+    {
+        var userDao = new FakeUserDao();
+        userDao.Users.Add(new User { Id = 1, UserName = "john" });
+        var logic = new TodoLogic(new FakeTodoDao(), userDao);
+
+        await Assert.ThrowsAsync<AppValidationException>(() =>
+            logic.CreateAsync(new TodoCreationDto(1, "")));
+    }
+
+    [Fact]
+    public async Task CreateAsync_ThrowsValidation_WhenDescriptionIsTooLong()
+    {
+        var userDao = new FakeUserDao();
+        userDao.Users.Add(new User { Id = 1, UserName = "john" });
+        var logic = new TodoLogic(new FakeTodoDao(), userDao);
+        string description = new('x', 201);
+
+        await Assert.ThrowsAsync<AppValidationException>(() =>
+            logic.CreateAsync(new TodoCreationDto(1, "Book dentist", description)));
+    }
+
+    [Fact]
     public async Task UpdateAsync_UpdatesTodo_WhenRequestIsValid()
     {
         var todoDao = new FakeTodoDao();
