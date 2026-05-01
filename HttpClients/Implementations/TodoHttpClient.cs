@@ -27,9 +27,9 @@ namespace HttpClients.Implementations
             }
         }
 
-        public async Task<ICollection<Todo>> GetAsync(string? userName, int? userId, bool? completedStatus, string? titleContains)
+        public async Task<ICollection<Todo>> GetAsync(string? userName, int? userId, bool? completedStatus, string? titleContains, string? descriptionContains = null)
         {
-            string query = ConstructQuery(userName, userId, completedStatus, titleContains);
+            string query = ConstructQuery(userName, userId, completedStatus, titleContains, descriptionContains);
 
             HttpResponseMessage response = await client.GetAsync("/todos" + query);
             string content = await response.Content.ReadAsStringAsync();
@@ -45,30 +45,36 @@ namespace HttpClients.Implementations
             return todos;
         }
 
-        private static string ConstructQuery(string? userName, int? userId, bool? completedStatus, string? titleContains)
+        private static string ConstructQuery(string? userName, int? userId, bool? completedStatus, string? titleContains, string? descriptionContains)
         {
             string query = "";
             if (!string.IsNullOrEmpty(userName))
             {
-                query += $"?username={userName}";
+                query += $"?userName={Uri.EscapeDataString(userName)}";
             }
 
             if (userId != null)
             {
                 query += string.IsNullOrEmpty(query) ? "?" : "&";
-                query += $"userid={userId}";
+                query += $"userId={userId}";
             }
 
             if (completedStatus != null)
             {
                 query += string.IsNullOrEmpty(query) ? "?" : "&";
-                query += $"completedstatus={completedStatus}";
+                query += $"completedStatus={completedStatus}";
             }
 
             if (!string.IsNullOrEmpty(titleContains))
             {
                 query += string.IsNullOrEmpty(query) ? "?" : "&";
-                query += $"titlecontains={titleContains}";
+                query += $"titleContains={Uri.EscapeDataString(titleContains)}";
+            }
+
+            if (!string.IsNullOrEmpty(descriptionContains))
+            {
+                query += string.IsNullOrEmpty(query) ? "?" : "&";
+                query += $"descriptionContains={Uri.EscapeDataString(descriptionContains)}";
             }
 
             return query;

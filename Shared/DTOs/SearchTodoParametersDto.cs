@@ -11,20 +11,17 @@ namespace Shared.DTOs
         public string? UserName { get; set; }
         public int ? UserId { get; set; }
         public bool? CompletedStatus { get; set; }
-        public string? Titlecontains { get; set; }
+        public string? TitleContains { get; set; }
 
-        public string? Descriptioncontains { get; set; }
+        public string? DescriptionContains { get; set; }
 
-            public string? Emailcontains { get; set; }
-
-        public SearchTodoParametersDto (string? userName, int? userId, bool? completedStatus, string? titlecontains, string? descriptioncontains, string? emailcontains)
+        public SearchTodoParametersDto (string? userName, int? userId, bool? completedStatus, string? titleContains, string? descriptionContains)
         {
             UserName = userName;
             UserId = userId;
             CompletedStatus = completedStatus;
-            Titlecontains = titlecontains;
-            Descriptioncontains = descriptioncontains;
-            Emailcontains = emailcontains;
+            TitleContains = titleContains;
+            DescriptionContains = descriptionContains;
         }
     }
 }

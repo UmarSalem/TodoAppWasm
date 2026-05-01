@@ -58,10 +58,17 @@ namespace EfcDataAccess.DAOs
                 query = query.Where(t => t.IsCompleted == searchParameterDto.CompletedStatus);
             }
 
-            if (!string.IsNullOrEmpty(searchParameterDto.Titlecontains))
+            if (!string.IsNullOrEmpty(searchParameterDto.TitleContains))
             {
                 query = query.Where(t =>
-                    t.Title.ToLower().Contains(searchParameterDto.Titlecontains.ToLower()));
+                    t.Title.ToLower().Contains(searchParameterDto.TitleContains.ToLower()));
+            }
+
+            if (!string.IsNullOrEmpty(searchParameterDto.DescriptionContains))
+            {
+                query = query.Where(t =>
+                    t.Description != null &&
+                    t.Description.ToLower().Contains(searchParameterDto.DescriptionContains.ToLower()));
             }
 
             List<Todo> result = await query.ToListAsync();

@@ -52,13 +52,27 @@ namespace WebAPI.Controllers
         }
 
         [HttpGet]
-        public async Task<ActionResult<IEnumerable<Todo>>> GetAsync([FromQuery] string? userName, [FromQuery] int? userId, [FromQuery] bool? completedStatus, [FromQuery] string? titleContains, [FromQuery] string? descriptionsContain, [FromBody] string? emailContain)
+        [ProducesResponseType(typeof(IEnumerable<TodoReadDto>), StatusCodes.Status200OK)]
+        [ProducesResponseType(typeof(ApiErrorDto), StatusCodes.Status500InternalServerError)]
+        public async Task<ActionResult<IEnumerable<TodoReadDto>>> GetAsync(
+            [FromQuery] string? userName,
+            [FromQuery] int? userId,
+            [FromQuery] bool? completedStatus,
+            [FromQuery] string? titleContains,
+            [FromQuery] string? descriptionContains)
         {
             try
             {
-                SearchTodoParametersDto parameters = new(userName, userId, completedStatus, titleContains, descriptionsContain, emailContain);
+                SearchTodoParametersDto parameters = new(userName, userId, completedStatus, titleContains, descriptionContains);
                 var todos = await todoLogic.GetAsync(parameters);
-                return Ok(todos);
+                IEnumerable<TodoReadDto> response = todos.Select(todo => new TodoReadDto(
+                    todo.Id,
+                    todo.OwnerId,
+                    todo.Title,
+                    todo.IsCompleted,
+                    todo.Description));
+
+                return Ok(response);
             }
             catch (Exception e)
             {
