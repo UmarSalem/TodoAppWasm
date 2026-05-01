@@ -4,13 +4,12 @@ namespace EfcDataAccess
 {
     public class TodoContext : DbContext
     {
+        public TodoContext(DbContextOptions<TodoContext> options) : base(options)
+        {
+        }
+
         public DbSet<User> Users { get; set; }
         public DbSet<Todo> Todos { get; set; }
-
-        protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
-        {
-            optionsBuilder.UseSqlite("Data Source = ../EfcDataAccess/Todo.db");
-        }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {

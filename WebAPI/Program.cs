@@ -5,6 +5,8 @@ using EfcDataAccess.DAOs;
 using FileData;
 using Application.DAOInterfaces;
 using EfcDataAccess;
+using Microsoft.AspNetCore.HttpOverrides;
+using Microsoft.EntityFrameworkCore;
 using WebAPI.Middleware;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -20,7 +22,23 @@ builder.Services.AddScoped<IUserDao, UserEfcDao>();
 builder.Services.AddScoped<IUserLogic, UserLogic>();
 builder.Services.AddScoped<ITodoLogic, TodoLogic>();
 builder.Services.AddScoped<ITodoDao, TodoEfcDao>();
-builder.Services.AddDbContext<TodoContext>();
+
+var todoDatabaseConnectionString = builder.Configuration.GetConnectionString("TodoDatabase")
+    ?? "Data Source=../EfcDataAccess/Todo.db";
+
+// Keep the database location in configuration so local development, Docker,
+// and later cloud databases can each use their own connection string.
+builder.Services.AddDbContext<TodoContext>(options =>
+    options.UseSqlite(todoDatabaseConnectionString));
+
+// Hosted containers usually sit behind a reverse proxy that terminates HTTPS.
+// This lets ASP.NET Core understand the original public request scheme and client IP.
+builder.Services.Configure<ForwardedHeadersOptions>(options =>
+{
+    options.ForwardedHeaders = ForwardedHeaders.XForwardedFor | ForwardedHeaders.XForwardedProto;
+    options.KnownNetworks.Clear();
+    options.KnownProxies.Clear();
+});
 
 var allowedOrigins = builder.Configuration
     .GetValue<string>("AllowedOrigins")?
@@ -47,6 +65,8 @@ builder.Services.AddCors(options =>
 
 var app = builder.Build();
 
+app.UseForwardedHeaders();
+
 // Convert domain/application exceptions into consistent HTTP responses in one place.
 // This keeps controllers focused on request/response flow instead of repeating try/catch blocks.
 app.UseMiddleware<ApiExceptionMiddleware>();
@@ -58,6 +78,10 @@ app.UseSwaggerUI();
 
 app.UseHttpsRedirection();
 app.UseAuthorization();
+
+// Hosting platforms can call this endpoint to confirm the API process is alive.
+app.MapGet("/health", () => Results.Ok(new { status = "Healthy" }));
+
 app.MapControllers();
 
 app.Run();
