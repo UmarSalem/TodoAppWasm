@@ -82,12 +82,29 @@ namespace WebAPI.Controllers
         }
 
         [HttpPatch]
+        [ProducesResponseType(StatusCodes.Status204NoContent)]
+        [ProducesResponseType(typeof(ApiErrorDto), StatusCodes.Status400BadRequest)]
+        [ProducesResponseType(typeof(ApiErrorDto), StatusCodes.Status404NotFound)]
+        [ProducesResponseType(typeof(ApiErrorDto), StatusCodes.Status409Conflict)]
+        [ProducesResponseType(typeof(ApiErrorDto), StatusCodes.Status500InternalServerError)]
         public async Task<ActionResult> UpdateAsync([FromBody] TodoUpdateDto dto)
         {
             try
             {
                 await todoLogic.UpdateAsync(dto);
-                return Ok();
+                return NoContent();
+            }
+            catch (AppValidationException e)
+            {
+                return BadRequest(new ApiErrorDto(e.Message));
+            }
+            catch (NotFoundException e)
+            {
+                return NotFound(new ApiErrorDto(e.Message));
+            }
+            catch (ConflictException e)
+            {
+                return Conflict(new ApiErrorDto(e.Message));
             }
             catch (Exception e)
             {

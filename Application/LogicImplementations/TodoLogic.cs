@@ -64,7 +64,7 @@ namespace Application.LogicImplementations
 
             if (existing == null)
             {
-                throw new Exception($"Todo with ID {dto.Id} not found!");
+                throw new NotFoundException($"Todo with id {dto.Id} was not found.");
             }
 
             User? user = null;
@@ -79,23 +79,18 @@ namespace Application.LogicImplementations
 
             if (dto.IsCompleted != null && existing.IsCompleted && !(bool)dto.IsCompleted)
             {
-                throw new Exception("Cannot un-complete a completed Todo");
+                throw new ConflictException("Cannot mark a completed todo as incomplete.");
             }
 
-            int ownerIdToUse = dto.OwnerId ?? existing.OwnerId;
-            string titleToUse = dto.Title ?? existing.Title;
-            string? descriptionToUse = dto.Description ?? existing.Description;
-            bool completedToUse = dto.IsCompleted ?? existing.IsCompleted;
+            existing.OwnerId = dto.OwnerId ?? existing.OwnerId;
+            existing.Owner = user ?? existing.Owner;
+            existing.Title = dto.Title ?? existing.Title;
+            existing.Description = dto.Description ?? existing.Description;
+            existing.IsCompleted = dto.IsCompleted ?? existing.IsCompleted;
 
-            Todo updated = new(ownerIdToUse, titleToUse, descriptionToUse)
-            {
-                IsCompleted = completedToUse,
-                Id = existing.Id,
-            };
+            ValidateTodo(existing);
 
-            ValidateTodo(updated);
-
-            await todoDao.UpdateAsync(updated);
+            await todoDao.UpdateAsync(existing);
         }
 
         private void ValidateTodo(Todo dto)
