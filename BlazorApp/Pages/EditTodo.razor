@@ -62,13 +62,14 @@
         try
         {
             users = await userService.AsyncGetUsers();
-            TodoBasicDto todoData = await todoService.GetByIdAsync(Id);
-            User currentlyAssigned = users.First(user => user.UserName.Equals(todoData.OwnerName));
+            TodoReadDto todoData = await todoService.GetByIdAsync(Id);
 
             dto = new(Id)
                 {
                     Title = todoData.Title,
-                    OwnerId = currentlyAssigned.Id
+                    OwnerId = todoData.OwnerId,
+                    Description = todoData.Description,
+                    IsCompleted = todoData.IsCompleted
                 };
         }
         catch (Exception e)

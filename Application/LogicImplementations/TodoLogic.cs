@@ -126,15 +126,22 @@ namespace Application.LogicImplementations
                 throw new AppValidationException("Description must be 200 characters or fewer.");
         }
 
-        public async Task<TodoBasicDto> GetByIdAsync(int id)
+        public async Task<TodoReadDto> GetByIdAsync(int id)
         {
             Todo? todo = await todoDao.GetByIdAsync(id);
             if (todo == null)
             {
-                throw new Exception($"Todo with id {id} not found");
+                throw new NotFoundException($"Todo with id {id} was not found.");
             }
 
-            return new TodoBasicDto(todo.Id, todo.Owner?.UserName ?? string.Empty, todo.Title, todo.IsCompleted);
+            // Return the same read DTO used by list/create endpoints, so clients get a
+            // predictable todo shape whether they request one todo or many.
+            return new TodoReadDto(
+                todo.Id,
+                todo.OwnerId,
+                todo.Title,
+                todo.IsCompleted,
+                todo.Description);
         }
 
             }
