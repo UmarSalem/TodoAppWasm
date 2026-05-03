@@ -42,12 +42,14 @@ namespace Application.LogicImplementations
             Todo? todo = await todoDao.GetByIdAsync(id);
             if (todo == null)
             {
-                throw new Exception($"Todo with ID {id} was not found!");
+                throw new NotFoundException($"Todo with id {id} was not found.");
             }
 
             if (!todo.IsCompleted)
             {
-                throw new Exception("Cannot delete un-completed Todo!");
+                // This is a business rule from the todo story: only completed todos may be deleted.
+                // The WebAPI middleware turns this conflict into HTTP 409 for clients.
+                throw new ConflictException("Cannot delete an incomplete todo.");
             }
 
             await todoDao.DeleteAsync(id);
@@ -79,9 +81,13 @@ namespace Application.LogicImplementations
 
             if (dto.IsCompleted != null && existing.IsCompleted && !(bool)dto.IsCompleted)
             {
+                // Once a todo is completed, the app keeps that state final.
+                // Throwing a typed exception lets the API return 409 Conflict instead of 500.
                 throw new ConflictException("Cannot mark a completed todo as incomplete.");
             }
 
+            // Update the tracked entity instead of creating a second object with the same Id.
+            // EF Core can throw tracking errors when two instances share the same primary key.
             existing.OwnerId = dto.OwnerId ?? existing.OwnerId;
             existing.Owner = user ?? existing.Owner;
             existing.Title = dto.Title ?? existing.Title;

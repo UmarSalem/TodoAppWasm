@@ -5,6 +5,7 @@ using EfcDataAccess.DAOs;
 using FileData;
 using Application.DAOInterfaces;
 using EfcDataAccess;
+using WebAPI.Middleware;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -13,6 +14,8 @@ builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
 builder.Services.AddScoped<FileContext>();
+// Register interfaces against concrete classes so controllers depend on abstractions,
+// while Program.cs decides whether the app uses EF Core, file storage, or another data source.
 builder.Services.AddScoped<IUserDao, UserEfcDao>();
 builder.Services.AddScoped<IUserLogic, UserLogic>();
 builder.Services.AddScoped<ITodoLogic, TodoLogic>();
@@ -43,6 +46,10 @@ builder.Services.AddCors(options =>
 });
 
 var app = builder.Build();
+
+// Convert domain/application exceptions into consistent HTTP responses in one place.
+// This keeps controllers focused on request/response flow instead of repeating try/catch blocks.
+app.UseMiddleware<ApiExceptionMiddleware>();
 
 app.UseCors("FrontendPolicy");
 
