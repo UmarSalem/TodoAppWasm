@@ -1,7 +1,6 @@
 ﻿@page "/CreateTodo"
 @using UIComponents
 @using HttpClients.ClientInterfaces
-@using Shared.Models
 @using Shared.DTOs
 @inject IUserService userService
 @inject ITodoService todoService
@@ -27,7 +26,7 @@
             <label>Assignee:</label>
             <select @bind="selectedUserId">
                 <option>Choose</option>
-                @foreach (User user in users)
+                @foreach (UserReadDto user in users)
                 {
                     <option value="@user.Id">@user.UserName</option>
                 }
@@ -49,7 +48,7 @@
 
 
 @code {
-    private IEnumerable<User>? users;
+    private IEnumerable<UserReadDto>? users;
     private int? selectedUserId;
     private string todoTitle = "";
 

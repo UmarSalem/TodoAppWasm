@@ -1,6 +1,5 @@
 ﻿@page "/EditTodo/{id:int}"
 @using Shared.DTOs
-@using Shared.Models
 @using HttpClients.ClientInterfaces
 @using Microsoft.AspNetCore.Components
 @inject ITodoService todoService
@@ -32,7 +31,7 @@
             <label>Assignee:</label>
             <select @bind="dto.OwnerId">
                 <option>Choose</option>
-                @foreach (User user in users)
+                @foreach (UserReadDto user in users)
                 {
                     <option value="@user.Id">@user.UserName</option>
                 }
@@ -54,7 +53,7 @@
 
 	private TodoUpdateDto dto = null!;
 	private string msg = "";
-	private IEnumerable<User>? users;
+	private IEnumerable<UserReadDto>? users;
 
     protected override async Task OnInitializedAsync()
     {
