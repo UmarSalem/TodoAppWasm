@@ -24,14 +24,12 @@ Why this is best for portfolio:
 
 ### Back-end (secondary)
 
-Present back-end in one of two ways:
-- **Option A (preferred for now):** keep back-end local/containerized and document API capabilities clearly.
-- **Option B (public staging deployment):** deploy API to a public URL on a free/low-cost host (for example Render/Fly/Railway depending current free tier), and wire CORS + HTTPS.
+Present the back-end as a Dockerized ASP.NET Core WebAPI deployed to **Render**.
 
-**Clarification:** "public staging deployment" simply means a non-production but publicly reachable API endpoint used for demos/recruiter testing.
+**Clarification:** the Render deployment is a public staging/demo API, not a production system. It is good for recruiter testing and portfolio review.
 
-If API is not publicly hosted, be explicit in README:
-> "Live demo focuses on front-end UX. API is available locally via Docker for technical review."
+Because the free tier can cold start, be explicit in README:
+> "The API is hosted on Render free tier, so the first request may take a moment after idle time."
 
 ## 3) CI/CD story you can tell in interviews
 
@@ -119,7 +117,7 @@ Use outcome-oriented wording:
 Before creating implementation tasks, decide:
 
 1. **Front-end hosting target:** GitHub Pages (selected).
-2. **Back-end approach:** local-only documented vs public staging deployment (public URL for demo).
+2. **Back-end approach:** Render public staging deployment (selected).
 3. **Scope for this final polish cycle:** Phase 1 only, or Phase 1 + selected Phase 2 items.
 
 Once these are chosen, task execution can be done in a clean and recruiter-focused sequence.

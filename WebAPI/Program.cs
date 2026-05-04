@@ -23,13 +23,31 @@ builder.Services.AddScoped<IUserLogic, UserLogic>();
 builder.Services.AddScoped<ITodoLogic, TodoLogic>();
 builder.Services.AddScoped<ITodoDao, TodoEfcDao>();
 
+var databaseProvider = builder.Configuration.GetValue<string>("DatabaseProvider") ?? "Sqlite";
 var todoDatabaseConnectionString = builder.Configuration.GetConnectionString("TodoDatabase")
     ?? "Data Source=../EfcDataAccess/Todo.db";
 
-// Keep the database location in configuration so local development, Docker,
-// and later cloud databases can each use their own connection string.
+// The provider is configurable so local development can stay on SQLite,
+// while the deployed API can use PostgreSQL without changing code.
 builder.Services.AddDbContext<TodoContext>(options =>
-    options.UseSqlite(todoDatabaseConnectionString));
+{
+    if (databaseProvider.Equals("Postgres", StringComparison.OrdinalIgnoreCase)
+        || databaseProvider.Equals("PostgreSQL", StringComparison.OrdinalIgnoreCase))
+    {
+        options.UseNpgsql(todoDatabaseConnectionString);
+        return;
+    }
+
+    if (databaseProvider.Equals("Sqlite", StringComparison.OrdinalIgnoreCase)
+        || databaseProvider.Equals("SQLite", StringComparison.OrdinalIgnoreCase))
+    {
+        options.UseSqlite(todoDatabaseConnectionString);
+        return;
+    }
+
+    throw new InvalidOperationException(
+        $"Unsupported database provider '{databaseProvider}'. Use 'Sqlite' or 'Postgres'.");
+});
 
 // Hosted containers usually sit behind a reverse proxy that terminates HTTPS.
 // This lets ASP.NET Core understand the original public request scheme and client IP.

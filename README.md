@@ -7,9 +7,9 @@ A full-stack .NET 8 portfolio project with:
 ## Deployment plan used in this repository
 
 - **Front-end:** GitHub Pages (automated with GitHub Actions)
-- **Back-end:** configurable public API URL (set via `API_BASE_URL` secret)
+- **Back-end:** Render Web Service using a Docker image from GitHub Container Registry
 
-> You requested Vercel for backend. See the deployment playbook for practical constraints and alternatives.
+Vercel was considered for the backend, but Render was selected because this WebAPI is deployed as a Docker container.
 
 ## CI/CD
 
@@ -35,7 +35,15 @@ AllowedOrigins=https://<your-username>.github.io
 Configure the deployed database path or connection string through environment variables:
 
 ```bash
+DatabaseProvider=Sqlite
 ConnectionStrings__TodoDatabase=Data Source=/app/data/Todo.db
+```
+
+For a hosted PostgreSQL database, use:
+
+```bash
+DatabaseProvider=Postgres
+ConnectionStrings__TodoDatabase=<connection-string-from-your-database-host>
 ```
 
 The API also exposes `/health` for deployment health checks.
@@ -43,5 +51,5 @@ The API also exposes `/health` for deployment health checks.
 ## Documentation
 
 - Portfolio strategy: [`docs/PORTFOLIO_SHOWCASE_GUIDE.md`](docs/PORTFOLIO_SHOWCASE_GUIDE.md)
-- Deployment details and Vercel clarification: [`docs/DEPLOYMENT_PLAYBOOK.md`](docs/DEPLOYMENT_PLAYBOOK.md)
+- Deployment details: [`docs/DEPLOYMENT_PLAYBOOK.md`](docs/DEPLOYMENT_PLAYBOOK.md)
 - Project roadmap and next tasks: [`docs/PROJECT_ROADMAP.md`](docs/PROJECT_ROADMAP.md)
