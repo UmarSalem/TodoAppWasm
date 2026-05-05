@@ -28,6 +28,19 @@ namespace WebAPI.Controllers
             return Created($"/users/{user.Id}", response);
         }
 
+        [HttpPost("login")]
+        [ProducesResponseType(typeof(UserReadDto), StatusCodes.Status200OK)]
+        [ProducesResponseType(typeof(ApiErrorDto), StatusCodes.Status400BadRequest)]
+        [ProducesResponseType(typeof(ApiErrorDto), StatusCodes.Status500InternalServerError)]
+        public async Task<ActionResult<UserReadDto>> LoginAsync([FromBody] UserLoginDto dto)
+        {
+            User user = await userLogic.LoginAsync(dto);
+
+            // Login returns safe account data only. The password hash stays inside the server.
+            UserReadDto response = new(user.Id, user.UserName);
+            return Ok(response);
+        }
+
         [HttpGet]
         [ProducesResponseType(typeof(IEnumerable<UserReadDto>), StatusCodes.Status200OK)]
         [ProducesResponseType(typeof(ApiErrorDto), StatusCodes.Status500InternalServerError)]
