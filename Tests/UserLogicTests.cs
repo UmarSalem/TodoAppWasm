@@ -111,6 +111,26 @@ public class UserLogicTests
     }
 
     [Fact]
+    public async Task CreateAsync_Throws_WhenUsernameIsEmpty()
+    {
+        var logic = new UserLogic(new FakeUserDao());
+        var dto = new UserCreationDto("");
+
+        var ex = await Assert.ThrowsAsync<AppValidationException>(() => logic.CreateAsync(dto));
+        Assert.Equal("Username is required.", ex.Message);
+    }
+
+    [Fact]
+    public async Task CreateAsync_Throws_WhenUsernameIsTooLong()
+    {
+        var logic = new UserLogic(new FakeUserDao());
+        var dto = new UserCreationDto("abcdefghijklmnop");
+
+        var ex = await Assert.ThrowsAsync<AppValidationException>(() => logic.CreateAsync(dto));
+        Assert.Equal("Username must be less than 16 characters!", ex.Message);
+    }
+
+    [Fact]
     public async Task GetAsync_ReturnsAllUsers_WhenNoFilterIsProvided()
     {
         var dao = new FakeUserDao();
