@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 using Application.DAO_interfaces;
 using Application.Exceptions;
 using Application.LogicInterfaces;
+using Shared.Auth;
 using Shared.DTOs;
 using Shared.Models;
 
@@ -35,7 +36,8 @@ namespace Application.LogicImplementations
             User toCreate = new User
             {
                 UserName = usertoCreate.UserName,
-                PasswordHash = passwordHasher.Hash(usertoCreate.Password)
+                PasswordHash = passwordHasher.Hash(usertoCreate.Password),
+                Role = UserRoles.User
             };
 
             User created = await userDao.CreateAsync(toCreate);

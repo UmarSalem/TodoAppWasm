@@ -70,6 +70,16 @@ AllowedOrigins=https://<your-username>.github.io
 
 Use the exact PostgreSQL connection string from the database host, for example Supabase, Neon, Render Postgres, or another provider. Keep that value in the hosting platform's environment variables, not in source code.
 
+For JWT login, also set:
+
+```bash
+Jwt__Key=<long-random-secret-at-least-32-characters>
+Jwt__Issuer=TodoAppWasm.WebAPI
+Jwt__Audience=TodoAppWasm.BlazorApp
+```
+
+The JWT key signs login tokens. Keep it secret; do not put the production value in GitHub source code.
+
 The current migration was generated for SQLite. Before using a fresh hosted PostgreSQL database, generate provider-appropriate EF Core migrations from the PostgreSQL configuration.
 
 ## Step-by-step rollout

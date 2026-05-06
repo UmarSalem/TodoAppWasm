@@ -48,6 +48,14 @@ ConnectionStrings__TodoDatabase=<connection-string-from-your-database-host>
 
 The API also exposes `/health` for deployment health checks.
 
+For JWT login in a hosted environment, override the development signing key:
+
+```bash
+Jwt__Key=<long-random-secret-at-least-32-characters>
+Jwt__Issuer=TodoAppWasm.WebAPI
+Jwt__Audience=TodoAppWasm.BlazorApp
+```
+
 ## Documentation
 
 - Portfolio strategy: [`docs/PORTFOLIO_SHOWCASE_GUIDE.md`](docs/PORTFOLIO_SHOWCASE_GUIDE.md)

@@ -5,6 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Text.Json.Serialization;
 using System.Threading.Tasks;
+using Shared.Auth;
 
 namespace Shared.Models
 {
@@ -18,6 +19,9 @@ namespace Shared.Models
 
         [Required]
         public string PasswordHash { get; set; } = string.Empty;
+
+        [Required]
+        public string Role { get; set; } = UserRoles.User;
 
         //public List<Todo> Todos { get; set; }
 

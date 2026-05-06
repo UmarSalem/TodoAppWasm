@@ -1,0 +1,386 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <title>TodoAppWasm Auth and JWT Junior Guide</title>
+  <style>
+    @page {
+      margin: 18mm;
+    }
+
+    body {
+      color: #1f2937;
+      font-family: "Segoe UI", Arial, sans-serif;
+      font-size: 13px;
+      line-height: 1.55;
+      margin: 0;
+    }
+
+    h1 {
+      color: #111827;
+      font-size: 28px;
+      margin: 0 0 6px;
+    }
+
+    h2 {
+      border-bottom: 1px solid #d1d5db;
+      color: #111827;
+      font-size: 20px;
+      margin: 26px 0 10px;
+      padding-bottom: 4px;
+    }
+
+    h3 {
+      color: #1f2937;
+      font-size: 15px;
+      margin: 18px 0 6px;
+    }
+
+    p {
+      margin: 6px 0 10px;
+    }
+
+    ul {
+      margin: 6px 0 12px 22px;
+      padding: 0;
+    }
+
+    code {
+      background: #f3f4f6;
+      border-radius: 4px;
+      font-family: Consolas, "Courier New", monospace;
+      font-size: 12px;
+      padding: 1px 4px;
+    }
+
+    pre {
+      background: #111827;
+      border-radius: 6px;
+      color: #f9fafb;
+      font-family: Consolas, "Courier New", monospace;
+      font-size: 11px;
+      line-height: 1.45;
+      overflow: hidden;
+      padding: 11px 13px;
+      white-space: pre-wrap;
+    }
+
+    .subtitle {
+      color: #4b5563;
+      font-size: 14px;
+      margin-bottom: 18px;
+    }
+
+    .box {
+      background: #eef6ff;
+      border-left: 4px solid #2563eb;
+      border-radius: 4px;
+      margin: 12px 0;
+      padding: 10px 12px;
+    }
+
+    .warning {
+      background: #fff7ed;
+      border-left-color: #ea580c;
+    }
+
+    .success {
+      background: #ecfdf5;
+      border-left-color: #059669;
+    }
+
+    .page-break {
+      break-before: page;
+    }
+
+    table {
+      border-collapse: collapse;
+      margin: 10px 0 14px;
+      width: 100%;
+    }
+
+    th,
+    td {
+      border: 1px solid #d1d5db;
+      padding: 7px 8px;
+      text-align: left;
+      vertical-align: top;
+    }
+
+    th {
+      background: #f3f4f6;
+      color: #111827;
+    }
+  </style>
+</head>
+<body>
+  <h1>TodoAppWasm Auth and JWT Guide</h1>
+  <p class="subtitle">Junior developer notes for tasks 034_backend_auth_user_accounts and 035_backend_jwt_authorization.</p>
+
+  <div class="box">
+    <strong>Short idea:</strong> task 034 teaches the backend how to register and login users safely. Task 035 adds JWT tokens so the backend can protect Todo endpoints and know which user is making each request.
+  </div>
+
+  <h2>1. Why We Added Authentication</h2>
+  <p>Before these tasks, the API could create users and todos, but it did not know who was logged in. A client could send an <code>ownerId</code> in JSON, and the backend trusted it.</p>
+  <p>That is risky because a user could change JSON and create or edit todos for another user. Authentication fixes this by letting the server identify the caller from a signed token.</p>
+
+  <h2>2. Task 034: User Accounts and Password Hashing</h2>
+  <p>The goal of task 034 was to let users register with a password and login with that password.</p>
+
+  <h3>User Model</h3>
+  <p>We added a password hash to <code>Shared/Models/User.cs</code>.</p>
+  <pre>public string PasswordHash { get; set; } = string.Empty;</pre>
+  <p>We do not store the original password. We store only a hash. If someone opens the database, they should not see real user passwords.</p>
+
+  <h3>User Creation DTO</h3>
+  <p>We changed <code>UserCreationDto</code> so registration receives username and password.</p>
+  <pre>public string UserName { get; set; }
+public string Password { get; set; }</pre>
+  <p>The DTO is the shape of JSON coming from Swagger or the frontend.</p>
+
+  <h3>Password Hasher</h3>
+  <p>We added <code>Pbkdf2PasswordHasher</code>. Its job is to turn a password into a secure stored value.</p>
+  <pre>public string Hash(string password)
+{
+    byte[] salt = RandomNumberGenerator.GetBytes(SaltSize);
+    byte[] key = DeriveKey(password, salt, Iterations);
+
+    return string.Join(
+        '$',
+        Algorithm,
+        Iterations,
+        Convert.ToBase64String(salt),
+        Convert.ToBase64String(key));
+}</pre>
+  <p>The salt makes hashes unique. Two users with the same password still get different hash values.</p>
+
+  <h3>Password Verification</h3>
+  <pre>public bool Verify(string password, string passwordHash)
+{
+    ...
+    return CryptographicOperations.FixedTimeEquals(actualKey, expectedKey);
+}</pre>
+  <p>When the user logs in, we do not decrypt anything. We hash the entered password again and compare it with the saved hash.</p>
+
+  <div class="box warning">
+    <strong>Important:</strong> password hashing is one-way. We should never be able to recover the original password from the database.
+  </div>
+
+  <h3>User Logic</h3>
+  <p>In <code>UserLogic</code>, new users are saved with a hash and the default role.</p>
+  <pre>User toCreate = new User
+{
+    UserName = usertoCreate.UserName,
+    PasswordHash = passwordHasher.Hash(usertoCreate.Password),
+    Role = UserRoles.User
+};</pre>
+  <p>New users become normal <code>User</code> accounts. They cannot register themselves as <code>Admin</code>.</p>
+
+  <h3>Login Logic</h3>
+  <pre>if (existing == null || !passwordHasher.Verify(dto.Password, existing.PasswordHash))
+{
+    throw new AppValidationException("Invalid username or password.");
+}</pre>
+  <p>The error message is intentionally general. We do not reveal whether the username or password was wrong.</p>
+
+  <h3>Database Migration</h3>
+  <p>We added a migration to add <code>PasswordHash</code> to the <code>Users</code> table.</p>
+  <pre>dotnet ef database update --project EfcDataAccess --startup-project WebAPI</pre>
+  <p>Without applying this migration, Swagger can return 500 because the code tries to save a column that the database does not have yet.</p>
+
+  <div class="page-break"></div>
+
+  <h2>3. Task 035: JWT Authorization</h2>
+  <p>The goal of task 035 was to protect Todo endpoints. After login, the user receives a JWT token. Swagger or the frontend sends that token when calling protected endpoints.</p>
+
+  <h3>Login Response</h3>
+  <p>Login now returns a DTO with the token, safe user info, and expiry time.</p>
+  <pre>public string Token { get; set; }
+public UserReadDto User { get; set; }
+public DateTime ExpiresAtUtc { get; set; }</pre>
+
+  <h3>JWT Claims</h3>
+  <p>Claims are trusted identity data inside the signed token.</p>
+  <pre>Claim[] claims =
+[
+    new Claim(ClaimTypes.NameIdentifier, user.Id.ToString()),
+    new Claim(ClaimTypes.Name, user.UserName),
+    new Claim(ClaimTypes.Role, user.Role)
+];</pre>
+
+  <table>
+    <thead>
+      <tr>
+        <th>Claim</th>
+        <th>Meaning</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><code>NameIdentifier</code></td>
+        <td>The logged-in user's database id.</td>
+      </tr>
+      <tr>
+        <td><code>Name</code></td>
+        <td>The logged-in user's username.</td>
+      </tr>
+      <tr>
+        <td><code>Role</code></td>
+        <td>The user's role, for example <code>User</code> or <code>Admin</code>.</td>
+      </tr>
+    </tbody>
+  </table>
+
+  <h3>JWT Configuration</h3>
+  <p>In <code>Program.cs</code>, the API validates tokens with issuer, audience, expiry time, and signing key.</p>
+  <pre>builder.Services
+    .AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
+    .AddJwtBearer(options =>
+    {
+        options.TokenValidationParameters = new TokenValidationParameters
+        {
+            ValidateIssuer = true,
+            ValidateAudience = true,
+            ValidateLifetime = true,
+            ValidateIssuerSigningKey = true,
+            ValidIssuer = builder.Configuration["Jwt:Issuer"],
+            ValidAudience = builder.Configuration["Jwt:Audience"],
+            IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(jwtKey))
+        };
+    });</pre>
+
+  <p>The middleware order matters:</p>
+  <pre>app.UseAuthentication();
+app.UseAuthorization();</pre>
+  <p><code>UseAuthentication()</code> reads the token and creates <code>User.Claims</code>. <code>UseAuthorization()</code> checks whether the endpoint can run.</p>
+
+  <h3>Swagger Authorize Button</h3>
+  <p>Swagger needs a Bearer security definition before it shows the Authorize button.</p>
+  <pre>options.AddSecurityDefinition("Bearer", new OpenApiSecurityScheme
+{
+    Name = "Authorization",
+    Type = SecuritySchemeType.Http,
+    Scheme = "bearer",
+    BearerFormat = "JWT",
+    In = ParameterLocation.Header
+});</pre>
+  <p>After login, paste the token into Swagger as:</p>
+  <pre>Bearer eyJhbGciOiJIUzI1NiIs...</pre>
+
+  <h2>4. Roles vs Ownership</h2>
+  <p>This is one of the most important ideas in the project.</p>
+  <table>
+    <thead>
+      <tr>
+        <th>Concept</th>
+        <th>Example</th>
+        <th>Meaning</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td>Role</td>
+        <td><code>User</code>, <code>Admin</code></td>
+        <td>What type of account the logged-in person has.</td>
+      </tr>
+      <tr>
+        <td>Ownership</td>
+        <td><code>todo.OwnerId == loggedInUserId</code></td>
+        <td>Whether this exact todo belongs to the logged-in user.</td>
+      </tr>
+    </tbody>
+  </table>
+
+  <div class="box success">
+    <strong>Clean rule:</strong> Admin and User are roles. Owner is not a role. Owner is checked by comparing a todo's OwnerId with the user id from the JWT token.
+  </div>
+
+  <h2>5. Protected Todo Endpoints</h2>
+  <p>We added <code>[Authorize]</code> to <code>TodosController</code>.</p>
+  <pre>[Authorize]
+public class TodosController : ControllerBase</pre>
+  <p>This means the user must login and send a valid token before calling Todo endpoints.</p>
+
+  <h3>Create Todo</h3>
+  <pre>int userId = GetCurrentUserId();
+TodoCreationDto secureDto = new(userId, dto.Title, dto.Description);</pre>
+  <p>The API no longer trusts <code>ownerId</code> from JSON. It uses the user id from the JWT token.</p>
+
+  <h3>List Todos</h3>
+  <pre>SearchTodoParametersDto parameters = isAdmin
+    ? new(userName, userId, completedStatus, titleContains, descriptionContains)
+    : new(null, currentUserId, completedStatus, titleContains, descriptionContains);</pre>
+  <p>Admins can inspect broader data. Normal users only see their own todos.</p>
+
+  <h3>Access Check</h3>
+  <pre>if (User.IsInRole(UserRoles.Admin) || todo.OwnerId == GetCurrentUserId())
+{
+    return;
+}
+
+throw new NotFoundException($"Todo with id {todo.Id} was not found.");</pre>
+  <p>If a normal user tries another user's todo id, the API returns 404. This avoids revealing that the other user's todo exists.</p>
+
+  <h2>6. How to Test in Swagger</h2>
+  <ol>
+    <li>Run migrations so the database has <code>PasswordHash</code> and <code>Role</code>.</li>
+    <li>Create a user with <code>POST /Users</code>.</li>
+    <li>Login with <code>POST /Users/login</code>.</li>
+    <li>Copy the token from the login response.</li>
+    <li>Click Swagger's <strong>Authorize</strong> button.</li>
+    <li>Paste <code>Bearer {token}</code>.</li>
+    <li>Call Todo endpoints.</li>
+  </ol>
+
+  <h2>7. Common Errors</h2>
+  <table>
+    <thead>
+      <tr>
+        <th>Error</th>
+        <th>Likely reason</th>
+        <th>Fix</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td>500 when creating user</td>
+        <td>Database is missing <code>PasswordHash</code> or <code>Role</code>.</td>
+        <td>Run <code>dotnet ef database update --project EfcDataAccess --startup-project WebAPI</code>.</td>
+      </tr>
+      <tr>
+        <td>No Authorize button in Swagger</td>
+        <td>Swagger Bearer setup is missing or API was not restarted.</td>
+        <td>Restart WebAPI and hard refresh Swagger.</td>
+      </tr>
+      <tr>
+        <td>401 Unauthorized</td>
+        <td>Missing, expired, or invalid token.</td>
+        <td>Login again and paste <code>Bearer {token}</code> into Swagger.</td>
+      </tr>
+      <tr>
+        <td>404 for an existing todo</td>
+        <td>The todo belongs to another user.</td>
+        <td>Use the owning user's token, or login as Admin.</td>
+      </tr>
+    </tbody>
+  </table>
+
+  <h2>8. Final Mental Model</h2>
+  <pre>Register:
+  username + password
+  -> hash password
+  -> save UserName, PasswordHash, Role
+
+Login:
+  username + password
+  -> verify hash
+  -> return JWT
+
+Todo request:
+  frontend sends JWT
+  -> backend validates token
+  -> backend reads user id and role from claims
+  -> backend allows or blocks the action</pre>
+</body>
+</html>

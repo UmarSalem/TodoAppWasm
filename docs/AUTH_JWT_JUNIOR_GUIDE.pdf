@@ -1,0 +1,375 @@
+%PDF-1.4
+1 0 obj
+<< /Type /Catalog /Pages 2 0 R >>
+endobj
+2 0 obj
+<< /Type /Pages /Kids [ 3 0 R 5 0 R 7 0 R 9 0 R ] /Count 4 >>
+endobj
+3 0 obj
+<< /Type /Page /Parent 2 0 R /MediaBox [0 0 612 792] /Resources << /Font << /F1 11 0 R >> >> /Contents 4 0 R >>
+endobj
+4 0 obj
+<< /Length 2081 >>
+stream
+BT
+/F1 10 Tf
+50 760 Td
+13 TL
+(TodoAppWasm Auth and JWT Guide) Tj
+T*
+(Junior developer reference for tasks 034_backend_auth_user_accounts and 035_backend_jwt_authorization.) Tj
+T*
+() Tj
+T*
+(1. Big Picture) Tj
+T*
+(Task 034 teaches the backend how to register and login users safely.) Tj
+T*
+(Task 035 adds JWT tokens so the backend can protect Todo endpoints and know which user is making each request.) Tj
+T*
+() Tj
+T*
+(Before authentication, the client could send ownerId in JSON and the backend trusted it.) Tj
+T*
+(After JWT authorization, the backend reads the real logged-in user id from the token.) Tj
+T*
+() Tj
+T*
+(2. Task 034 - User Accounts and Password Hashing) Tj
+T*
+(Goal: users register with a password, but the password is never stored as plain text.) Tj
+T*
+() Tj
+T*
+(User model change:) Tj
+T*
+(  public string PasswordHash { get; set; } = string.Empty;) Tj
+T*
+() Tj
+T*
+(Why: The database stores PasswordHash instead of Password. If someone opens the database, they should not see real passwords.) Tj
+T*
+() Tj
+T*
+(UserCreationDto change:) Tj
+T*
+(  public string UserName { get; set; }) Tj
+T*
+(  public string Password { get; set; }) Tj
+T*
+() Tj
+T*
+(Why: Registration needs username and password from Swagger or the frontend.) Tj
+T*
+() Tj
+T*
+(Password hashing service:) Tj
+T*
+(  Pbkdf2PasswordHasher.Hash\(password\)) Tj
+T*
+() Tj
+T*
+(What it does:) Tj
+T*
+(  - creates a random salt) Tj
+T*
+(  - derives a secure key from the password and salt) Tj
+T*
+(  - stores algorithm, iterations, salt, and key together) Tj
+T*
+() Tj
+T*
+(Important: Hashing is one-way. We do not decrypt passwords. On login, we hash the entered password again and compare hashes.) Tj
+T*
+() Tj
+T*
+(Password verification:) Tj
+T*
+(  passwordHasher.Verify\(dto.Password, existing.PasswordHash\)) Tj
+T*
+() Tj
+T*
+(Why FixedTimeEquals is used: it avoids leaking tiny timing clues about the hash comparison.) Tj
+T*
+() Tj
+T*
+(UserLogic registration:) Tj
+T*
+(  UserName = usertoCreate.UserName) Tj
+T*
+(  PasswordHash = passwordHasher.Hash\(usertoCreate.Password\)) Tj
+T*
+(  Role = UserRoles.User) Tj
+T*
+() Tj
+T*
+ET
+endstream
+endobj
+5 0 obj
+<< /Type /Page /Parent 2 0 R /MediaBox [0 0 612 792] /Resources << /Font << /F1 11 0 R >> >> /Contents 6 0 R >>
+endobj
+6 0 obj
+<< /Length 1640 >>
+stream
+BT
+/F1 10 Tf
+50 760 Td
+13 TL
+(Why Role is set automatically: normal registration should never allow a user to choose Admin in JSON.) Tj
+T*
+() Tj
+T*
+(Login logic:) Tj
+T*
+(  if user does not exist OR password does not match:) Tj
+T*
+(      throw Invalid username or password) Tj
+T*
+() Tj
+T*
+(Why the message is general: attackers should not know whether the username or password was wrong.) Tj
+T*
+() Tj
+T*
+(Database migration for task 034:) Tj
+T*
+(  AddUserPasswordHash adds PasswordHash to Users table.) Tj
+T*
+() Tj
+T*
+(Command:) Tj
+T*
+(  dotnet ef database update --project EfcDataAccess --startup-project WebAPI) Tj
+T*
+() Tj
+T*
+(If migration is not applied, POST /Users can return 500 because the database is missing PasswordHash.) Tj
+T*
+() Tj
+T*
+(3. Task 035 - JWT Authorization) Tj
+T*
+(Goal: after login, the user receives a token. Todo endpoints require that token.) Tj
+T*
+() Tj
+T*
+(Login response DTO:) Tj
+T*
+(  Token) Tj
+T*
+(  User) Tj
+T*
+(  ExpiresAtUtc) Tj
+T*
+() Tj
+T*
+(Why: The frontend or Swagger needs the token for later protected requests.) Tj
+T*
+() Tj
+T*
+(JWT claims added:) Tj
+T*
+(  ClaimTypes.NameIdentifier = user.Id) Tj
+T*
+(  ClaimTypes.Name = user.UserName) Tj
+T*
+(  ClaimTypes.Role = user.Role) Tj
+T*
+() Tj
+T*
+(Meaning:) Tj
+T*
+(  NameIdentifier tells the backend the logged-in user id.) Tj
+T*
+(  Name tells the backend the username.) Tj
+T*
+(  Role tells the backend whether the user is User or Admin.) Tj
+T*
+() Tj
+T*
+(JWT validation in Program.cs checks:) Tj
+T*
+(  - issuer) Tj
+T*
+(  - audience) Tj
+T*
+(  - lifetime) Tj
+T*
+(  - signing key) Tj
+T*
+() Tj
+T*
+(Middleware order:) Tj
+T*
+(  app.UseAuthentication\(\);) Tj
+T*
+ET
+endstream
+endobj
+7 0 obj
+<< /Type /Page /Parent 2 0 R /MediaBox [0 0 612 792] /Resources << /Font << /F1 11 0 R >> >> /Contents 8 0 R >>
+endobj
+8 0 obj
+<< /Length 1776 >>
+stream
+BT
+/F1 10 Tf
+50 760 Td
+13 TL
+(  app.UseAuthorization\(\);) Tj
+T*
+() Tj
+T*
+(Why order matters:) Tj
+T*
+(  UseAuthentication reads the token and creates User.Claims.) Tj
+T*
+(  UseAuthorization checks if the endpoint can run.) Tj
+T*
+() Tj
+T*
+(Swagger Bearer setup:) Tj
+T*
+(  Swagger needs AddSecurityDefinition and AddSecurityRequirement to show the Authorize button.) Tj
+T*
+() Tj
+T*
+(How to paste token in Swagger:) Tj
+T*
+(  Bearer eyJhbGciOiJIUzI1NiIs...) Tj
+T*
+() Tj
+T*
+(4. Roles vs Ownership) Tj
+T*
+(Roles are account types. Examples: User, Admin.) Tj
+T*
+(Ownership is about one specific todo. Example: todo.OwnerId == loggedInUserId.) Tj
+T*
+() Tj
+T*
+(Clean rule:) Tj
+T*
+(  Admin and User are roles.) Tj
+T*
+(  Owner is not a role.) Tj
+T*
+(  Owner is checked by comparing Todo.OwnerId with the user id from the JWT token.) Tj
+T*
+() Tj
+T*
+(5. Protected Todo Endpoints) Tj
+T*
+(TodosController has [Authorize], so users must login before calling Todo endpoints.) Tj
+T*
+() Tj
+T*
+(Create Todo:) Tj
+T*
+(  int userId = GetCurrentUserId\(\);) Tj
+T*
+(  TodoCreationDto secureDto = new\(userId, dto.Title, dto.Description\);) Tj
+T*
+() Tj
+T*
+(Why: The API no longer trusts ownerId from JSON. It uses the user id from the JWT token.) Tj
+T*
+() Tj
+T*
+(List Todos:) Tj
+T*
+(  Admin can inspect broader data.) Tj
+T*
+(  Normal users only see their own todos.) Tj
+T*
+() Tj
+T*
+(Access check:) Tj
+T*
+(  If Admin OR todo.OwnerId equals current user id, allow access.) Tj
+T*
+(  Otherwise return 404.) Tj
+T*
+() Tj
+T*
+(Why 404 instead of 403: it avoids revealing that another user's todo exists.) Tj
+T*
+() Tj
+T*
+(6. How to Test in Swagger) Tj
+T*
+(1. Apply migrations so Users table has PasswordHash and Role.) Tj
+T*
+(2. Create a user with POST /Users.) Tj
+T*
+(3. Login with POST /Users/login.) Tj
+T*
+ET
+endstream
+endobj
+9 0 obj
+<< /Type /Page /Parent 2 0 R /MediaBox [0 0 612 792] /Resources << /Font << /F1 11 0 R >> >> /Contents 10 0 R >>
+endobj
+10 0 obj
+<< /Length 937 >>
+stream
+BT
+/F1 10 Tf
+50 760 Td
+13 TL
+(4. Copy the token from the login response.) Tj
+T*
+(5. Click Authorize in Swagger.) Tj
+T*
+(6. Paste Bearer {token}.) Tj
+T*
+(7. Call Todo endpoints.) Tj
+T*
+() Tj
+T*
+(7. Common Errors) Tj
+T*
+(500 when creating user: database is missing PasswordHash or Role. Run dotnet ef database update.) Tj
+T*
+(No Authorize button: Swagger Bearer setup is missing or WebAPI was not restarted.) Tj
+T*
+(401 Unauthorized: missing, expired, or invalid token. Login again and paste Bearer token.) Tj
+T*
+(404 for existing todo: the todo may belong to another user. Use owner token or Admin token.) Tj
+T*
+() Tj
+T*
+(8. Final Mental Model) Tj
+T*
+(Register: username + password -> hash password -> save UserName, PasswordHash, Role) Tj
+T*
+(Login: username + password -> verify hash -> return JWT) Tj
+T*
+(Todo request: frontend sends JWT -> backend validates token -> backend reads user id and role -> allows or blocks action) Tj
+T*
+ET
+endstream
+endobj
+11 0 obj
+<< /Type /Font /Subtype /Type1 /BaseFont /Helvetica >>
+endobj
+xref
+0 12
+0000000000 65535 f 
+0000000009 00000 n 
+0000000058 00000 n 
+0000000135 00000 n 
+0000000262 00000 n 
+0000002395 00000 n 
+0000002522 00000 n 
+0000004214 00000 n 
+0000004341 00000 n 
+0000006169 00000 n 
+0000006297 00000 n 
+0000007286 00000 n 
+trailer
+<< /Size 12 /Root 1 0 R >>
+startxref
+7357
+%%EOF

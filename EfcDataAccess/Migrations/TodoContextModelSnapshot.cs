@@ -55,6 +55,10 @@ namespace EfcDataAccess.Migrations
                         .IsRequired()
                         .HasColumnType("TEXT");
 
+                    b.Property<string>("Role")
+                        .IsRequired()
+                        .HasColumnType("TEXT");
+
                     b.Property<string>("UserName")
                         .IsRequired()
                         .HasColumnType("TEXT");
