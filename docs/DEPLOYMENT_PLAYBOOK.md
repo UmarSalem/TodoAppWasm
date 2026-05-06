@@ -34,6 +34,24 @@ This repo is now prepared for option #1 (front-end on GitHub Pages + configurabl
   - `BlazorApp/wwwroot/appsettings.json`
   - `BlazorApp/wwwroot/appsettings.Production.json`
 - Backend CORS now supports explicit origin allowlist via `AllowedOrigins` config in `WebAPI`.
+- Backend Dockerfile targets Linux containers for hosts such as Render.
+- Backend database path is configurable with `ConnectionStrings__TodoDatabase`.
+- Backend exposes `/health` so a host can check whether the API is running.
+
+## Back-end container settings
+
+The WebAPI container listens on port `8080`.
+
+For a first hosted demo with SQLite, set:
+
+```bash
+ConnectionStrings__TodoDatabase=Data Source=/app/data/Todo.db
+AllowedOrigins=https://<your-username>.github.io
+```
+
+This SQLite file is useful only for a simple demo. On many free container hosts, local files are not permanent after restart or redeploy. For real user accounts and authentication, move the deployed database to PostgreSQL in the next backend task.
+
+When PostgreSQL is added later, the same configuration idea stays the same: the connection string comes from the hosting platform's environment variables, not from source code.
 
 ## Step-by-step rollout
 

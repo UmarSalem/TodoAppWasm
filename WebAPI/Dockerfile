@@ -1,13 +1,11 @@
-# See https://aka.ms/customizecontainer to learn how to customize your debug container and how Visual Studio uses this Dockerfile to build your images for faster debugging.
-
-# Depending on the operating system of the host machines(s) that will build or run the containers, the image specified in the FROM statement may need to be changed.
-# For more information, please see https://aka.ms/containercompat
-
-# This stage is used when running from VS in fast mode (Default for Debug configuration)
+# Linux container used by hosted platforms such as Render.
+# The API listens on port 8080 inside the container; the host maps public HTTPS traffic to this port.
 FROM mcr.microsoft.com/dotnet/aspnet:8.0 AS base
 WORKDIR /app
+RUN mkdir -p /app/data
 EXPOSE 8080
-EXPOSE 8081
+ENV ASPNETCORE_URLS=http://+:8080
+ENV ConnectionStrings__TodoDatabase="Data Source=/app/data/Todo.db"
 
 
 # This stage is used to build the service project
@@ -16,6 +14,7 @@ ARG BUILD_CONFIGURATION=Release
 WORKDIR /src
 COPY ["WebAPI/WebAPI.csproj", "WebAPI/"]
 COPY ["Application/Application.csproj", "Application/"]
+COPY ["EfcDataAccess/EfcDataAccess.csproj", "EfcDataAccess/"]
 COPY ["FileData/FileData.csproj", "FileData/"]
 COPY ["Shared/Shared.csproj", "Shared/"]
 RUN dotnet restore "WebAPI/WebAPI.csproj"

@@ -32,7 +32,16 @@ Configure the API with explicit allowed origins:
 AllowedOrigins=https://<your-username>.github.io
 ```
 
+Configure the deployed database path or connection string through environment variables:
+
+```bash
+ConnectionStrings__TodoDatabase=Data Source=/app/data/Todo.db
+```
+
+The API also exposes `/health` for deployment health checks.
+
 ## Documentation
 
 - Portfolio strategy: [`docs/PORTFOLIO_SHOWCASE_GUIDE.md`](docs/PORTFOLIO_SHOWCASE_GUIDE.md)
 - Deployment details and Vercel clarification: [`docs/DEPLOYMENT_PLAYBOOK.md`](docs/DEPLOYMENT_PLAYBOOK.md)
+- Project roadmap and next tasks: [`docs/PROJECT_ROADMAP.md`](docs/PROJECT_ROADMAP.md)
