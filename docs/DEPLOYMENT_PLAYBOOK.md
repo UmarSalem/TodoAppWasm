@@ -1,42 +1,50 @@
-# Deployment Playbook (GitHub Pages Front-end + Vercel Discussion)
+# Deployment Playbook (GitHub Pages Front-end + Render Back-end)
 
 ## Your target
 
-- Front-end: **GitHub Pages** ✅
-- Back-end: **Vercel** (requested)
+- Front-end: **GitHub Pages**
+- Back-end: **Render Web Service**
+- Container image registry: **GitHub Container Registry**
+- Database: **hosted PostgreSQL**, for example Neon or Supabase
 
-## Important technical clarification
+## Hosting decision
 
-For a .NET ASP.NET Core Web API, Vercel is usually **not** the simplest/official runtime target.
+Render is the selected backend host for this project.
 
-Vercel's primary backend runtimes are serverless-focused (Node.js, Python, Go, Rust, etc.), so deploying a full ASP.NET Core API directly is not the standard path.
+Why Render:
 
-### What this means for you
+- It can run a Dockerized ASP.NET Core WebAPI.
+- It can deploy prebuilt images from GitHub Container Registry.
+- It has a free web service tier suitable for a portfolio/demo project.
+- It keeps the backend deployment path close to a real professional workflow.
 
-You have two realistic options:
+Vercel was considered, but it is not the chosen backend host because Vercel does not deploy Docker images directly. Vercel remains a good platform for frontend/serverless projects, but not for this backend container plan.
 
-1. **Recommended (fastest + least risk):**
-   - Keep front-end on GitHub Pages.
-   - Deploy .NET API on Render/Fly/Railway/Azure free-tier.
-   - Point `ApiBase` to that public API URL.
+## Deployment architecture
 
-2. **Vercel-only backend path (higher effort):**
-   - Rebuild API endpoints as Vercel Functions in a supported runtime.
-   - This is effectively a backend rewrite, not simple hosting.
+```text
+GitHub repository
+  -> GitHub Actions builds and tests the solution
+  -> GitHub Actions builds the WebAPI Docker image
+  -> GitHub Actions pushes the image to GitHub Container Registry
+  -> Render deploys the image as a Web Service
+  -> Blazor WebAssembly frontend calls the Render API URL
+```
 
 ## Implemented in this repository
 
-This repo is now prepared for option #1 (front-end on GitHub Pages + configurable API URL):
+This repo is prepared for GitHub Pages frontend hosting and Render backend hosting:
 
 - GitHub Pages workflow: `.github/workflows/blazor-github-pages.yml`
+- Development container workflow: `.github/workflows/development-ci.yml`
 - Production API URL injection via GitHub secret: `API_BASE_URL`
 - Blazor app config files:
   - `BlazorApp/wwwroot/appsettings.json`
   - `BlazorApp/wwwroot/appsettings.Production.json`
-- Backend CORS now supports explicit origin allowlist via `AllowedOrigins` config in `WebAPI`.
+- Backend CORS supports explicit origin allowlist via `AllowedOrigins` config in `WebAPI`.
 - Backend Dockerfile targets Linux containers for hosts such as Render.
 - Backend database path is configurable with `ConnectionStrings__TodoDatabase`.
-- Backend exposes `/health` so a host can check whether the API is running.
+- Backend exposes `/health` so Render can check whether the API is running.
 
 ## Back-end container settings
 
@@ -45,44 +53,61 @@ The WebAPI container listens on port `8080`.
 For a first hosted demo with SQLite, set:
 
 ```bash
+DatabaseProvider=Sqlite
 ConnectionStrings__TodoDatabase=Data Source=/app/data/Todo.db
 AllowedOrigins=https://<your-username>.github.io
 ```
 
-This SQLite file is useful only for a simple demo. On many free container hosts, local files are not permanent after restart or redeploy. For real user accounts and authentication, move the deployed database to PostgreSQL in the next backend task.
+This SQLite file is useful only for a simple demo. On many free container hosts, local files are not permanent after restart or redeploy. For real user accounts and authentication, move the deployed database to PostgreSQL.
 
-When PostgreSQL is added later, the same configuration idea stays the same: the connection string comes from the hosting platform's environment variables, not from source code.
+For a hosted PostgreSQL database, set:
+
+```bash
+DatabaseProvider=Postgres
+ConnectionStrings__TodoDatabase=<connection-string-from-your-database-host>
+AllowedOrigins=https://<your-username>.github.io
+```
+
+Use the exact PostgreSQL connection string from the database host, for example Supabase, Neon, Render Postgres, or another provider. Keep that value in the hosting platform's environment variables, not in source code.
+
+The current migration was generated for SQLite. Before using a fresh hosted PostgreSQL database, generate provider-appropriate EF Core migrations from the PostgreSQL configuration.
 
 ## Step-by-step rollout
 
-### 1) Enable GitHub Pages deployment
+### 1. Enable GitHub Pages deployment
 
 1. Push to `main`.
 2. In repo settings, enable **GitHub Pages** using **GitHub Actions** source.
-3. Add secret `API_BASE_URL` with your public API URL.
+3. Add secret `API_BASE_URL` with your public Render API URL.
 
-### 2) Deploy API
+### 2. Publish the backend image
 
-If you still want pure Vercel backend, expect rewrite work.
-If you want fastest completion, deploy current `WebAPI` container on a .NET-friendly host.
+Use GitHub Actions to build the `WebAPI` Docker image and push it to GitHub Container Registry.
 
-### 3) Configure CORS for production
+### 3. Deploy API on Render
+
+Create a Render Web Service from the Docker image published to GitHub Container Registry. Configure the environment variables from the back-end container settings section.
+
+### 4. Configure CORS for production
 
 Set backend config:
 
-- `AllowedOrigins=https://<your-username>.github.io`
+```bash
+AllowedOrigins=https://<your-username>.github.io
+```
 
-If using project pages path, origin remains same host (`https://<your-username>.github.io`).
+If using a GitHub Pages project path, the origin remains the same host: `https://<your-username>.github.io`.
 
-### 4) Verify recruiter experience
+### 5. Verify recruiter experience
 
 - Open GitHub Pages link.
 - Create/read/update/delete one todo.
-- Confirm no CORS or mixed-content (HTTP/HTTPS) errors.
+- Confirm no CORS or mixed-content HTTP/HTTPS errors.
+- Expect a cold-start delay on Render free tier if the API has been idle.
 
 ## What I recommend for your portfolio deadline
 
-- Use GitHub Pages now.
-- Use a free .NET-friendly API host now.
-- Mention in README: "Front-end hosted on GitHub Pages, API hosted on free-tier backend (may cold start)."
-- Keep Vercel as optional future experiment only if you want to rewrite backend functions.
+- Use GitHub Pages for the Blazor frontend.
+- Use Render for the backend API container.
+- Use Neon or Supabase for hosted PostgreSQL when auth/user data becomes important.
+- Mention in README: "Front-end hosted on GitHub Pages, API hosted on Render free tier, so the first request may cold start."
