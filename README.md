@@ -20,9 +20,17 @@ Vercel was considered for the backend, but Render was selected because this WebA
 ## Front-end deployment (GitHub Pages)
 
 1. Add repository secret:
-   - `API_BASE_URL=https://<your-public-api-domain>/`
+   - `API_BASE_URL=https://<your-render-api-domain>/`
 2. Push to `main`.
 3. Workflow publishes Blazor app to GitHub Pages.
+
+Local Blazor development uses:
+
+```bash
+BlazorApp/wwwroot/appsettings.json
+```
+
+Production GitHub Pages uses the `API_BASE_URL` secret to generate `appsettings.Production.json`.
 
 ## Back-end configuration for cross-origin calls
 

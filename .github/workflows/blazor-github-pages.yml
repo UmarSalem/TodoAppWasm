@@ -36,14 +36,16 @@ jobs:
           REPO_NAME: ${{ github.event.repository.name }}
           API_BASE_URL: ${{ secrets.API_BASE_URL }}
         run: |
+          if [ -z "$API_BASE_URL" ]; then
+            echo "API_BASE_URL secret is required. Set it to your Render API URL, for example https://your-api.onrender.com/"
+            exit 1
+          fi
           sed -i "s|<base href=\"/\" />|<base href=\"/$REPO_NAME/\" />|" BlazorApp/wwwroot/index.html
-          if [ -n "$API_BASE_URL" ]; then
-            cat > BlazorApp/wwwroot/appsettings.Production.json <<JSON
+          cat > BlazorApp/wwwroot/appsettings.Production.json <<JSON
           {
             "ApiBase": "$API_BASE_URL"
           }
           JSON
-          fi
 
       - name: Publish Blazor WASM
         run: dotnet publish BlazorApp/BlazorApp.csproj -c Release -o release
