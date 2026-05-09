@@ -16,6 +16,9 @@ namespace Shared.Models
         [Required]
         public string UserName { get; set; }
 
+        [Required]
+        public string PasswordHash { get; set; } = string.Empty;
+
         //public List<Todo> Todos { get; set; }
 
         //[JsonIgnore]

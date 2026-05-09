@@ -16,6 +16,8 @@ namespace Tests;
 /// </summary>
 public class UserLogicTests
 {
+    private static readonly Pbkdf2PasswordHasher PasswordHasher = new();
+
     /// <summary>
     /// Simple in-memory implementation of <see cref="IUserDao"/> used for testing.
     /// </summary>
@@ -73,12 +75,14 @@ public class UserLogicTests
     public async Task CreateAsync_CreatesUser_WhenUsernameAvailable()
     {
         var dao = new FakeUserDao();
-        var logic = new UserLogic(dao);
-        var dto = new UserCreationDto("john");
+        var logic = new UserLogic(dao, PasswordHasher);
+        var dto = new UserCreationDto("john", "Password123!");
 
         User created = await logic.CreateAsync(dto);
 
         Assert.Equal("john", created.UserName);
+        Assert.NotEqual("Password123!", created.PasswordHash);
+        Assert.True(PasswordHasher.Verify("Password123!", created.PasswordHash));
         Assert.Single(dao.Users);
     }
 
@@ -90,8 +94,8 @@ public class UserLogicTests
     {
         var dao = new FakeUserDao();
         dao.Users.Add(new User { UserName = "john" });
-        var logic = new UserLogic(dao);
-        var dto = new UserCreationDto("john");
+        var logic = new UserLogic(dao, PasswordHasher);
+        var dto = new UserCreationDto("john", "Password123!");
 
         await Assert.ThrowsAsync<ConflictException>(() => logic.CreateAsync(dto));
     }
@@ -103,8 +107,8 @@ public class UserLogicTests
     public async Task CreateAsync_Throws_WhenUsernameTooShort()
     {
         var dao = new FakeUserDao();
-        var logic = new UserLogic(dao);
-        var dto = new UserCreationDto("ab");
+        var logic = new UserLogic(dao, PasswordHasher);
+        var dto = new UserCreationDto("ab", "Password123!");
 
         var ex = await Assert.ThrowsAsync<AppValidationException>(() => logic.CreateAsync(dto));
         Assert.Equal("Username must be at least 3 characters!", ex.Message);
@@ -113,8 +117,8 @@ public class UserLogicTests
     [Fact]
     public async Task CreateAsync_Throws_WhenUsernameIsEmpty()
     {
-        var logic = new UserLogic(new FakeUserDao());
-        var dto = new UserCreationDto("");
+        var logic = new UserLogic(new FakeUserDao(), PasswordHasher);
+        var dto = new UserCreationDto("", "Password123!");
 
         var ex = await Assert.ThrowsAsync<AppValidationException>(() => logic.CreateAsync(dto));
         Assert.Equal("Username is required.", ex.Message);
@@ -123,8 +127,8 @@ public class UserLogicTests
     [Fact]
     public async Task CreateAsync_Throws_WhenUsernameIsTooLong()
     {
-        var logic = new UserLogic(new FakeUserDao());
-        var dto = new UserCreationDto("abcdefghijklmnop");
+        var logic = new UserLogic(new FakeUserDao(), PasswordHasher);
+        var dto = new UserCreationDto("abcdefghijklmnop", "Password123!");
 
         var ex = await Assert.ThrowsAsync<AppValidationException>(() => logic.CreateAsync(dto));
         Assert.Equal("Username must be less than 16 characters!", ex.Message);
@@ -136,7 +140,7 @@ public class UserLogicTests
         var dao = new FakeUserDao();
         dao.Users.Add(new User { Id = 1, UserName = "john" });
         dao.Users.Add(new User { Id = 2, UserName = "sarah" });
-        var logic = new UserLogic(dao);
+        var logic = new UserLogic(dao, PasswordHasher);
 
         IEnumerable<User> users = await logic.GetAsync(new SearchUserParametersDto());
 
@@ -150,7 +154,7 @@ public class UserLogicTests
         dao.Users.Add(new User { Id = 1, UserName = "john" });
         dao.Users.Add(new User { Id = 2, UserName = "sarah" });
         dao.Users.Add(new User { Id = 3, UserName = "joanna" });
-        var logic = new UserLogic(dao);
+        var logic = new UserLogic(dao, PasswordHasher);
 
         IEnumerable<User> users = await logic.GetAsync(new SearchUserParametersDto("jo"));
 
@@ -163,11 +167,57 @@ public class UserLogicTests
         var dao = new FakeUserDao();
         dao.Users.Add(new User { Id = 1, UserName = "john" });
         dao.Users.Add(new User { Id = 2, UserName = "sarah" });
-        var logic = new UserLogic(dao);
+        var logic = new UserLogic(dao, PasswordHasher);
 
         IEnumerable<User> users = await logic.GetAsync(new SearchUserParametersDto(userId: 2));
 
         User user = Assert.Single(users);
         Assert.Equal("sarah", user.UserName);
+    }
+
+    [Fact]
+    public async Task CreateAsync_Throws_WhenPasswordTooShort()
+    {
+        var logic = new UserLogic(new FakeUserDao(), PasswordHasher);
+        var dto = new UserCreationDto("john", "short");
+
+        var ex = await Assert.ThrowsAsync<AppValidationException>(() => logic.CreateAsync(dto));
+        Assert.Equal("Password must be at least 8 characters!", ex.Message);
+    }
+
+    [Fact]
+    public async Task LoginAsync_ReturnsUser_WhenPasswordMatches()
+    {
+        var dao = new FakeUserDao();
+        dao.Users.Add(new User
+        {
+            Id = 1,
+            UserName = "john",
+            PasswordHash = PasswordHasher.Hash("Password123!")
+        });
+        var logic = new UserLogic(dao, PasswordHasher);
+
+        User user = await logic.LoginAsync(new UserLoginDto("john", "Password123!"));
+
+        Assert.Equal(1, user.Id);
+        Assert.Equal("john", user.UserName);
+    }
+
+    [Fact]
+    public async Task LoginAsync_Throws_WhenPasswordDoesNotMatch()
+    {
+        var dao = new FakeUserDao();
+        dao.Users.Add(new User
+        {
+            Id = 1,
+            UserName = "john",
+            PasswordHash = PasswordHasher.Hash("Password123!")
+        });
+        var logic = new UserLogic(dao, PasswordHasher);
+
+        var ex = await Assert.ThrowsAsync<AppValidationException>(
+            () => logic.LoginAsync(new UserLoginDto("john", "WrongPassword123!")));
+
+        Assert.Equal("Invalid username or password.", ex.Message);
     }
 }

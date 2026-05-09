@@ -11,6 +11,11 @@
         <input type="text" @bind="username" @bind:event="oninput" />
     </div>
 
+    <div class="form-group field">
+        <label>Password:</label>
+        <input type="password" @bind="password" @bind:event="oninput" />
+    </div>
+
     @if (!string.IsNullOrEmpty(resultMsg))
     {
         <div style="color: @color">@resultMsg</div>
@@ -19,7 +24,7 @@
     <div class="button-row">
         <button class="acceptbtn"
                 @onclick="Create"
-                disabled="@string.IsNullOrWhiteSpace(username)">
+                disabled="@(string.IsNullOrWhiteSpace(username) || string.IsNullOrWhiteSpace(password))">
             Create
         </button>
     </div>
@@ -27,6 +32,7 @@
 
 @code {
     private string username = "";
+    private string password = "";
     private string resultMsg = "";
     private string color = "";
 
@@ -36,11 +42,12 @@
 
         try
         {
-            var dto = new UserCreationDto(username);
+            var dto = new UserCreationDto(username, password);
             await userService.Create(dto);
 
             // Reset the form after the API confirms that the user was created.
             username = "";
+            password = "";
             resultMsg = "User successfully created";
             color = "green";
         }

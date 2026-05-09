@@ -3,20 +3,16 @@ using System.Text.Json.Serialization;
 
 namespace Shared.DTOs
 {
-    public class UserCreationDto
+    public class UserLoginDto
     {
         [Required]
-        [MinLength(3)]
-        [MaxLength(15)]
         public string UserName { get; set; }
 
         [Required]
-        [MinLength(8)]
-        [MaxLength(100)]
         public string Password { get; set; }
 
         [JsonConstructor]
-        public UserCreationDto(string userName, string password)
+        public UserLoginDto(string userName, string password)
         {
             UserName = userName;
             Password = password;

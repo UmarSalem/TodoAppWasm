@@ -22,6 +22,7 @@ builder.Services.AddScoped<IUserDao, UserEfcDao>();
 builder.Services.AddScoped<IUserLogic, UserLogic>();
 builder.Services.AddScoped<ITodoLogic, TodoLogic>();
 builder.Services.AddScoped<ITodoDao, TodoEfcDao>();
+builder.Services.AddSingleton<IPasswordHasher, Pbkdf2PasswordHasher>();
 
 var databaseProvider = builder.Configuration.GetValue<string>("DatabaseProvider") ?? "Sqlite";
 var todoDatabaseConnectionString = builder.Configuration.GetConnectionString("TodoDatabase")
