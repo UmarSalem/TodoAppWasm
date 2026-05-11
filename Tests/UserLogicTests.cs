@@ -6,6 +6,7 @@ using Xunit;
 using Application.Exceptions;
 using Application.LogicImplementations;
 using Application.DAO_interfaces;
+using Shared.Auth;
 using Shared.Models;
 using Shared.DTOs;
 
@@ -81,6 +82,7 @@ public class UserLogicTests
         User created = await logic.CreateAsync(dto);
 
         Assert.Equal("john", created.UserName);
+        Assert.Equal(UserRoles.User, created.Role);
         Assert.NotEqual("Password123!", created.PasswordHash);
         Assert.True(PasswordHasher.Verify("Password123!", created.PasswordHash));
         Assert.Single(dao.Users);

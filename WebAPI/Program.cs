@@ -5,15 +5,49 @@ using EfcDataAccess.DAOs;
 using FileData;
 using Application.DAOInterfaces;
 using EfcDataAccess;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.HttpOverrides;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.OpenApi.Models;
+using Microsoft.IdentityModel.Tokens;
+using Shared.Auth;
+using System.Text;
+using WebAPI.Auth;
 using WebAPI.Middleware;
 
 var builder = WebApplication.CreateBuilder(args);
 
 builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();
-builder.Services.AddSwaggerGen();
+builder.Services.AddSwaggerGen(options =>
+{
+    // Swagger needs this security definition before it can show the Authorize button.
+    // The value users paste is: Bearer <JWT token from /Users/login>.
+    options.AddSecurityDefinition("Bearer", new OpenApiSecurityScheme
+    {
+        Name = "Authorization",
+        Type = SecuritySchemeType.Http,
+        Scheme = "bearer",
+        BearerFormat = "JWT",
+        In = ParameterLocation.Header,
+        Description = "Paste your JWT token here. Swagger will send it as: Bearer {token}"
+    });
+
+    options.AddSecurityRequirement(new OpenApiSecurityRequirement
+    {
+        {
+            new OpenApiSecurityScheme
+            {
+                Reference = new OpenApiReference
+                {
+                    Type = ReferenceType.SecurityScheme,
+                    Id = "Bearer"
+                }
+            },
+            Array.Empty<string>()
+        }
+    });
+});
 
 builder.Services.AddScoped<FileContext>();
 // Register interfaces against concrete classes so controllers depend on abstractions,
@@ -23,6 +57,33 @@ builder.Services.AddScoped<IUserLogic, UserLogic>();
 builder.Services.AddScoped<ITodoLogic, TodoLogic>();
 builder.Services.AddScoped<ITodoDao, TodoEfcDao>();
 builder.Services.AddSingleton<IPasswordHasher, Pbkdf2PasswordHasher>();
+builder.Services.AddScoped<IJwtTokenService, JwtTokenService>();
+
+string jwtKey = builder.Configuration["Jwt:Key"]
+    ?? throw new InvalidOperationException("Jwt:Key is required.");
+
+// Authentication checks the JWT signature and turns a valid token into User.Claims.
+// Authorization then uses those claims to decide whether an endpoint can run.
+builder.Services
+    .AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
+    .AddJwtBearer(options =>
+    {
+        options.TokenValidationParameters = new TokenValidationParameters
+        {
+            ValidateIssuer = true,
+            ValidateAudience = true,
+            ValidateLifetime = true,
+            ValidateIssuerSigningKey = true,
+            ValidIssuer = builder.Configuration["Jwt:Issuer"],
+            ValidAudience = builder.Configuration["Jwt:Audience"],
+            IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(jwtKey))
+        };
+    });
+
+builder.Services.AddAuthorization(options =>
+{
+    options.AddPolicy("AdminOnly", policy => policy.RequireRole(UserRoles.Admin));
+});
 
 var databaseProvider = builder.Configuration.GetValue<string>("DatabaseProvider") ?? "Sqlite";
 var todoDatabaseConnectionString = builder.Configuration.GetConnectionString("TodoDatabase")
@@ -96,6 +157,7 @@ app.UseSwagger();
 app.UseSwaggerUI();
 
 app.UseHttpsRedirection();
+app.UseAuthentication();
 app.UseAuthorization();
 
 // Hosting platforms can call this endpoint to confirm the API process is alive.

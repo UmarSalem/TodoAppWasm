@@ -1,11 +1,16 @@
+using Application.Exceptions;
 using Application.LogicInterfaces;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using Shared.Auth;
 using Shared.DTOs;
 using Shared.Models;
+using System.Security.Claims;
 
 namespace WebAPI.Controllers
 {
     [ApiController]
+    [Authorize]
     [Route("[controller]")]
     public class TodosController : ControllerBase
     {
@@ -23,7 +28,12 @@ namespace WebAPI.Controllers
         [ProducesResponseType(typeof(ApiErrorDto), StatusCodes.Status500InternalServerError)]
         public async Task<ActionResult<TodoReadDto>> CreateAsync([FromBody] TodoCreationDto dto)
         {
-            Todo created = await todoLogic.CreateAsync(dto);
+            int userId = GetCurrentUserId();
+
+            // The client may send ownerId, but after JWT login the server trusts the token.
+            // This prevents one user from creating todos for another user by changing JSON.
+            TodoCreationDto secureDto = new(userId, dto.Title, dto.Description);
+            Todo created = await todoLogic.CreateAsync(secureDto);
 
             // Return a read DTO instead of the EF/domain model so the API contract stays stable
             // even if the internal database model changes later.
@@ -47,7 +57,14 @@ namespace WebAPI.Controllers
             [FromQuery] string? titleContains,
             [FromQuery] string? descriptionContains)
         {
-            SearchTodoParametersDto parameters = new(userName, userId, completedStatus, titleContains, descriptionContains);
+            bool isAdmin = User.IsInRole(UserRoles.Admin);
+            int currentUserId = GetCurrentUserId();
+
+            // Admins can inspect broader data. Normal users are always limited to their own todos.
+            SearchTodoParametersDto parameters = isAdmin
+                ? new(userName, userId, completedStatus, titleContains, descriptionContains)
+                : new(null, currentUserId, completedStatus, titleContains, descriptionContains);
+
             var todos = await todoLogic.GetAsync(parameters);
 
             // Controllers translate application results into API responses; filtering and
@@ -70,6 +87,16 @@ namespace WebAPI.Controllers
         [ProducesResponseType(typeof(ApiErrorDto), StatusCodes.Status500InternalServerError)]
         public async Task<ActionResult> UpdateAsync([FromBody] TodoUpdateDto dto)
         {
+            TodoReadDto existing = await todoLogic.GetByIdAsync(dto.Id);
+            EnsureCanAccessTodo(existing);
+
+            if (!User.IsInRole(UserRoles.Admin))
+            {
+                // Normal users cannot transfer todos to another account. Ownership comes
+                // from the token, not from the JSON body.
+                dto.OwnerId = null;
+            }
+
             await todoLogic.UpdateAsync(dto);
             return NoContent();
         }
@@ -81,6 +108,9 @@ namespace WebAPI.Controllers
         [ProducesResponseType(typeof(ApiErrorDto), StatusCodes.Status500InternalServerError)]
         public async Task<ActionResult> DeleteAsync([FromRoute] int id)
         {
+            TodoReadDto existing = await todoLogic.GetByIdAsync(id);
+            EnsureCanAccessTodo(existing);
+
             await todoLogic.DeleteAsync(id);
 
             // DELETE has no response body on success; the status code is enough for the client.
@@ -96,7 +126,32 @@ namespace WebAPI.Controllers
             // The middleware handles NotFoundException, so this method can stay focused
             // on the happy path: ask the application layer for one todo and return it.
             TodoReadDto result = await todoLogic.GetByIdAsync(id);
+            EnsureCanAccessTodo(result);
             return Ok(result);
+        }
+
+        private int GetCurrentUserId()
+        {
+            string? userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
+
+            if (!int.TryParse(userId, out int parsedUserId))
+            {
+                throw new AppValidationException("Authenticated user id is missing from the token.");
+            }
+
+            return parsedUserId;
+        }
+
+        private void EnsureCanAccessTodo(TodoReadDto todo)
+        {
+            if (User.IsInRole(UserRoles.Admin) || todo.OwnerId == GetCurrentUserId())
+            {
+                return;
+            }
+
+            // Return not found instead of forbidden so users cannot probe whether another
+            // user's todo id exists.
+            throw new NotFoundException($"Todo with id {todo.Id} was not found.");
         }
     }
 }

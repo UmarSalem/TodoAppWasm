@@ -2,6 +2,7 @@ using Application.LogicInterfaces;
 using Microsoft.AspNetCore.Mvc;
 using Shared.DTOs;
 using Shared.Models;
+using WebAPI.Auth;
 
 namespace WebAPI.Controllers
 {
@@ -10,10 +11,12 @@ namespace WebAPI.Controllers
     public class UsersController : ControllerBase
     {
         private readonly IUserLogic userLogic;
+        private readonly IJwtTokenService jwtTokenService;
 
-        public UsersController(IUserLogic userLogic)
+        public UsersController(IUserLogic userLogic, IJwtTokenService jwtTokenService)
         {
             this.userLogic = userLogic;
+            this.jwtTokenService = jwtTokenService;
         }
 
         [HttpPost]
@@ -29,15 +32,16 @@ namespace WebAPI.Controllers
         }
 
         [HttpPost("login")]
-        [ProducesResponseType(typeof(UserReadDto), StatusCodes.Status200OK)]
+        [ProducesResponseType(typeof(UserLoginResponseDto), StatusCodes.Status200OK)]
         [ProducesResponseType(typeof(ApiErrorDto), StatusCodes.Status400BadRequest)]
         [ProducesResponseType(typeof(ApiErrorDto), StatusCodes.Status500InternalServerError)]
-        public async Task<ActionResult<UserReadDto>> LoginAsync([FromBody] UserLoginDto dto)
+        public async Task<ActionResult<UserLoginResponseDto>> LoginAsync([FromBody] UserLoginDto dto)
         {
             User user = await userLogic.LoginAsync(dto);
 
-            // Login returns safe account data only. The password hash stays inside the server.
-            UserReadDto response = new(user.Id, user.UserName);
+            // Login returns a signed JWT. The client sends this token on later API calls,
+            // and the server reads the user id/role from the token instead of trusting form data.
+            UserLoginResponseDto response = jwtTokenService.CreateLoginResponse(user);
             return Ok(response);
         }
 
@@ -50,7 +54,7 @@ namespace WebAPI.Controllers
         {
             SearchUserParametersDto parameters = new(usernameContains, userId);
             IEnumerable<User> users = await userLogic.GetAsync(parameters);
-            IEnumerable<UserReadDto> response = users.Select(user => new UserReadDto(user.Id, user.UserName));
+            IEnumerable<UserReadDto> response = users.Select(user => new UserReadDto(user.Id, user.UserName, user.Role));
             return Ok(response);
         }
     }
