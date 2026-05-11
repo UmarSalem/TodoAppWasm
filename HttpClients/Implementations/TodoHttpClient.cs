@@ -7,7 +7,6 @@ using System.Text.Json;
 using System.Threading.Tasks;
 using HttpClients.ClientInterfaces;
 using Shared.DTOs;
-using Shared.Models;
 
 namespace HttpClients.Implementations
 {
@@ -27,7 +26,7 @@ namespace HttpClients.Implementations
             }
         }
 
-        public async Task<ICollection<Todo>> GetAsync(string? userName, int? userId, bool? completedStatus, string? titleContains, string? descriptionContains = null)
+        public async Task<ICollection<TodoReadDto>> GetAsync(string? userName, int? userId, bool? completedStatus, string? titleContains, string? descriptionContains = null)
         {
             string query = ConstructQuery(userName, userId, completedStatus, titleContains, descriptionContains);
 
@@ -38,7 +37,9 @@ namespace HttpClients.Implementations
                 throw new Exception(content);
             }
 
-            ICollection<Todo> todos = JsonSerializer.Deserialize<ICollection<Todo>>(content, new JsonSerializerOptions
+            // The API returns TodoReadDto objects, not EF Core Todo entities.
+            // DTOs are easier for Blazor to deserialize and keep database rules out of the UI.
+            ICollection<TodoReadDto> todos = JsonSerializer.Deserialize<ICollection<TodoReadDto>>(content, new JsonSerializerOptions
             {
                 PropertyNameCaseInsensitive = true
             })!;
@@ -112,7 +113,7 @@ namespace HttpClients.Implementations
 
         public async Task DeleteAsync(int id)
         {
-            HttpResponseMessage response = await client.DeleteAsync($"Todos/{id}");
+            HttpResponseMessage response = await client.DeleteAsync($"/todos/{id}");
             if (!response.IsSuccessStatusCode)
             {
                 string content = await response.Content.ReadAsStringAsync();

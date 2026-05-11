@@ -1,6 +1,6 @@
-﻿@page "/ViewTodos"
+@page "/ViewTodos"
+@attribute [Authorize]
 @inject NavigationManager navMgr
-@using Shared.Models
 @using HttpClients.ClientInterfaces
 @using UIComponents
 @using Shared.DTOs
@@ -12,14 +12,6 @@
         <img src="icons/@(doShowFilters ? "clear_" : "")funnel.png" class="funnel" @onclick="@(() => doShowFilters = !doShowFilters)" alt="Funnel" />
         @if (doShowFilters)
         {
-            <div class="filter">
-                <label>Username:</label>
-                <input type="text" @bind="usernameFilter" />
-            </div>
-            <div class="filter">
-                <label>User id:</label>
-                <input type="number" @bind="userIdFilter" />
-            </div>
             <div class="filter">
                 <label>Is completed?</label>
                 <select @bind="completedStatusFilter">
@@ -65,10 +57,8 @@ else
             {
                 <tr>
                     <td>@item.Id</td>
-                    <td>@item.Owner.UserName</td>
+                    <td>@item.OwnerId</td>
                     <td>@item.Title</td>
-                    @* <td>@item.IsCompleted</td> *@
-                    cc
                     <td>
                         <FancyCheckBox IsCompleted="@item.IsCompleted" OnChange="@((status) => CompleteTodo(item, status))" />
                     </td>
@@ -76,8 +66,8 @@ else
                         <img src="icons/edit.gif" class="funnel" @onclick="@(() => navMgr.NavigateTo($"/EditTodo/{item.Id}"))" />
                     </td>
                     <td>
-                    <label @onclick="@(() => RemoveTodo(item.Id))" style="cursor:pointer; color: red; font-weight: bold">
-                        &#x2717;
+                        <label @onclick="@(() => RemoveTodo(item.Id))" style="cursor:pointer; color: red; font-weight: bold">
+                            &#x2717;
                         </label>
                     </td>
                 </tr>
@@ -91,12 +81,10 @@ else
 }
 
 @code {
-    private IEnumerable<Todo>? todos;
+    private IEnumerable<TodoReadDto>? todos;
     private string msg = "";
     private bool doShowFilters = false;
 
-    private string? usernameFilter;
-    private int? userIdFilter;
     private string? completedStatusFilter;
     private string? titleContainsFilter;
 
@@ -109,7 +97,10 @@ else
             {
                 completedFilterValue = bool.Parse(completedStatusFilter);
             }
-            todos = await todoService.GetAsync(usernameFilter, userIdFilter, completedFilterValue, titleContainsFilter);
+
+            // The backend reads the logged-in user from the JWT, so normal users do not
+            // need username/userId filters here.
+            todos = await todoService.GetAsync(null, null, completedFilterValue, titleContainsFilter);
         }
         catch (Exception e)
         {
@@ -118,17 +109,18 @@ else
         }
     }
 
-    private async Task CompleteTodo (Todo item, bool status)
+    private async Task CompleteTodo(TodoReadDto item, bool status)
     {
         TodoUpdateDto dto = new(item.Id)
             { IsCompleted = status };
         try
-        { await todoService.UpdateAsync(dto);
+        {
+            await todoService.UpdateAsync(dto);
         }
         catch(Exception e)
-        { Console.WriteLine(e);
+        {
+            Console.WriteLine(e);
             msg = e.Message;
-
         }
     }
 
@@ -139,7 +131,7 @@ else
         {
             await todoService.DeleteAsync(todoId);
 
-            var list = new List<Todo>(todos!);
+            var list = new List<TodoReadDto>(todos!);
             list.RemoveAll(todo => todo.Id == todoId);
             todos = list.AsEnumerable();
         }
@@ -149,5 +141,4 @@ else
             msg = e.Message;
         }
     }
-
 }

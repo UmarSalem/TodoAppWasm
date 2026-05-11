@@ -1,22 +1,14 @@
-﻿@page "/EditTodo/{id:int}"
+@page "/EditTodo/{id:int}"
+@attribute [Authorize]
 @using Shared.DTOs
 @using HttpClients.ClientInterfaces
 @using Microsoft.AspNetCore.Components
 @inject ITodoService todoService
-@inject IUserService userService
 @inject NavigationManager navMgr
 
 <h3>EditTodo</h3>
 <div class="card">
-    @if (users == null)
-    {
-        <label>Loading users...</label>
-    }
-    else if (!users.Any())
-    {
-        <label>No users, you cannot create a Todo</label>
-    }
-    else if (dto == null)
+    @if (dto == null)
     {
         <label>Loading Todo data..</label>
     }
@@ -28,14 +20,8 @@
             <input type="text" @bind="dto.Title" />
         </div>
         <div class="form-group field">
-            <label>Assignee:</label>
-            <select @bind="dto.OwnerId">
-                <option>Choose</option>
-                @foreach (UserReadDto user in users)
-                {
-                    <option value="@user.Id">@user.UserName</option>
-                }
-            </select>
+            <label>Description:</label>
+            <input type="text" @bind="dto.Description" />
         </div>
         <div class="button-row">
             <button @onclick="UpdateAsync" class="acceptbtn">Update</button>
@@ -48,28 +34,25 @@
 </div>
 
 @code {
-	[Parameter]
-	public int Id { get; set; }
+    [Parameter]
+    public int Id { get; set; }
 
-	private TodoUpdateDto dto = null!;
-	private string msg = "";
-	private IEnumerable<UserReadDto>? users;
+    private TodoUpdateDto dto = null!;
+    private string msg = "";
 
     protected override async Task OnInitializedAsync()
     {
         msg = "";
         try
         {
-            users = await userService.AsyncGetUsers();
             TodoReadDto todoData = await todoService.GetByIdAsync(Id);
 
             dto = new(Id)
-                {
-                    Title = todoData.Title,
-                    OwnerId = todoData.OwnerId,
-                    Description = todoData.Description,
-                    IsCompleted = todoData.IsCompleted
-                };
+            {
+                Title = todoData.Title,
+                Description = todoData.Description,
+                IsCompleted = todoData.IsCompleted
+            };
         }
         catch (Exception e)
         {
