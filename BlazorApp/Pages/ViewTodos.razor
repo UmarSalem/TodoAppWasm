@@ -6,30 +6,37 @@
 @using Shared.DTOs
 @inject ITodoService todoService
 
-<h3>Todos</h3>
-<div class="filter-bar">
-    <div class="filters-container">
-        <img src="icons/@(doShowFilters ? "clear_" : "")funnel.png" class="funnel" @onclick="@(() => doShowFilters = !doShowFilters)" alt="Funnel" />
-        @if (doShowFilters)
-        {
-            <div class="filter">
-                <label>Is completed?</label>
-                <select @bind="completedStatusFilter">
-                    <option value="all">All</option>
-                    <option value="true">Yes</option>
-                    <option value="false">No</option>
-                </select>
-            </div>
-            <div class="filter">
-                <label>Title contains:</label>
-                <input type="text" @bind="titleContainsFilter" />
-            </div>
-        }
+<div class="page-header">
+    <div>
+        <h1 class="page-title">Todos</h1>
+        <p class="page-description">View, filter, complete, edit, and delete the todos for the logged-in account.</p>
     </div>
+    <a class="button" href="CreateTodo">New todo</a>
 </div>
 
-<div>
-    <button @onclick="LoadTodos">Load</button>
+<div class="surface todo-toolbar">
+    <button class="button secondary" @onclick="@(() => doShowFilters = !doShowFilters)">
+        @(doShowFilters ? "Hide filters" : "Show filters")
+    </button>
+    <button @onclick="LoadTodos">Load todos</button>
+
+    @if (doShowFilters)
+    {
+        <div class="filter-grid">
+            <div class="field">
+                <label>Completed status</label>
+                <select @bind="completedStatusFilter">
+                    <option value="all">All</option>
+                    <option value="true">Completed</option>
+                    <option value="false">Open</option>
+                </select>
+            </div>
+            <div class="field">
+                <label>Title contains</label>
+                <input type="text" @bind="titleContainsFilter" />
+            </div>
+        </div>
+    }
 </div>
 
 @if (todos == null)
@@ -37,47 +44,46 @@
 }
 else if (!todos.Any())
 {
-    <p>No Todos to display</p>
+    <div class="empty-state">No todos to display.</div>
 }
 else
 {
-    <table class="table">
-        <thead>
-            <tr>
-                <th>Todo ID</th>
-                <th>Owner ID</th>
-                <th>Title</th>
-                <th>Completed?</th>
-                <th>Edit</th>
-                <th>Delete?</th>
-            </tr>
-        </thead>
-        <tbody>
-            @foreach (var item in todos)
-            {
+    <div class="surface table-surface">
+        <table class="table">
+            <thead>
                 <tr>
-                    <td>@item.Id</td>
-                    <td>@item.OwnerId</td>
-                    <td>@item.Title</td>
-                    <td>
-                        <FancyCheckBox IsCompleted="@item.IsCompleted" OnChange="@((status) => CompleteTodo(item, status))" />
-                    </td>
-                    <td>
-                        <img src="icons/edit.gif" class="funnel" @onclick="@(() => navMgr.NavigateTo($"/EditTodo/{item.Id}"))" />
-                    </td>
-                    <td>
-                        <label @onclick="@(() => RemoveTodo(item.Id))" style="cursor:pointer; color: red; font-weight: bold">
-                            &#x2717;
-                        </label>
-                    </td>
+                    <th>Todo ID</th>
+                    <th>Owner ID</th>
+                    <th>Title</th>
+                    <th>Description</th>
+                    <th>Completed</th>
+                    <th>Actions</th>
                 </tr>
-            }
-        </tbody>
-    </table>
+            </thead>
+            <tbody>
+                @foreach (var item in todos)
+                {
+                    <tr>
+                        <td>@item.Id</td>
+                        <td>@item.OwnerId</td>
+                        <td>@item.Title</td>
+                        <td>@item.Description</td>
+                        <td>
+                            <FancyCheckBox IsCompleted="@item.IsCompleted" OnChange="@((status) => CompleteTodo(item, status))" />
+                        </td>
+                        <td class="table-actions">
+                            <button class="button secondary" @onclick="@(() => navMgr.NavigateTo($"/EditTodo/{item.Id}"))">Edit</button>
+                            <button class="danger-button" @onclick="@(() => RemoveTodo(item.Id))">Delete</button>
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
 }
 @if (!string.IsNullOrEmpty(msg))
 {
-    <label style="color: red">@msg</label>
+    <div class="message error">@msg</div>
 }
 
 @code {

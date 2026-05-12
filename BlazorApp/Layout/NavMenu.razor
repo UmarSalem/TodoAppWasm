@@ -1,80 +1,57 @@
-﻿<div class="top-row ps-3 navbar navbar-dark">
-    <div class="container-fluid">
-        <a class="navbar-brand" href="">BlazorApp</a>
-        <button title="Navigation menu" class="navbar-toggler" @onclick="ToggleNavMenu">
-            <span class="navbar-toggler-icon"></span>
-        </button>
-    </div>
-</div>
+<header class="app-header">
+    <div class="nav-shell">
+        <a class="brand" href="">
+            <span class="brand-mark">T</span>
+            <span>TodoApp</span>
+        </a>
 
-<div class="@NavMenuCssClass nav-scrollable" @onclick="ToggleNavMenu">
-    <nav class="flex-column">
-        <div class="nav-item px-3">
+        <button title="Navigation menu" class="navbar-toggler" @onclick="ToggleNavMenu">
+            <span></span>
+            <span></span>
+            <span></span>
+        </button>
+
+        <nav class="@NavMenuCssClass">
             <NavLink class="nav-link" href="" Match="NavLinkMatch.All">
-                <span class="bi bi-house-door-fill-nav-menu" aria-hidden="true"></span> Home
+                Home
             </NavLink>
-        </div>
-        <div class="nav-item px-3">
-            <NavLink class="nav-link" href="counter">
-                <span class="bi bi-plus-square-fill-nav-menu" aria-hidden="true"></span> Counter
-            </NavLink>
-        </div>
-        <div class="nav-item px-3">
-            <NavLink class="nav-link" href="weather">
-                <span class="bi bi-list-nested-nav-menu" aria-hidden="true"></span> Weather
-            </NavLink>
-        </div>
-        <div class="nav-item px-3">
             <NavLink class="nav-link" href="CreateUser">
-                <span class="bi bi-list-nested-nav-menu" aria-hidden="true"></span> CreateUser
+                New user
             </NavLink>
-        </div>
-        <AuthorizeView>
-            <Authorized>
-                <div class="nav-item px-3">
-                    <span class="nav-link">Hello, @context.User.Identity?.Name</span>
-                </div>
-                <div class="nav-item px-3">
-                    <NavLink class="nav-link" href="Logout">
-                        <span class="bi bi-list-nested-nav-menu" aria-hidden="true"></span> Logout
-                    </NavLink>
-                </div>
-            </Authorized>
-            <NotAuthorized>
-                <div class="nav-item px-3">
-                    <NavLink class="nav-link" href="Login">
-                        <span class="bi bi-list-nested-nav-menu" aria-hidden="true"></span> Login
-                    </NavLink>
-                </div>
-            </NotAuthorized>
-        </AuthorizeView>
-        <div class="nav-item px-3">
             <NavLink class="nav-link" href="ViewUsers">
-                <span class="bi bi-list-nested-nav-menu" aria-hidden="true"></span> ViewUsers
+                Users
             </NavLink>
-        </div>
-        <AuthorizeView>
-            <Authorized>
-                <div class="nav-item px-3">
+
+            <AuthorizeView>
+                <Authorized>
                     <NavLink class="nav-link" href="CreateTodo">
-                        <span class="bi bi-list-nested-nav-menu" aria-hidden="true"></span> CreateTodo
+                        New todo
                     </NavLink>
-                </div>
-                <div class="nav-item px-3">
                     <NavLink class="nav-link" href="ViewTodos">
-                        <span class="bi bi-list-nested-nav-menu" aria-hidden="true"></span> ViewTodos
+                        Todos
                     </NavLink>
-                </div>
-            </Authorized>
-        </AuthorizeView>
-                
-    </nav>
-</div>
+                </Authorized>
+            </AuthorizeView>
+        </nav>
+
+        <div class="account-area">
+            <AuthorizeView>
+                <Authorized>
+                    <span class="user-chip">Hello, @context.User.Identity?.Name</span>
+                    <NavLink class="auth-link" href="Logout">Logout</NavLink>
+                </Authorized>
+                <NotAuthorized>
+                    <NavLink class="auth-link primary" href="Login">Login</NavLink>
+                </NotAuthorized>
+            </AuthorizeView>
+        </div>
+    </div>
+</header>
 
 @code {
     private bool collapseNavMenu = true;
 
-    private string? NavMenuCssClass => collapseNavMenu ? "collapse" : null;
+    private string NavMenuCssClass => collapseNavMenu ? "nav-links collapse" : "nav-links";
 
     private void ToggleNavMenu()
     {

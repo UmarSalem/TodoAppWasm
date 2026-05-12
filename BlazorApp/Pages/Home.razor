@@ -2,6 +2,30 @@
 
 <PageTitle>Home</PageTitle>
 
-<h1>Hello, world!</h1>
-
-Welcome to your new app.
+<section class="hero-panel surface">
+    <div>
+        <h1 class="page-title">Plan your work with a clean Todo app.</h1>
+        <p class="page-description">
+            A Blazor WebAssembly frontend connected to a protected ASP.NET Core WebAPI.
+            Create an account, sign in, and manage todos through the same backend used by Swagger.
+        </p>
+        <div class="hero-actions">
+            <a class="button" href="Login">Login</a>
+            <a class="button secondary" href="CreateUser">Create user</a>
+        </div>
+    </div>
+    <div class="feature-list">
+        <div class="feature-item">
+            <strong>JWT authentication</strong>
+            <span>Todo actions are protected by the token from login.</span>
+        </div>
+        <div class="feature-item">
+            <strong>Entity Framework Core</strong>
+            <span>The API stores users and todos through EF Core.</span>
+        </div>
+        <div class="feature-item">
+            <strong>Deployment ready</strong>
+            <span>Prepared for GitHub Pages frontend and Render backend.</span>
+        </div>
+    </div>
+</section>

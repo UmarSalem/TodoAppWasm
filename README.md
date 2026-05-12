@@ -1,62 +1,131 @@
 # TodoAppWasm
 
-A full-stack .NET 8 portfolio project with:
-- **Blazor WebAssembly** front-end (`BlazorApp`)
-- **ASP.NET Core Web API** back-end (`WebAPI`)
+TodoAppWasm is a full-stack .NET 8 portfolio project built with Blazor WebAssembly, ASP.NET Core Web API, Entity Framework Core, JWT authentication, and role-based authorization.
 
-## Deployment plan used in this repository
+The goal of this project is to show a realistic backend/frontend workflow: users can create accounts, log in, receive a JWT token, and manage protected Todo data through both the Blazor UI and Swagger.
 
-- **Front-end:** GitHub Pages (automated with GitHub Actions)
-- **Back-end:** Render Web Service using a Docker image from GitHub Container Registry
+## Screenshots
 
-Vercel was considered for the backend, but Render was selected because this WebAPI is deployed as a Docker container.
+### Blazor WebAssembly UI
 
-## CI/CD
+![TodoApp home](docs/screenshots/01-home.png)
 
-- Generic CI: `.github/workflows/ci.yml`
-- Development CI + container publish: `.github/workflows/development-ci.yml`
-- GitHub Pages deploy (Blazor): `.github/workflows/blazor-github-pages.yml`
+![Login page](docs/screenshots/02-login.png)
 
-## Front-end deployment (GitHub Pages)
+![Users overview](docs/screenshots/03-users.png)
 
-1. Add repository secret:
-   - `API_BASE_URL=https://<your-render-api-domain>/`
-2. Push to `main`.
-3. Workflow publishes Blazor app to GitHub Pages.
+![Todo list](docs/screenshots/05-view-todos.png)
 
-Local Blazor development uses:
+![Todo filtering](docs/screenshots/09-TodoWithFilter.png)
 
-```bash
-BlazorApp/wwwroot/appsettings.json
+### Swagger and JWT authorization
+
+![Swagger authentication](docs/screenshots/06-swagger-auth.png)
+
+![Swagger login token response](docs/screenshots/07-swagger-loginWithToken.png)
+
+![Swagger authorized request](docs/screenshots/10-Swagger_AuthorizationWithtoken.png)
+
+![Swagger protected Todo endpoint](docs/screenshots/11-Swagger_GetTodo_with_valid_Auth.png)
+
+## Features
+
+- Blazor WebAssembly frontend
+- ASP.NET Core Web API backend
+- Entity Framework Core data access
+- SQLite for local development
+- PostgreSQL-ready configuration for hosted deployment
+- JWT login flow
+- Password hashing with PBKDF2
+- Role support for `User` and `Admin`
+- Protected Todo endpoints
+- Swagger support for authenticated API testing
+- Docker-ready backend
+- GitHub Actions workflows for CI/CD
+- GitHub Pages plan for frontend deployment
+- Render plan for backend deployment
+
+## Solution structure
+
+```text
+TodoAppWasm
+├── BlazorApp       # Blazor WebAssembly frontend
+├── WebAPI          # ASP.NET Core Web API
+├── Application     # Business logic
+├── EfcDataAccess   # EF Core DbContext, DAOs, migrations
+├── HttpClients     # Frontend HTTP client services
+├── Shared          # Shared DTOs, models, auth constants
+├── Tests           # Test project
+└── docs            # Portfolio, deployment, and screenshot docs
 ```
 
-Production GitHub Pages uses the `API_BASE_URL` secret to generate `appsettings.Production.json`.
+## Local development
 
-## Back-end configuration for cross-origin calls
+Run the backend:
 
-Configure the API with explicit allowed origins:
+```bash
+dotnet run --project WebAPI/WebAPI.csproj
+```
+
+Run the frontend:
+
+```bash
+dotnet run --project BlazorApp/BlazorApp.csproj
+```
+
+Open the Blazor app:
+
+```text
+http://localhost:5101
+```
+
+Open Swagger:
+
+```text
+https://localhost:7161/swagger
+```
+
+## Authentication flow
+
+1. Create a user from Blazor or Swagger.
+2. Log in through `POST /Users/login`.
+3. The API returns a JWT token.
+4. Blazor stores the token in browser local storage.
+5. Todo API requests send the token as `Authorization: Bearer <token>`.
+6. The backend reads the user id and role from the token before allowing Todo actions.
+
+## Swagger protected endpoint testing
+
+1. Call `POST /Users/login`.
+2. Copy the returned token.
+3. Click **Authorize** in Swagger.
+4. Paste `Bearer <token>`.
+5. Test protected Todo endpoints.
+
+## Deployment plan
+
+- **Frontend:** GitHub Pages
+- **Backend:** Render Web Service
+- **Docker image:** GitHub Container Registry
+- **Database:** PostgreSQL for hosted deployment
+
+Render was selected for the backend because the WebAPI is prepared as a Dockerized ASP.NET Core service. GitHub Pages is used for the static Blazor WebAssembly frontend.
+
+## Important configuration
+
+Frontend production API URL:
+
+```bash
+API_BASE_URL=https://<your-render-api-domain>/
+```
+
+Backend CORS:
 
 ```bash
 AllowedOrigins=https://<your-username>.github.io
 ```
 
-Configure the deployed database path or connection string through environment variables:
-
-```bash
-DatabaseProvider=Sqlite
-ConnectionStrings__TodoDatabase=Data Source=/app/data/Todo.db
-```
-
-For a hosted PostgreSQL database, use:
-
-```bash
-DatabaseProvider=Postgres
-ConnectionStrings__TodoDatabase=<connection-string-from-your-database-host>
-```
-
-The API also exposes `/health` for deployment health checks.
-
-For JWT login in a hosted environment, override the development signing key:
+Backend JWT settings:
 
 ```bash
 Jwt__Key=<long-random-secret-at-least-32-characters>
@@ -64,15 +133,34 @@ Jwt__Issuer=TodoAppWasm.WebAPI
 Jwt__Audience=TodoAppWasm.BlazorApp
 ```
 
-Swagger can call protected Todo endpoints after login:
+Local SQLite:
 
-1. Call `POST /Users/login`.
-2. Copy the returned token.
-3. Click **Authorize** in Swagger.
-4. Paste `Bearer <token>`.
+```bash
+DatabaseProvider=Sqlite
+ConnectionStrings__TodoDatabase=Data Source=../EfcDataAccess/Todo.db
+```
+
+Hosted PostgreSQL:
+
+```bash
+DatabaseProvider=Postgres
+ConnectionStrings__TodoDatabase=<connection-string-from-your-database-host>
+```
+
+## CI/CD
+
+- Generic CI: `.github/workflows/ci.yml`
+- Development CI and container publish: `.github/workflows/development-ci.yml`
+- GitHub Pages deploy: `.github/workflows/blazor-github-pages.yml`
 
 ## Documentation
 
-- Portfolio strategy: [`docs/PORTFOLIO_SHOWCASE_GUIDE.md`](docs/PORTFOLIO_SHOWCASE_GUIDE.md)
-- Deployment details: [`docs/DEPLOYMENT_PLAYBOOK.md`](docs/DEPLOYMENT_PLAYBOOK.md)
-- Project roadmap and next tasks: [`docs/PROJECT_ROADMAP.md`](docs/PROJECT_ROADMAP.md)
+- Portfolio strategy: [docs/PORTFOLIO_SHOWCASE_GUIDE.md](docs/PORTFOLIO_SHOWCASE_GUIDE.md)
+- Deployment details: [docs/DEPLOYMENT_PLAYBOOK.md](docs/DEPLOYMENT_PLAYBOOK.md)
+- Project roadmap: [docs/PROJECT_ROADMAP.md](docs/PROJECT_ROADMAP.md)
+- Auth/JWT junior guide: [docs/AUTH_JWT_JUNIOR_GUIDE.html](docs/AUTH_JWT_JUNIOR_GUIDE.html)
+- Screenshot guide: [docs/screenshots/README.md](docs/screenshots/README.md)
+
+## Current status
+
+The backend authentication and protected Todo workflow are implemented. The Blazor UI has been updated with a cleaner portfolio-style layout, top navigation, and authenticated Todo flow.

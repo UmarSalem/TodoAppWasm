@@ -3,32 +3,49 @@
 @using HttpClients.ClientInterfaces
 @inject IUserService userService
 
-<h3 style="text-align: center">Overview of all users</h3>
+<div class="page-header">
+    <div>
+        <h1 class="page-title">Users</h1>
+        <p class="page-description">Review the accounts created in the system.</p>
+    </div>
+    <a class="button" href="CreateUser">New user</a>
+</div>
 
 @if (!string.IsNullOrEmpty(msg))
 {
-    <div>
-        <span>@msg</span>
-    </div>
+    <div class="message error">@msg</div>
 }
 
 @if (users == null)
 {
-    <span>Loading..</span>
+    <div class="empty-state">Loading users...</div>
 }
 else if (!users.Any())
 {
-    <span>No users to be found</span>
+    <div class="empty-state">No users to be found.</div>
 }
 else
 {
-    <div class="users-container">
-        @foreach (UserReadDto user in users)
-        {
-            <div class="user-card">
-                <label>@user.UserName</label>
-            </div>
-        }
+    <div class="surface table-surface">
+        <table class="table">
+            <thead>
+                <tr>
+                    <th>User ID</th>
+                    <th>User name</th>
+                    <th>Role</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (UserReadDto user in users)
+                {
+                    <tr>
+                        <td>@user.Id</td>
+                        <td>@user.UserName</td>
+                        <td>@user.Role</td>
+                    </tr>
+                }
+            </tbody>
+        </table>
     </div>
 }
 
