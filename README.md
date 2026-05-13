@@ -56,6 +56,13 @@ Jwt__Issuer=TodoAppWasm.WebAPI
 Jwt__Audience=TodoAppWasm.BlazorApp
 ```
 
+Swagger can call protected Todo endpoints after login:
+
+1. Call `POST /Users/login`.
+2. Copy the returned token.
+3. Click **Authorize** in Swagger.
+4. Paste `Bearer <token>`.
+
 ## Documentation
 
 - Portfolio strategy: [`docs/PORTFOLIO_SHOWCASE_GUIDE.md`](docs/PORTFOLIO_SHOWCASE_GUIDE.md)

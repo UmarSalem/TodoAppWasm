@@ -27,7 +27,7 @@ namespace WebAPI.Controllers
         public async Task<ActionResult<UserReadDto>> CreateAsync([FromBody] UserCreationDto dto)
         {
             User user = await userLogic.CreateAsync(dto);
-            UserReadDto response = new(user.Id, user.UserName);
+            UserReadDto response = new(user.Id, user.UserName, user.Role);
             return Created($"/users/{user.Id}", response);
         }
 

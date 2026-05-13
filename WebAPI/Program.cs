@@ -7,17 +7,37 @@ using Application.DAOInterfaces;
 using EfcDataAccess;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.HttpOverrides;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.OpenApi.Models;
 using Microsoft.IdentityModel.Tokens;
 using Shared.Auth;
+using Shared.DTOs;
 using System.Text;
 using WebAPI.Auth;
 using WebAPI.Middleware;
 
 var builder = WebApplication.CreateBuilder(args);
 
-builder.Services.AddControllers();
+builder.Services.AddControllers()
+    .ConfigureApiBehaviorOptions(options =>
+    {
+        // [ApiController] can stop bad requests before they reach our logic layer.
+        // Returning ApiErrorDto here keeps validation errors shaped like the rest of the API.
+        options.InvalidModelStateResponseFactory = context =>
+        {
+            string message = context.ModelState
+                .Where(entry => entry.Value?.Errors.Count > 0)
+                .SelectMany(entry => entry.Value!.Errors)
+                .Select(error => string.IsNullOrWhiteSpace(error.ErrorMessage)
+                    ? "The request body is invalid."
+                    : error.ErrorMessage)
+                .FirstOrDefault()
+                ?? "The request body is invalid.";
+
+            return new BadRequestObjectResult(new ApiErrorDto(message));
+        };
+    });
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen(options =>
 {
@@ -76,7 +96,27 @@ builder.Services
             ValidateIssuerSigningKey = true,
             ValidIssuer = builder.Configuration["Jwt:Issuer"],
             ValidAudience = builder.Configuration["Jwt:Audience"],
-            IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(jwtKey))
+            IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(jwtKey)),
+            ClockSkew = TimeSpan.FromMinutes(1)
+        };
+
+        options.Events = new JwtBearerEvents
+        {
+            OnChallenge = async context =>
+            {
+                // JWT middleware normally returns an empty 401 response.
+                // This gives Swagger/frontends the same simple error object as the rest of the API.
+                context.HandleResponse();
+                context.Response.StatusCode = StatusCodes.Status401Unauthorized;
+                context.Response.ContentType = "application/json";
+                await context.Response.WriteAsJsonAsync(new ApiErrorDto("Authentication token is missing or invalid."));
+            },
+            OnForbidden = async context =>
+            {
+                context.Response.StatusCode = StatusCodes.Status403Forbidden;
+                context.Response.ContentType = "application/json";
+                await context.Response.WriteAsJsonAsync(new ApiErrorDto("You are not allowed to perform this action."));
+            }
         };
     });
 

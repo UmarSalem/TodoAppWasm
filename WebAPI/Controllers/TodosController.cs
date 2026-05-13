@@ -24,6 +24,7 @@ namespace WebAPI.Controllers
         [HttpPost]
         [ProducesResponseType(typeof(TodoReadDto), StatusCodes.Status201Created)]
         [ProducesResponseType(typeof(ApiErrorDto), StatusCodes.Status400BadRequest)]
+        [ProducesResponseType(typeof(ApiErrorDto), StatusCodes.Status401Unauthorized)]
         [ProducesResponseType(typeof(ApiErrorDto), StatusCodes.Status404NotFound)]
         [ProducesResponseType(typeof(ApiErrorDto), StatusCodes.Status500InternalServerError)]
         public async Task<ActionResult<TodoReadDto>> CreateAsync([FromBody] TodoCreationDto dto)
@@ -49,6 +50,7 @@ namespace WebAPI.Controllers
 
         [HttpGet]
         [ProducesResponseType(typeof(IEnumerable<TodoReadDto>), StatusCodes.Status200OK)]
+        [ProducesResponseType(typeof(ApiErrorDto), StatusCodes.Status401Unauthorized)]
         [ProducesResponseType(typeof(ApiErrorDto), StatusCodes.Status500InternalServerError)]
         public async Task<ActionResult<IEnumerable<TodoReadDto>>> GetAsync(
             [FromQuery] string? userName,
@@ -82,6 +84,7 @@ namespace WebAPI.Controllers
         [HttpPatch]
         [ProducesResponseType(StatusCodes.Status204NoContent)]
         [ProducesResponseType(typeof(ApiErrorDto), StatusCodes.Status400BadRequest)]
+        [ProducesResponseType(typeof(ApiErrorDto), StatusCodes.Status401Unauthorized)]
         [ProducesResponseType(typeof(ApiErrorDto), StatusCodes.Status404NotFound)]
         [ProducesResponseType(typeof(ApiErrorDto), StatusCodes.Status409Conflict)]
         [ProducesResponseType(typeof(ApiErrorDto), StatusCodes.Status500InternalServerError)]
@@ -103,6 +106,7 @@ namespace WebAPI.Controllers
 
         [HttpDelete("{id:int}")]
         [ProducesResponseType(StatusCodes.Status204NoContent)]
+        [ProducesResponseType(typeof(ApiErrorDto), StatusCodes.Status401Unauthorized)]
         [ProducesResponseType(typeof(ApiErrorDto), StatusCodes.Status404NotFound)]
         [ProducesResponseType(typeof(ApiErrorDto), StatusCodes.Status409Conflict)]
         [ProducesResponseType(typeof(ApiErrorDto), StatusCodes.Status500InternalServerError)]
@@ -119,6 +123,7 @@ namespace WebAPI.Controllers
 
         [HttpGet("{id:int}")]
         [ProducesResponseType(typeof(TodoReadDto), StatusCodes.Status200OK)]
+        [ProducesResponseType(typeof(ApiErrorDto), StatusCodes.Status401Unauthorized)]
         [ProducesResponseType(typeof(ApiErrorDto), StatusCodes.Status404NotFound)]
         [ProducesResponseType(typeof(ApiErrorDto), StatusCodes.Status500InternalServerError)]
         public async Task<ActionResult<TodoReadDto>> GetById([FromRoute] int id)

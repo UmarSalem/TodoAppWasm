@@ -50,6 +50,8 @@ This repo is prepared for GitHub Pages frontend hosting and Render backend hosti
 
 The WebAPI container listens on port `8080`.
 
+Use environment variables for deployment-only values. This keeps secrets out of GitHub source code and lets Render/other hosts change settings without rebuilding the image.
+
 For a first hosted demo with SQLite, set:
 
 ```bash
@@ -79,6 +81,18 @@ Jwt__Audience=TodoAppWasm.BlazorApp
 ```
 
 The JWT key signs login tokens. Keep it secret; do not put the production value in GitHub source code.
+
+For Swagger testing, login first, copy the token, click **Authorize**, and paste:
+
+```text
+Bearer <token-from-login-response>
+```
+
+Protected Todo endpoints return:
+
+- `401 Unauthorized` when the token is missing, expired, or invalid.
+- `404 Not Found` when a normal user tries to access another user's todo.
+- `409 Conflict` when a business rule blocks the action, such as deleting an incomplete todo.
 
 The current migration was generated for SQLite. Before using a fresh hosted PostgreSQL database, generate provider-appropriate EF Core migrations from the PostgreSQL configuration.
 
