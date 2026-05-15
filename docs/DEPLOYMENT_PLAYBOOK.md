@@ -57,6 +57,7 @@ For a first hosted demo with SQLite, set:
 
 ```bash
 DatabaseProvider=Sqlite
+ApplyMigrationsOnStartup=false
 ConnectionStrings__TodoDatabase=Data Source=/app/data/Todo.db
 AllowedOrigins=https://<your-username>.github.io
 ```
@@ -67,11 +68,14 @@ For a hosted PostgreSQL database, set:
 
 ```bash
 DatabaseProvider=Postgres
+ApplyMigrationsOnStartup=true
 ConnectionStrings__TodoDatabase=<connection-string-from-your-database-host>
 AllowedOrigins=https://<your-username>.github.io
 ```
 
 Use the exact PostgreSQL connection string from the database host, for example Supabase, Neon, Render Postgres, or another provider. Keep that value in the hosting platform's environment variables, not in source code.
+
+This repository keeps SQLite and PostgreSQL migrations separate. SQLite migrations live in `EfcDataAccess`, while PostgreSQL migrations live in `EfcDataAccess.Postgres`. This avoids applying SQLite column definitions to PostgreSQL.
 
 For JWT login, also set:
 

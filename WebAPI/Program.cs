@@ -136,7 +136,11 @@ builder.Services.AddDbContext<TodoContext>(options =>
     if (databaseProvider.Equals("Postgres", StringComparison.OrdinalIgnoreCase)
         || databaseProvider.Equals("PostgreSQL", StringComparison.OrdinalIgnoreCase))
     {
-        options.UseNpgsql(todoDatabaseConnectionString);
+        // PostgreSQL has its own migrations assembly because EF Core migrations
+        // store provider-specific column types. Keeping it separate avoids applying
+        // SQLite migrations to a hosted PostgreSQL database.
+        options.UseNpgsql(todoDatabaseConnectionString, providerOptions =>
+            providerOptions.MigrationsAssembly("EfcDataAccess.Postgres"));
         return;
     }
 
@@ -184,6 +188,16 @@ builder.Services.AddCors(options =>
 });
 
 var app = builder.Build();
+
+if (app.Configuration.GetValue<bool>("ApplyMigrationsOnStartup"))
+{
+    // Hosted databases usually start empty. This optional switch lets the API
+    // apply EF Core migrations during deployment, while local development can
+    // keep manual control by leaving the setting false.
+    using IServiceScope scope = app.Services.CreateScope();
+    TodoContext todoContext = scope.ServiceProvider.GetRequiredService<TodoContext>();
+    await todoContext.Database.MigrateAsync();
+}
 
 app.UseForwardedHeaders();
 
