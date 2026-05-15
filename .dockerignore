@@ -5,6 +5,15 @@
 # GitHub workflow files are not needed during Docker build
 .github/
 
+# Frontend/docs/local scratch files are not needed in the WebAPI image
+BlazorApp/
+docs/
+.dotnet/
+.vs/
+.tmp/
+.edge-pdf-profile/
+webapi-run.log
+
 # Build outputs
 **/bin/
 **/obj/
