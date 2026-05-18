@@ -29,21 +29,44 @@
                 <span class="bi bi-list-nested-nav-menu" aria-hidden="true"></span> CreateUser
             </NavLink>
         </div>
+        <AuthorizeView>
+            <Authorized>
+                <div class="nav-item px-3">
+                    <span class="nav-link">Hello, @context.User.Identity?.Name</span>
+                </div>
+                <div class="nav-item px-3">
+                    <NavLink class="nav-link" href="Logout">
+                        <span class="bi bi-list-nested-nav-menu" aria-hidden="true"></span> Logout
+                    </NavLink>
+                </div>
+            </Authorized>
+            <NotAuthorized>
+                <div class="nav-item px-3">
+                    <NavLink class="nav-link" href="Login">
+                        <span class="bi bi-list-nested-nav-menu" aria-hidden="true"></span> Login
+                    </NavLink>
+                </div>
+            </NotAuthorized>
+        </AuthorizeView>
         <div class="nav-item px-3">
             <NavLink class="nav-link" href="ViewUsers">
                 <span class="bi bi-list-nested-nav-menu" aria-hidden="true"></span> ViewUsers
             </NavLink>
         </div>
-        <div class="nav-item px-3">
-            <NavLink class="nav-link" href="CreateTodo">
-                <span class="bi bi-list-nested-nav-menu" aria-hidden="true"></span> CreateTodo
-            </NavLink>
-        </div>
-        <div class="nav-item px-3">
-            <NavLink class="nav-link" href="ViewTodos">
-                <span class="bi bi-list-nested-nav-menu" aria-hidden="true"></span> ViewTodos
-            </NavLink>
-        </div>
+        <AuthorizeView>
+            <Authorized>
+                <div class="nav-item px-3">
+                    <NavLink class="nav-link" href="CreateTodo">
+                        <span class="bi bi-list-nested-nav-menu" aria-hidden="true"></span> CreateTodo
+                    </NavLink>
+                </div>
+                <div class="nav-item px-3">
+                    <NavLink class="nav-link" href="ViewTodos">
+                        <span class="bi bi-list-nested-nav-menu" aria-hidden="true"></span> ViewTodos
+                    </NavLink>
+                </div>
+            </Authorized>
+        </AuthorizeView>
                 
     </nav>
 </div>

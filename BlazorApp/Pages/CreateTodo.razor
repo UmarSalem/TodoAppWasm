@@ -1,86 +1,46 @@
-﻿@page "/CreateTodo"
+@page "/CreateTodo"
+@attribute [Authorize]
 @using UIComponents
 @using HttpClients.ClientInterfaces
 @using Shared.DTOs
-@inject IUserService userService
 @inject ITodoService todoService
 @inject NavigationManager navMgr
 
 <div class="card">
-    @if (users == null)
-    {
-        <label>Loading users...</label>
-    }
-    else if (!users.Any())
-    {
-        <label>No users, you cannot create a Todo without assignee.</label>
-    }
-    else
-    {
-        <h3>Create Todo</h3>
-        <div class="form-group field">
-            <label>Title:</label>
-            <input type="text" @bind="todoTitle" />
-        </div>
-        <div class="form-group field">
-            <label>Assignee:</label>
-            <select @bind="selectedUserId">
-                <option>Choose</option>
-                @foreach (UserReadDto user in users)
-                {
-                    <option value="@user.Id">@user.UserName</option>
-                }
-            </select>
-        </div>
-        <div class="button-row">
-            @if (!string.IsNullOrEmpty(msg))
-            {
-                <label style="color: red">@msg</label>
-            }
-            <button @onclick="Create" class="acceptbtn">Create</button>
-        </div>
-    }
+    <h3>Create Todo</h3>
+    <div class="form-group field">
+        <label>Title:</label>
+        <input type="text" @bind="todoTitle" />
     </div>
+    <div class="form-group field">
+        <label>Description:</label>
+        <input type="text" @bind="description" />
+    </div>
+    <div class="button-row">
+        @if (!string.IsNullOrEmpty(msg))
+        {
+            <label style="color: red">@msg</label>
+        }
+        <button @onclick="Create" class="acceptbtn">Create</button>
+    </div>
+</div>
+
 <Modal ShowModal="showModal">
     <p>You have successfully added a new Todo item. You should be very proud of yourself!</p>
     <button @onclick="@Proceed">Wonderful</button>
 </Modal>
 
-
 @code {
-    private IEnumerable<UserReadDto>? users;
-    private int? selectedUserId;
     private string todoTitle = "";
-
+    private string? description;
     private string msg = "";
-
     private bool showModal;
-
-   
-
-    protected override async Task OnInitializedAsync()
-    {
-        msg = "";
-        try
-        {
-            users = await userService.AsyncGetUsers();
-        }
-        catch (Exception e)
-        {
-            Console.WriteLine(e);
-            msg = e.Message;
-        }
-    }
 
     private async Task Create()
     {
         msg = "";
-        if (selectedUserId == null)
-        {
-            msg = "You must select an assignee!";
-            return;
-        }
-        if (string.IsNullOrEmpty(todoTitle))
+
+        if (string.IsNullOrWhiteSpace(todoTitle))
         {
             msg = "Title cannot be empty!";
             return;
@@ -88,7 +48,9 @@
 
         try
         {
-            TodoCreationDto dto = new((int)selectedUserId, todoTitle);
+            // The backend ignores ownerId for normal users and reads the real owner from the JWT.
+            // We keep 1 only because the shared DTO still requires a positive owner id.
+            TodoCreationDto dto = new(1, todoTitle, description);
             await todoService.CreateAsync(dto);
             showModal = true;
         }
@@ -98,10 +60,10 @@
             msg = e.Message;
         }
     }
+
     private void Proceed()
     {
         showModal = false;
         navMgr.NavigateTo("/ViewTodos");
     }
-
 }

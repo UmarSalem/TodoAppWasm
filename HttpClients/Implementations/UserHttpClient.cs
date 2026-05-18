@@ -19,7 +19,7 @@ namespace HttpClients.Implementations
             _client = client;
         }
 
-               public async Task<UserReadDto> Create(UserCreationDto userCreationDto)
+        public async Task<UserReadDto> Create(UserCreationDto userCreationDto)
         {
             HttpResponseMessage response = await _client.PostAsJsonAsync("/users",userCreationDto);
             string result = await response.Content.ReadAsStringAsync();
@@ -34,6 +34,24 @@ namespace HttpClients.Implementations
             })!;
             return user;
                     }
+
+        public async Task<UserLoginResponseDto> LoginAsync(UserLoginDto userLoginDto)
+        {
+            HttpResponseMessage response = await _client.PostAsJsonAsync("/users/login", userLoginDto);
+            string result = await response.Content.ReadAsStringAsync();
+            if (!response.IsSuccessStatusCode)
+            {
+                throw new Exception(result);
+            }
+
+            UserLoginResponseDto loginResponse = JsonSerializer.Deserialize<UserLoginResponseDto>(result, new JsonSerializerOptions
+            {
+                PropertyNameCaseInsensitive = true
+            })!;
+
+            return loginResponse;
+        }
+
         public async Task<IEnumerable<UserReadDto>> AsyncGetUsers(string? usernameContains = null)
         {
             string uri = "/users";
