@@ -160,6 +160,7 @@ ConnectionStrings__TodoDatabase=<connection-string-from-your-database-host>
 - Portfolio strategy: [docs/PORTFOLIO_SHOWCASE_GUIDE.md](docs/PORTFOLIO_SHOWCASE_GUIDE.md)
 - Deployment details: [docs/DEPLOYMENT_PLAYBOOK.md](docs/DEPLOYMENT_PLAYBOOK.md)
 - Render deployment checklist: [docs/RENDER_DEPLOYMENT_CHECKLIST.md](docs/RENDER_DEPLOYMENT_CHECKLIST.md)
+- Frontend live backend checklist: [docs/FRONTEND_LIVE_BACKEND_CHECKLIST.md](docs/FRONTEND_LIVE_BACKEND_CHECKLIST.md)
 - PostgreSQL hosting guide: [docs/POSTGRES_HOSTING_GUIDE.md](docs/POSTGRES_HOSTING_GUIDE.md)
 - Project roadmap: [docs/PROJECT_ROADMAP.md](docs/PROJECT_ROADMAP.md)
 - Auth/JWT junior guide: [docs/AUTH_JWT_JUNIOR_GUIDE.html](docs/AUTH_JWT_JUNIOR_GUIDE.html)

@@ -122,6 +122,14 @@ https://your-api-name.onrender.com/
 
 The workflow intentionally fails if `API_BASE_URL` is missing. That is better than publishing a frontend that cannot reach the backend.
 
+For a manual GitHub Pages deployment test, the workflow also accepts an `api_base_url` input. This is useful when you want to test a Render URL before saving it as the permanent `API_BASE_URL` secret.
+
+See the frontend connection checklist:
+
+```text
+docs/FRONTEND_LIVE_BACKEND_CHECKLIST.md
+```
+
 ### 2. Publish the backend image
 
 Use GitHub Actions to build the `WebAPI` Docker image and push it to GitHub Container Registry.
