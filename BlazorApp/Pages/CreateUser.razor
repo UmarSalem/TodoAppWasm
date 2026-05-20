@@ -3,29 +3,29 @@
 @using HttpClients.ClientInterfaces
 @inject IUserService userService;
 
-<div class="card">
-    <h3>Create User</h3>
+<div class="form-card surface">
+    <h2>Create user</h2>
 
     <div class="form-group field">
-        <label>User name:</label>
+        <label>User name</label>
         <input type="text" @bind="username" @bind:event="oninput" />
     </div>
 
     <div class="form-group field">
-        <label>Password:</label>
+        <label>Password</label>
         <input type="password" @bind="password" @bind:event="oninput" />
     </div>
 
     @if (!string.IsNullOrEmpty(resultMsg))
     {
-        <div style="color: @color">@resultMsg</div>
+        <div class="message @(color == "green" ? "success" : "error")">@resultMsg</div>
     }
 
     <div class="button-row">
         <button class="acceptbtn"
                 @onclick="Create"
                 disabled="@(string.IsNullOrWhiteSpace(username) || string.IsNullOrWhiteSpace(password))">
-            Create
+            Create user
         </button>
     </div>
 </div>

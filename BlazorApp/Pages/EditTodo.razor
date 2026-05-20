@@ -6,22 +6,21 @@
 @inject ITodoService todoService
 @inject NavigationManager navMgr
 
-<h3>EditTodo</h3>
-<div class="card">
+<div class="form-card wide surface">
     @if (dto == null)
     {
         <label>Loading Todo data..</label>
     }
     else
     {
-        <h3>Update Todo</h3>
+        <h2>Update todo</h2>
         <div class="form-group field">
-            <label>Title:</label>
+            <label>Title</label>
             <input type="text" @bind="dto.Title" />
         </div>
         <div class="form-group field">
-            <label>Description:</label>
-            <input type="text" @bind="dto.Description" />
+            <label>Description</label>
+            <textarea @bind="dto.Description"></textarea>
         </div>
         <div class="button-row">
             <button @onclick="UpdateAsync" class="acceptbtn">Update</button>
@@ -29,7 +28,7 @@
     }
     @if (!string.IsNullOrEmpty(msg))
     {
-        <label style="color: red">@msg</label>
+        <div class="message error">@msg</div>
     }
 </div>
 

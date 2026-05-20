@@ -1,21 +1,39 @@
-﻿.filter-bar {
-    border: 1px solid #ccc;
-    border-radius: 10px;
-    padding: 5px;
-    display: inline-block;
-    margin: 10px;
+.todo-toolbar {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: flex-start;
+    gap: 12px;
+    margin-bottom: 18px;
+    padding: 16px;
 }
 
-.funnel {
-    width: 30px;
-    height: 30px;
-    cursor: pointer;
+.filter-grid {
+    width: 100%;
+    display: grid;
+    grid-template-columns: repeat(2, minmax(180px, 1fr));
+    gap: 14px;
+    padding-top: 4px;
 }
 
-.filter {
-    border: 1px solid #ccc;
-    border-radius: 5px;
-    padding: 5px;
-    margin: 5px;
-    text-align: center;
+.table-actions {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+}
+
+.danger-button {
+    color: #991b1b;
+    background: #fee2e2;
+}
+
+.danger-button:hover {
+    color: #ffffff;
+    background: #dc2626;
+    box-shadow: 0 10px 22px rgba(220, 38, 38, 0.16);
+}
+
+@media (max-width: 680px) {
+    .filter-grid {
+        grid-template-columns: 1fr;
+    }
 }
