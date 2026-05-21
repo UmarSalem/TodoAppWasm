@@ -25,3 +25,7 @@
 # Logs and OS files
 *.log
 .DS_Store
+
+# Local automation/browser scratch folders
+.tmp/
+.edge-pdf-profile/

@@ -49,14 +49,14 @@ The goal of this project is to show a realistic backend/frontend workflow: users
 
 ```text
 TodoAppWasm
-├── BlazorApp       # Blazor WebAssembly frontend
-├── WebAPI          # ASP.NET Core Web API
-├── Application     # Business logic
-├── EfcDataAccess   # EF Core DbContext, DAOs, migrations
-├── HttpClients     # Frontend HTTP client services
-├── Shared          # Shared DTOs, models, auth constants
-├── Tests           # Test project
-└── docs            # Portfolio, deployment, and screenshot docs
+|-- BlazorApp       # Blazor WebAssembly frontend
+|-- WebAPI          # ASP.NET Core Web API
+|-- Application     # Business logic
+|-- EfcDataAccess   # EF Core DbContext, DAOs, migrations
+|-- HttpClients     # Frontend HTTP client services
+|-- Shared          # Shared DTOs, models, auth constants
+|-- Tests           # Test project
+`-- docs            # Portfolio, deployment, and screenshot docs
 ```
 
 ## Local development
