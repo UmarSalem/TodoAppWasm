@@ -45,10 +45,11 @@ This repo is prepared for GitHub Pages frontend hosting and Render backend hosti
 - Backend Dockerfile targets Linux containers for hosts such as Render.
 - Backend database path is configurable with `ConnectionStrings__TodoDatabase`.
 - Backend exposes `/health` so Render can check whether the API is running.
+- Backend Docker startup reads Render's `PORT` environment variable.
 
 ## Back-end container settings
 
-The WebAPI container listens on port `8080`.
+The WebAPI container defaults to port `8080` for local Docker runs, but Render provides the runtime port through the `PORT` environment variable. The Docker entrypoint reads that value when the container starts.
 
 Use environment variables for deployment-only values. This keeps secrets out of GitHub source code and lets Render/other hosts change settings without rebuilding the image.
 
@@ -124,6 +125,12 @@ Use GitHub Actions to build the `WebAPI` Docker image and push it to GitHub Cont
 ### 3. Deploy API on Render
 
 Create a Render Web Service from the Docker image published to GitHub Container Registry. Configure the environment variables from the back-end container settings section.
+
+See the step-by-step checklist here:
+
+```text
+docs/RENDER_DEPLOYMENT_CHECKLIST.md
+```
 
 ### 4. Configure CORS for production
 

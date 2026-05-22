@@ -1,10 +1,10 @@
 # Linux container used by hosted platforms such as Render.
-# The API listens on port 8080 inside the container; the host maps public HTTPS traffic to this port.
+# Render provides the public port through the PORT environment variable.
 FROM mcr.microsoft.com/dotnet/aspnet:8.0 AS base
 WORKDIR /app
 RUN mkdir -p /app/data
 EXPOSE 8080
-ENV ASPNETCORE_URLS=http://+:8080
+ENV PORT=8080
 ENV DatabaseProvider=Sqlite
 ENV ConnectionStrings__TodoDatabase="Data Source=/app/data/Todo.db"
 
@@ -32,4 +32,6 @@ RUN dotnet publish "./WebAPI.csproj" -c $BUILD_CONFIGURATION -o /app/publish /p:
 FROM base AS final
 WORKDIR /app
 COPY --from=publish /app/publish .
-ENTRYPOINT ["dotnet", "WebAPI.dll"]
+# The shell form lets the app use Render's runtime PORT value, while still
+# defaulting to 8080 for local Docker runs.
+ENTRYPOINT ["sh", "-c", "dotnet WebAPI.dll --urls http://0.0.0.0:${PORT:-8080}"]
