@@ -6,6 +6,7 @@ RUN mkdir -p /app/data
 EXPOSE 8080
 ENV PORT=8080
 ENV DatabaseProvider=Sqlite
+ENV ApplyMigrationsOnStartup=false
 ENV ConnectionStrings__TodoDatabase="Data Source=/app/data/Todo.db"
 
 
@@ -16,6 +17,7 @@ WORKDIR /src
 COPY ["WebAPI/WebAPI.csproj", "WebAPI/"]
 COPY ["Application/Application.csproj", "Application/"]
 COPY ["EfcDataAccess/EfcDataAccess.csproj", "EfcDataAccess/"]
+COPY ["EfcDataAccess.Postgres/EfcDataAccess.Postgres.csproj", "EfcDataAccess.Postgres/"]
 COPY ["FileData/FileData.csproj", "FileData/"]
 COPY ["Shared/Shared.csproj", "Shared/"]
 RUN dotnet restore "WebAPI/WebAPI.csproj"

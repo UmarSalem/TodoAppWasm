@@ -9,6 +9,11 @@ on:
       - 'Shared/**'
       - '.github/workflows/blazor-github-pages.yml'
   workflow_dispatch:
+    inputs:
+      api_base_url:
+        description: 'Optional Render API URL for this manual deployment, for example https://your-api.onrender.com/'
+        required: false
+        type: string
 
 permissions:
   contents: read
@@ -35,11 +40,26 @@ jobs:
         env:
           REPO_NAME: ${{ github.event.repository.name }}
           API_BASE_URL: ${{ secrets.API_BASE_URL }}
+          API_BASE_URL_INPUT: ${{ inputs.api_base_url }}
         run: |
+          if [ -n "$API_BASE_URL_INPUT" ]; then
+            API_BASE_URL="$API_BASE_URL_INPUT"
+          fi
+
           if [ -z "$API_BASE_URL" ]; then
             echo "API_BASE_URL secret is required. Set it to your Render API URL, for example https://your-api.onrender.com/"
             exit 1
           fi
+
+          if [[ "$API_BASE_URL" != http://* && "$API_BASE_URL" != https://* ]]; then
+            echo "API_BASE_URL must be an absolute URL, for example https://your-api.onrender.com/"
+            exit 1
+          fi
+
+          if [[ "$API_BASE_URL" != */ ]]; then
+            API_BASE_URL="$API_BASE_URL/"
+          fi
+
           sed -i "s|<base href=\"/\" />|<base href=\"/$REPO_NAME/\" />|" BlazorApp/wwwroot/index.html
           cat > BlazorApp/wwwroot/appsettings.Production.json <<JSON
           {

@@ -54,6 +54,7 @@ For the first demo with SQLite:
 
 ```text
 DatabaseProvider=Sqlite
+ApplyMigrationsOnStartup=false
 ConnectionStrings__TodoDatabase=Data Source=/app/data/Todo.db
 AllowedOrigins=https://<your-github-username>.github.io
 Jwt__Key=<long-random-secret-at-least-32-characters>
@@ -70,8 +71,11 @@ For hosted PostgreSQL later:
 
 ```text
 DatabaseProvider=Postgres
+ApplyMigrationsOnStartup=true
 ConnectionStrings__TodoDatabase=<hosted-postgres-connection-string>
 ```
+
+`ApplyMigrationsOnStartup=true` tells the API to apply EF Core migrations when the Render service starts. Use it for the first hosted PostgreSQL demo database. For larger production systems, migrations are usually applied from a separate release step instead of inside the web app.
 
 ## 5. Add GitHub secrets for automatic Render deploys
 
