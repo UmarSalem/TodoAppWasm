@@ -1,8 +1,16 @@
 # TodoAppWasm
 
-TodoAppWasm is a full-stack .NET 8 portfolio project built with Blazor WebAssembly, ASP.NET Core Web API, Entity Framework Core, JWT authentication, and role-based authorization.
+TodoAppWasm is a full-stack .NET 8 portfolio project built with Blazor WebAssembly, ASP.NET Core Web API, Entity Framework Core, PostgreSQL, JWT authentication, and role-based authorization.
 
-The goal of this project is to show a realistic backend/frontend workflow: users can create accounts, log in, receive a JWT token, and manage protected Todo data through both the Blazor UI and Swagger.
+The project demonstrates a realistic frontend/backend workflow: users can create accounts, log in, receive a JWT token, and manage protected Todo data through both the Blazor UI and Swagger.
+
+## Live demo
+
+- **Frontend:** https://umarsalem.github.io/TodoAppWasm/
+- **Backend health check:** https://todoappwasm-api.onrender.com/health
+- **Swagger API docs:** https://todoappwasm-api.onrender.com/swagger
+
+The backend is hosted on Render's free tier, so the first request may take several seconds if the service has been idle.
 
 ## Screenshots
 
@@ -30,20 +38,33 @@ The goal of this project is to show a realistic backend/frontend workflow: users
 
 ## Features
 
-- Blazor WebAssembly frontend
-- ASP.NET Core Web API backend
+- Blazor WebAssembly frontend hosted on GitHub Pages
+- ASP.NET Core Web API backend hosted on Render
 - Entity Framework Core data access
 - SQLite for local development
-- PostgreSQL-ready configuration for hosted deployment
+- PostgreSQL for hosted deployment
 - JWT login flow
 - Password hashing with PBKDF2
 - Role support for `User` and `Admin`
 - Protected Todo endpoints
 - Swagger support for authenticated API testing
-- Docker-ready backend
+- Dockerized backend
 - GitHub Actions workflows for CI/CD
-- GitHub Pages plan for frontend deployment
-- Render plan for backend deployment
+- GitHub Container Registry image publishing
+
+## Architecture
+
+```text
+GitHub Pages frontend
+  -> calls Render Web API
+  -> Web API validates JWT tokens
+  -> Entity Framework Core stores data in PostgreSQL
+
+GitHub Actions
+  -> builds and tests the solution
+  -> publishes the backend Docker image to GHCR
+  -> deploys the Blazor frontend to GitHub Pages
+```
 
 ## Solution structure
 
@@ -52,7 +73,8 @@ TodoAppWasm
 |-- BlazorApp       # Blazor WebAssembly frontend
 |-- WebAPI          # ASP.NET Core Web API
 |-- Application     # Business logic
-|-- EfcDataAccess   # EF Core DbContext, DAOs, migrations
+|-- EfcDataAccess   # EF Core DbContext, DAOs, SQLite migrations
+|-- EfcDataAccess.Postgres # PostgreSQL migrations
 |-- HttpClients     # Frontend HTTP client services
 |-- Shared          # Shared DTOs, models, auth constants
 |-- Tests           # Test project
@@ -96,18 +118,19 @@ https://localhost:7161/swagger
 
 ## Swagger protected endpoint testing
 
-1. Call `POST /Users/login`.
-2. Copy the returned token.
-3. Click **Authorize** in Swagger.
-4. Paste `Bearer <token>`.
-5. Test protected Todo endpoints.
+1. Open https://todoappwasm-api.onrender.com/swagger.
+2. Call `POST /Users/login`.
+3. Copy the returned token.
+4. Click **Authorize** in Swagger.
+5. Paste `Bearer <token>`.
+6. Test a protected Todo endpoint.
 
-## Deployment plan
+## Deployment
 
 - **Frontend:** GitHub Pages
 - **Backend:** Render Web Service
 - **Docker image:** GitHub Container Registry
-- **Database:** PostgreSQL for hosted deployment
+- **Database:** Render PostgreSQL
 
 Render was selected for the backend because the WebAPI is prepared as a Dockerized ASP.NET Core service. GitHub Pages is used for the static Blazor WebAssembly frontend.
 
@@ -116,13 +139,13 @@ Render was selected for the backend because the WebAPI is prepared as a Dockeriz
 Frontend production API URL:
 
 ```bash
-API_BASE_URL=https://<your-render-api-domain>/
+API_BASE_URL=https://todoappwasm-api.onrender.com/
 ```
 
 Backend CORS:
 
 ```bash
-AllowedOrigins=https://<your-username>.github.io
+AllowedOrigins=https://umarsalem.github.io
 ```
 
 Backend JWT settings:
@@ -131,6 +154,7 @@ Backend JWT settings:
 Jwt__Key=<long-random-secret-at-least-32-characters>
 Jwt__Issuer=TodoAppWasm.WebAPI
 Jwt__Audience=TodoAppWasm.BlazorApp
+Jwt__TokenLifetimeMinutes=60
 ```
 
 Local SQLite:
@@ -146,14 +170,18 @@ Hosted PostgreSQL:
 ```bash
 DatabaseProvider=Postgres
 ApplyMigrationsOnStartup=true
-ConnectionStrings__TodoDatabase=<connection-string-from-your-database-host>
+ConnectionStrings__TodoDatabase=<postgres-connection-string>
 ```
+
+Do not commit real production connection strings, database passwords, or JWT secrets.
 
 ## CI/CD
 
 - Generic CI: `.github/workflows/ci.yml`
 - Development CI and container publish: `.github/workflows/development-ci.yml`
 - GitHub Pages deploy: `.github/workflows/blazor-github-pages.yml`
+
+The development workflow builds and tests the solution, builds a Linux Docker image for the WebAPI, and pushes it to GitHub Container Registry.
 
 ## Documentation
 
@@ -168,4 +196,4 @@ ConnectionStrings__TodoDatabase=<connection-string-from-your-database-host>
 
 ## Current status
 
-The backend authentication and protected Todo workflow are implemented. The Blazor UI has been updated with a cleaner portfolio-style layout, top navigation, and authenticated Todo flow.
+The application is deployed and working end to end. The Blazor WebAssembly frontend is hosted on GitHub Pages, the ASP.NET Core Web API is hosted on Render, and hosted data is stored in PostgreSQL.
