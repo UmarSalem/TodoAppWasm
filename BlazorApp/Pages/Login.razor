@@ -47,7 +47,7 @@
         try
         {
             await AuthService.LoginAsync(new UserLoginDto(username, password));
-            NavMgr.NavigateTo("/ViewTodos");
+            NavMgr.NavigateTo("ViewTodos");
         }
         catch (Exception e)
         {

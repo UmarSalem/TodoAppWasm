@@ -8,6 +8,6 @@
     protected override async Task OnInitializedAsync()
     {
         await AuthService.LogoutAsync();
-        NavMgr.NavigateTo("/Login");
+        NavMgr.NavigateTo("Login");
     }
 }
