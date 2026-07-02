@@ -1,0 +1,886 @@
+%PDF-1.4
+% Simple speaking guide generated locally
+1 0 obj
+<< /Type /Catalog /Pages 2 0 R >>
+endobj
+2 0 obj
+<< /Type /Pages /Kids [ 3 0 R 5 0 R 7 0 R 9 0 R 11 0 R 13 0 R 15 0 R ] /Count 7 >>
+endobj
+3 0 obj
+<< /Type /Page /Parent 2 0 R /MediaBox [0 0 595 842] /Resources << /Font << /F1 17 0 R >> >> /Contents 4 0 R >>
+endobj
+4 0 obj
+<< /Length 2143 >>
+stream
+BT
+/F1 10 Tf
+50 800 Td
+13 TL
+(YouTube Tutorial Speaking Guide) Tj
+T*
+() Tj
+T*
+(Video goal) Tj
+T*
+() Tj
+T*
+(Create a clear portfolio/tutorial video that shows how TodoAppWasm was built and) Tj
+T*
+(deployed as a real full-stack application.) Tj
+T*
+() Tj
+T*
+(Target length: 25 to 35 minutes.) Tj
+T*
+() Tj
+T*
+(Main message:) Tj
+T*
+() Tj
+T*
+(QUOTE: I built this full-stack .NET 8 Todo application with help from AI coding tools,) Tj
+T*
+(but I reviewed, tested, deployed, debugged, and integrated the application myself.) Tj
+T*
+() Tj
+T*
+(Recording tools) Tj
+T*
+() Tj
+T*
+(Recommended setup:) Tj
+T*
+() Tj
+T*
+(- Recording: OBS Studio) Tj
+T*
+(- Editing: Microsoft Clipchamp or DaVinci Resolve) Tj
+T*
+(- Upload: YouTube Studio) Tj
+T*
+() Tj
+T*
+(Use OBS if you want the best free screen recording option. Use Clipchamp if you want) Tj
+T*
+(simple trimming, titles, and export after recording.) Tj
+T*
+() Tj
+T*
+(Screen setup) Tj
+T*
+() Tj
+T*
+(Use two screens:) Tj
+T*
+() Tj
+T*
+(- Large monitor: record this screen only.) Tj
+T*
+(- Laptop screen: keep your notes, ChatGPT/Codex, and checklist there.) Tj
+T*
+() Tj
+T*
+(Before recording:) Tj
+T*
+() Tj
+T*
+(- Close private tabs.) Tj
+T*
+(- Hide browser bookmarks if they contain personal links.) Tj
+T*
+(- Do not show Render database passwords.) Tj
+T*
+(- Do not show GitHub secrets.) Tj
+T*
+(- Do not show JWT keys.) Tj
+T*
+(- Use zoom level 110% or 125% so viewers can read code.) Tj
+T*
+(- Prepare test username and password before starting.) Tj
+T*
+() Tj
+T*
+(Video title ideas) Tj
+T*
+() Tj
+T*
+(- Deploy a Full-Stack .NET 8 Blazor App to GitHub Pages and Render) Tj
+T*
+(- Blazor WebAssembly + ASP.NET Core API + PostgreSQL Deployment Tutorial) Tj
+T*
+(- Full-Stack .NET Portfolio Project: Blazor, Render, GitHub Pages, PostgreSQL) Tj
+T*
+() Tj
+T*
+(Opening script) Tj
+T*
+() Tj
+T*
+(Hi everyone, my name is Umar.) Tj
+T*
+() Tj
+T*
+(In this video, I am going to show my full-stack TodoAppWasm project. It is built with) Tj
+T*
+(Blazor WebAssembly on the frontend, ASP.NET Core Web API on the backend, Entity) Tj
+T*
+ET
+
+endstream
+endobj
+5 0 obj
+<< /Type /Page /Parent 2 0 R /MediaBox [0 0 595 842] /Resources << /Font << /F1 17 0 R >> >> /Contents 6 0 R >>
+endobj
+6 0 obj
+<< /Length 2266 >>
+stream
+BT
+/F1 10 Tf
+50 800 Td
+13 TL
+(Framework Core for data access, JWT authentication, and PostgreSQL for hosted data.) Tj
+T*
+() Tj
+T*
+(The frontend is deployed to GitHub Pages, the backend is deployed to Render as a Docker) Tj
+T*
+(image, and the Docker image is published through GitHub Actions to GitHub Container) Tj
+T*
+(Registry.) Tj
+T*
+() Tj
+T*
+(I used AI tools as a coding assistant during this project, but I reviewed the code,) Tj
+T*
+(tested the application, handled the deployment, fixed the errors, and connected the full) Tj
+T*
+(application end to end.) Tj
+T*
+() Tj
+T*
+(Section 1: Live demo) Tj
+T*
+() Tj
+T*
+(Show:) Tj
+T*
+() Tj
+T*
+(- https://umarsalem.github.io/TodoAppWasm/) Tj
+T*
+(- Create user) Tj
+T*
+(- Login) Tj
+T*
+(- Create todo) Tj
+T*
+(- Refresh page) Tj
+T*
+(- Show todo still exists) Tj
+T*
+() Tj
+T*
+(Speaking notes:) Tj
+T*
+() Tj
+T*
+(This is the live frontend hosted on GitHub Pages. The frontend is a static Blazor) Tj
+T*
+(WebAssembly application. When I create a user or log in, the browser is calling my live) Tj
+T*
+(backend API on Render.) Tj
+T*
+() Tj
+T*
+(After login, the backend returns a JWT token. The Blazor app stores that token in) Tj
+T*
+(browser local storage and sends it with protected Todo requests.) Tj
+T*
+() Tj
+T*
+(Section 2: Architecture overview) Tj
+T*
+() Tj
+T*
+(Show README architecture section.) Tj
+T*
+() Tj
+T*
+(Speaking notes:) Tj
+T*
+() Tj
+T*
+(The architecture is simple but realistic.) Tj
+T*
+() Tj
+T*
+(The Blazor frontend is hosted on GitHub Pages. It calls the ASP.NET Core Web API hosted) Tj
+T*
+(on Render. The API validates JWT tokens, runs business logic, and stores data using) Tj
+T*
+(Entity Framework Core in PostgreSQL.) Tj
+T*
+() Tj
+T*
+(For deployment, GitHub Actions builds and tests the solution, builds the backend Docker) Tj
+T*
+(image, pushes it to GitHub Container Registry, and the frontend workflow deploys the) Tj
+T*
+(Blazor app to GitHub Pages.) Tj
+T*
+() Tj
+T*
+(Section 3: Backend code overview) Tj
+T*
+() Tj
+T*
+(Show:) Tj
+T*
+() Tj
+T*
+(- WebAPI/Program.cs) Tj
+T*
+(- WebAPI/Auth/JwtTokenService.cs) Tj
+T*
+(- WebAPI/Controllers/UsersController.cs) Tj
+T*
+(- WebAPI/Controllers/TodosController.cs) Tj
+T*
+ET
+
+endstream
+endobj
+7 0 obj
+<< /Type /Page /Parent 2 0 R /MediaBox [0 0 595 842] /Resources << /Font << /F1 17 0 R >> >> /Contents 8 0 R >>
+endobj
+8 0 obj
+<< /Length 2004 >>
+stream
+BT
+/F1 10 Tf
+50 800 Td
+13 TL
+() Tj
+T*
+(Speaking notes:) Tj
+T*
+() Tj
+T*
+(In Program.cs, the backend registers controllers, Swagger, authentication,) Tj
+T*
+(authorization, CORS, and Entity Framework Core.) Tj
+T*
+() Tj
+T*
+(The database provider is configurable. Locally I can use SQLite, but in Render I set) Tj
+T*
+(DatabaseProvider to Postgres. This lets the same application run locally and in) Tj
+T*
+(production without changing source code.) Tj
+T*
+() Tj
+T*
+(The JWT settings come from environment variables. That is important because secrets) Tj
+T*
+(should not be committed to GitHub.) Tj
+T*
+() Tj
+T*
+(The health endpoint is also important for hosting:) Tj
+T*
+() Tj
+T*
+(text) Tj
+T*
+(/health) Tj
+T*
+() Tj
+T*
+() Tj
+T*
+(Render uses this endpoint to check whether the service is alive.) Tj
+T*
+() Tj
+T*
+(Section 4: Database setup) Tj
+T*
+() Tj
+T*
+(Show:) Tj
+T*
+() Tj
+T*
+(- EfcDataAccess) Tj
+T*
+(- EfcDataAccess.Postgres) Tj
+T*
+(- Render PostgreSQL dashboard without secrets visible) Tj
+T*
+() Tj
+T*
+(Speaking notes:) Tj
+T*
+() Tj
+T*
+(For local development, the app can use SQLite. For hosted deployment, I use PostgreSQL) Tj
+T*
+(because it is better for a real hosted application and data survives redeploys.) Tj
+T*
+() Tj
+T*
+(This project keeps PostgreSQL migrations separate from SQLite migrations. That matters) Tj
+T*
+(because database providers can generate different column types and migration code.) Tj
+T*
+() Tj
+T*
+(In Render, the connection string is added as an environment variable:) Tj
+T*
+() Tj
+T*
+(text) Tj
+T*
+(ConnectionStrings__TodoDatabase) Tj
+T*
+() Tj
+T*
+() Tj
+T*
+(The double underscore is important in ASP.NET Core configuration.) Tj
+T*
+() Tj
+T*
+(Section 5: Docker and GitHub Actions) Tj
+T*
+() Tj
+T*
+(Show:) Tj
+T*
+() Tj
+T*
+(- WebAPI/Dockerfile) Tj
+T*
+(- .github/workflows/development-ci.yml) Tj
+T*
+(- GitHub Actions run) Tj
+T*
+(- GitHub Container Registry package) Tj
+T*
+() Tj
+T*
+ET
+
+endstream
+endobj
+9 0 obj
+<< /Type /Page /Parent 2 0 R /MediaBox [0 0 595 842] /Resources << /Font << /F1 17 0 R >> >> /Contents 10 0 R >>
+endobj
+10 0 obj
+<< /Length 1787 >>
+stream
+BT
+/F1 10 Tf
+50 800 Td
+13 TL
+(Speaking notes:) Tj
+T*
+() Tj
+T*
+(The backend is deployed as a Docker image. The Dockerfile builds and publishes the) Tj
+T*
+(WebAPI project, then starts the app inside a Linux container.) Tj
+T*
+() Tj
+T*
+(The GitHub Actions workflow runs on the development branch. It restores packages, builds) Tj
+T*
+(the solution, runs tests, builds the Docker image, and pushes the image to GitHub) Tj
+T*
+(Container Registry.) Tj
+T*
+() Tj
+T*
+(The image tag used by Render is:) Tj
+T*
+() Tj
+T*
+(text) Tj
+T*
+(ghcr.io/umarsalem/todoappwasm:development) Tj
+T*
+() Tj
+T*
+() Tj
+T*
+(Section 6: Render backend deployment) Tj
+T*
+() Tj
+T*
+(Show Render service settings, but hide secrets.) Tj
+T*
+() Tj
+T*
+(Show:) Tj
+T*
+() Tj
+T*
+(- Image URL) Tj
+T*
+(- Health check path) Tj
+T*
+(- Environment variable names only) Tj
+T*
+(- Deploy logs after successful deploy) Tj
+T*
+(- /health endpoint) Tj
+T*
+(- /swagger endpoint) Tj
+T*
+() Tj
+T*
+(Speaking notes:) Tj
+T*
+() Tj
+T*
+(In Render, I created a Web Service from an existing Docker image. I used the GHCR image) Tj
+T*
+(built by GitHub Actions.) Tj
+T*
+() Tj
+T*
+(The important environment variables are:) Tj
+T*
+() Tj
+T*
+(text) Tj
+T*
+(DatabaseProvider=Postgres) Tj
+T*
+(ApplyMigrationsOnStartup=true) Tj
+T*
+(ConnectionStrings__TodoDatabase=<secret>) Tj
+T*
+(AllowedOrigins=https://umarsalem.github.io) Tj
+T*
+(Jwt__Key=<secret>) Tj
+T*
+(Jwt__Issuer=TodoAppWasm.WebAPI) Tj
+T*
+(Jwt__Audience=TodoAppWasm.BlazorApp) Tj
+T*
+(Jwt__TokenLifetimeMinutes=60) Tj
+T*
+() Tj
+T*
+() Tj
+T*
+(I also set the health check path to:) Tj
+T*
+() Tj
+T*
+(text) Tj
+T*
+(/health) Tj
+T*
+() Tj
+T*
+() Tj
+T*
+(After deployment, I tested the backend using:) Tj
+T*
+() Tj
+T*
+ET
+
+endstream
+endobj
+11 0 obj
+<< /Type /Page /Parent 2 0 R /MediaBox [0 0 595 842] /Resources << /Font << /F1 17 0 R >> >> /Contents 12 0 R >>
+endobj
+12 0 obj
+<< /Length 1582 >>
+stream
+BT
+/F1 10 Tf
+50 800 Td
+13 TL
+(text) Tj
+T*
+(https://todoappwasm-api.onrender.com/health) Tj
+T*
+(https://todoappwasm-api.onrender.com/swagger) Tj
+T*
+() Tj
+T*
+() Tj
+T*
+(Section 7: Frontend deployment) Tj
+T*
+() Tj
+T*
+(Show:) Tj
+T*
+() Tj
+T*
+(- .github/workflows/blazor-github-pages.yml) Tj
+T*
+(- GitHub secret API_BASE_URL) Tj
+T*
+(- GitHub Pages deployment) Tj
+T*
+(- Live frontend) Tj
+T*
+() Tj
+T*
+(Speaking notes:) Tj
+T*
+() Tj
+T*
+(The frontend is deployed to GitHub Pages. The workflow publishes the Blazor WebAssembly) Tj
+T*
+(app and sets the correct base path for the repository.) Tj
+T*
+() Tj
+T*
+(The frontend needs to know the backend API URL. I added it as a GitHub Actions secret:) Tj
+T*
+() Tj
+T*
+(text) Tj
+T*
+(API_BASE_URL=https://todoappwasm-api.onrender.com/) Tj
+T*
+() Tj
+T*
+() Tj
+T*
+(This keeps the frontend connected to the live Render backend.) Tj
+T*
+() Tj
+T*
+(Section 8: Bug fixed during deployment) Tj
+T*
+() Tj
+T*
+(Show:) Tj
+T*
+() Tj
+T*
+(- Login.razor) Tj
+T*
+(- CreateTodo.razor) Tj
+T*
+(- EditTodo.razor) Tj
+T*
+(- Logout.razor) Tj
+T*
+(- ViewTodos.razor) Tj
+T*
+() Tj
+T*
+(Speaking notes:) Tj
+T*
+() Tj
+T*
+(One real deployment bug I fixed was GitHub Pages routing.) Tj
+T*
+() Tj
+T*
+(After login, the app originally navigated to:) Tj
+T*
+() Tj
+T*
+(text) Tj
+T*
+(/ViewTodos) Tj
+T*
+() Tj
+T*
+() Tj
+T*
+(On GitHub Pages, that tried to open:) Tj
+T*
+() Tj
+T*
+(text) Tj
+T*
+(https://umarsalem.github.io/ViewTodos) Tj
+T*
+() Tj
+T*
+() Tj
+T*
+(But the app is hosted under:) Tj
+T*
+ET
+
+endstream
+endobj
+13 0 obj
+<< /Type /Page /Parent 2 0 R /MediaBox [0 0 595 842] /Resources << /Font << /F1 17 0 R >> >> /Contents 14 0 R >>
+endobj
+14 0 obj
+<< /Length 1692 >>
+stream
+BT
+/F1 10 Tf
+50 800 Td
+13 TL
+() Tj
+T*
+(text) Tj
+T*
+(https://umarsalem.github.io/TodoAppWasm/) Tj
+T*
+() Tj
+T*
+() Tj
+T*
+(So I changed the navigation to app-relative routes like:) Tj
+T*
+() Tj
+T*
+(text) Tj
+T*
+(ViewTodos) Tj
+T*
+() Tj
+T*
+() Tj
+T*
+(This fixed the GitHub Pages 404 after login.) Tj
+T*
+() Tj
+T*
+(Section 9: Final test) Tj
+T*
+() Tj
+T*
+(Show:) Tj
+T*
+() Tj
+T*
+(- Create a new user) Tj
+T*
+(- Login) Tj
+T*
+(- Create todo) Tj
+T*
+(- Edit todo) Tj
+T*
+(- Delete todo) Tj
+T*
+(- Open Swagger) Tj
+T*
+(- Test health endpoint) Tj
+T*
+() Tj
+T*
+(Speaking notes:) Tj
+T*
+() Tj
+T*
+(This final test proves that the frontend, backend, authentication, and database are) Tj
+T*
+(working together.) Tj
+T*
+() Tj
+T*
+(The app is not only running locally. It is deployed publicly with a real frontend URL,) Tj
+T*
+(backend URL, hosted database, and CI/CD workflow.) Tj
+T*
+() Tj
+T*
+(Closing script) Tj
+T*
+() Tj
+T*
+(That is the full deployment of my TodoAppWasm project.) Tj
+T*
+() Tj
+T*
+(In this project, I practiced Blazor WebAssembly, ASP.NET Core Web API, JWT) Tj
+T*
+(authentication, Entity Framework Core, Docker, GitHub Actions, GitHub Container) Tj
+T*
+(Registry, Render, PostgreSQL, and GitHub Pages.) Tj
+T*
+() Tj
+T*
+(The most important part for me was not only writing code, but learning how to connect) Tj
+T*
+(everything together and debug real deployment problems.) Tj
+T*
+() Tj
+T*
+(Thank you for watching.) Tj
+T*
+() Tj
+T*
+(YouTube upload checklist) Tj
+T*
+() Tj
+T*
+(Title:) Tj
+T*
+() Tj
+T*
+(text) Tj
+T*
+(Deploy a Full-Stack .NET 8 Blazor App to GitHub Pages and Render) Tj
+T*
+() Tj
+T*
+() Tj
+T*
+ET
+
+endstream
+endobj
+15 0 obj
+<< /Type /Page /Parent 2 0 R /MediaBox [0 0 595 842] /Resources << /Font << /F1 17 0 R >> >> /Contents 16 0 R >>
+endobj
+16 0 obj
+<< /Length 1640 >>
+stream
+BT
+/F1 10 Tf
+50 800 Td
+13 TL
+(Description:) Tj
+T*
+() Tj
+T*
+(text) Tj
+T*
+(In this video I show my full-stack TodoAppWasm portfolio project built with Blazor) Tj
+T*
+(WebAssembly, ASP.NET Core Web API, Entity Framework Core, JWT authentication,) Tj
+T*
+(PostgreSQL, Docker, GitHub Actions, Render, and GitHub Pages.) Tj
+T*
+() Tj
+T*
+(Live demo:) Tj
+T*
+(https://umarsalem.github.io/TodoAppWasm/) Tj
+T*
+() Tj
+T*
+(Backend health:) Tj
+T*
+(https://todoappwasm-api.onrender.com/health) Tj
+T*
+() Tj
+T*
+(Swagger:) Tj
+T*
+(https://todoappwasm-api.onrender.com/swagger) Tj
+T*
+() Tj
+T*
+() Tj
+T*
+(Chapters:) Tj
+T*
+() Tj
+T*
+(text) Tj
+T*
+(00:00 Introduction) Tj
+T*
+(01:30 Live demo) Tj
+T*
+(04:00 Architecture overview) Tj
+T*
+(06:00 Backend code) Tj
+T*
+(10:00 Database and EF Core) Tj
+T*
+(13:00 Docker and GitHub Actions) Tj
+T*
+(17:00 Render deployment) Tj
+T*
+(22:00 GitHub Pages deployment) Tj
+T*
+(26:00 Deployment bug fix) Tj
+T*
+(30:00 Final test) Tj
+T*
+(33:00 Summary) Tj
+T*
+() Tj
+T*
+() Tj
+T*
+(Tags:) Tj
+T*
+() Tj
+T*
+(text) Tj
+T*
+(.NET 8, Blazor WebAssembly, ASP.NET Core, Render, GitHub Pages, PostgreSQL, Docker,) Tj
+T*
+(GitHub Actions, EF Core, JWT Authentication) Tj
+T*
+() Tj
+T*
+() Tj
+T*
+(Final reminder) Tj
+T*
+() Tj
+T*
+(Do not show secrets on screen:) Tj
+T*
+() Tj
+T*
+(- Render database password) Tj
+T*
+(- Full database connection string) Tj
+T*
+(- JWT secret key) Tj
+T*
+(- GitHub secrets) Tj
+T*
+(- Personal access tokens) Tj
+T*
+() Tj
+T*
+(If a secret appears in the recording, blur it before uploading or record that part) Tj
+T*
+(again.) Tj
+T*
+ET
+
+endstream
+endobj
+17 0 obj
+<< /Type /Font /Subtype /Type1 /BaseFont /Helvetica >>
+endobj
+xref
+0 18
+0000000000 65535 f 
+0000000053 00000 n 
+0000000105 00000 n 
+0000000206 00000 n 
+0000000336 00000 n 
+0000002534 00000 n 
+0000002664 00000 n 
+0000004985 00000 n 
+0000005115 00000 n 
+0000007174 00000 n 
+0000007305 00000 n 
+0000009148 00000 n 
+0000009280 00000 n 
+0000010918 00000 n 
+0000011050 00000 n 
+0000012798 00000 n 
+0000012930 00000 n 
+0000014626 00000 n 
+trailer
+<< /Size 18 /Root 1 0 R >>
+startxref
+14700
+%%EOF

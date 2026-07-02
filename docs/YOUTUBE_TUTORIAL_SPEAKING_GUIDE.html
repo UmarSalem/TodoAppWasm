@@ -1,0 +1,233 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <title>TodoAppWasm YouTube Tutorial Speaking Guide</title>
+  <style>
+    body {
+      font-family: Arial, Helvetica, sans-serif;
+      color: #1f2933;
+      line-height: 1.48;
+      max-width: 850px;
+      margin: 32px auto;
+      padding: 0 32px;
+    }
+    h1 {
+      font-size: 30px;
+      margin-bottom: 8px;
+    }
+    h2 {
+      margin-top: 28px;
+      border-bottom: 1px solid #d8dee9;
+      padding-bottom: 6px;
+      font-size: 20px;
+    }
+    h3 {
+      margin-top: 20px;
+      font-size: 16px;
+    }
+    code, pre {
+      font-family: Consolas, "Courier New", monospace;
+      background: #f4f6f8;
+      border-radius: 4px;
+    }
+    code {
+      padding: 2px 4px;
+    }
+    pre {
+      padding: 12px;
+      overflow-wrap: anywhere;
+      white-space: pre-wrap;
+    }
+    blockquote {
+      border-left: 4px solid #2563eb;
+      margin: 16px 0;
+      padding: 8px 16px;
+      background: #f2f6ff;
+    }
+    .meta {
+      color: #52606d;
+      margin-bottom: 24px;
+    }
+    ul, ol {
+      padding-left: 24px;
+    }
+    @media print {
+      body {
+        margin: 0;
+        max-width: none;
+      }
+      h2 {
+        break-after: avoid;
+      }
+      pre, blockquote {
+        break-inside: avoid;
+      }
+    }
+  </style>
+</head>
+<body>
+  <h1>TodoAppWasm YouTube Tutorial Speaking Guide</h1>
+  <p class="meta">A practical speaking guide for recording a portfolio tutorial about deploying a full-stack .NET 8 Blazor application.</p>
+
+  <h2>Video Goal</h2>
+  <p>Create a clear portfolio/tutorial video that shows how TodoAppWasm was built and deployed as a real full-stack application.</p>
+  <p><strong>Target length:</strong> 25 to 35 minutes.</p>
+  <p><strong>Main message:</strong></p>
+  <blockquote>I built this full-stack .NET 8 Todo application with help from AI coding tools, but I reviewed, tested, deployed, debugged, and integrated the application myself.</blockquote>
+
+  <h2>Recording Tools</h2>
+  <ul>
+    <li><strong>Recording:</strong> OBS Studio</li>
+    <li><strong>Editing:</strong> Microsoft Clipchamp or DaVinci Resolve</li>
+    <li><strong>Upload:</strong> YouTube Studio</li>
+  </ul>
+  <p>Use OBS if you want the best free screen recording option. Use Clipchamp if you want simple trimming, titles, and export after recording.</p>
+
+  <h2>Screen Setup</h2>
+  <ul>
+    <li>Large monitor: record this screen only.</li>
+    <li>Laptop screen: keep your notes, ChatGPT/Codex, and checklist there.</li>
+    <li>Close private tabs.</li>
+    <li>Hide browser bookmarks if they contain personal links.</li>
+    <li>Do not show Render database passwords.</li>
+    <li>Do not show GitHub secrets.</li>
+    <li>Do not show JWT keys.</li>
+    <li>Use zoom level 110% or 125% so viewers can read code.</li>
+  </ul>
+
+  <h2>Opening Script</h2>
+  <p>Hi everyone, my name is Umar.</p>
+  <p>In this video, I am going to show my full-stack TodoAppWasm project. It is built with Blazor WebAssembly on the frontend, ASP.NET Core Web API on the backend, Entity Framework Core for data access, JWT authentication, and PostgreSQL for hosted data.</p>
+  <p>The frontend is deployed to GitHub Pages, the backend is deployed to Render as a Docker image, and the Docker image is published through GitHub Actions to GitHub Container Registry.</p>
+  <p>I used AI tools as a coding assistant during this project, but I reviewed the code, tested the application, handled the deployment, fixed the errors, and connected the full application end to end.</p>
+
+  <h2>Section 1: Live Demo</h2>
+  <p><strong>Show:</strong></p>
+  <ul>
+    <li>https://umarsalem.github.io/TodoAppWasm/</li>
+    <li>Create user</li>
+    <li>Login</li>
+    <li>Create todo</li>
+    <li>Refresh page</li>
+    <li>Show todo still exists</li>
+  </ul>
+  <p><strong>Speaking notes:</strong> This is the live frontend hosted on GitHub Pages. The frontend is a static Blazor WebAssembly application. When I create a user or log in, the browser is calling my live backend API on Render.</p>
+  <p>After login, the backend returns a JWT token. The Blazor app stores that token in browser local storage and sends it with protected Todo requests.</p>
+
+  <h2>Section 2: Architecture Overview</h2>
+  <p><strong>Show:</strong> README architecture section.</p>
+  <p>The architecture is simple but realistic. The Blazor frontend is hosted on GitHub Pages. It calls the ASP.NET Core Web API hosted on Render. The API validates JWT tokens, runs business logic, and stores data using Entity Framework Core in PostgreSQL.</p>
+  <pre>GitHub Pages frontend
+  -> calls Render Web API
+  -> Web API validates JWT tokens
+  -> Entity Framework Core stores data in PostgreSQL</pre>
+
+  <h2>Section 3: Backend Code Overview</h2>
+  <p><strong>Show:</strong></p>
+  <ul>
+    <li>WebAPI/Program.cs</li>
+    <li>WebAPI/Auth/JwtTokenService.cs</li>
+    <li>WebAPI/Controllers/UsersController.cs</li>
+    <li>WebAPI/Controllers/TodosController.cs</li>
+  </ul>
+  <p>In Program.cs, the backend registers controllers, Swagger, authentication, authorization, CORS, and Entity Framework Core. The database provider is configurable. Locally I can use SQLite, but in Render I set DatabaseProvider to Postgres.</p>
+  <pre>/health</pre>
+  <p>Render uses this endpoint to check whether the service is alive.</p>
+
+  <h2>Section 4: Database Setup</h2>
+  <p><strong>Show:</strong> EfcDataAccess, EfcDataAccess.Postgres, and Render PostgreSQL dashboard without secrets visible.</p>
+  <p>For local development, the app can use SQLite. For hosted deployment, I use PostgreSQL because it is better for a real hosted application and data survives redeploys.</p>
+  <pre>ConnectionStrings__TodoDatabase</pre>
+  <p>The double underscore is important in ASP.NET Core configuration.</p>
+
+  <h2>Section 5: Docker and GitHub Actions</h2>
+  <p><strong>Show:</strong> WebAPI/Dockerfile, .github/workflows/development-ci.yml, GitHub Actions run, and GitHub Container Registry package.</p>
+  <p>The backend is deployed as a Docker image. The GitHub Actions workflow restores packages, builds the solution, runs tests, builds the Docker image, and pushes the image to GitHub Container Registry.</p>
+  <pre>ghcr.io/umarsalem/todoappwasm:development</pre>
+
+  <h2>Section 6: Render Backend Deployment</h2>
+  <p><strong>Show:</strong> Render service settings, image URL, health check path, environment variable names only, deploy logs after successful deploy, /health endpoint, and /swagger endpoint.</p>
+  <pre>DatabaseProvider=Postgres
+ApplyMigrationsOnStartup=true
+ConnectionStrings__TodoDatabase=&lt;secret&gt;
+AllowedOrigins=https://umarsalem.github.io
+Jwt__Key=&lt;secret&gt;
+Jwt__Issuer=TodoAppWasm.WebAPI
+Jwt__Audience=TodoAppWasm.BlazorApp
+Jwt__TokenLifetimeMinutes=60</pre>
+  <pre>https://todoappwasm-api.onrender.com/health
+https://todoappwasm-api.onrender.com/swagger</pre>
+
+  <h2>Section 7: Frontend Deployment</h2>
+  <p><strong>Show:</strong> .github/workflows/blazor-github-pages.yml, GitHub secret API_BASE_URL, GitHub Pages deployment, and live frontend.</p>
+  <pre>API_BASE_URL=https://todoappwasm-api.onrender.com/</pre>
+  <p>This keeps the frontend connected to the live Render backend.</p>
+
+  <h2>Section 8: Bug Fixed During Deployment</h2>
+  <p>One real deployment bug I fixed was GitHub Pages routing. After login, the app originally navigated to:</p>
+  <pre>/ViewTodos</pre>
+  <p>On GitHub Pages, that tried to open:</p>
+  <pre>https://umarsalem.github.io/ViewTodos</pre>
+  <p>But the app is hosted under:</p>
+  <pre>https://umarsalem.github.io/TodoAppWasm/</pre>
+  <p>So I changed the navigation to app-relative routes like:</p>
+  <pre>ViewTodos</pre>
+
+  <h2>Section 9: Final Test</h2>
+  <ul>
+    <li>Create a new user</li>
+    <li>Login</li>
+    <li>Create todo</li>
+    <li>Edit todo</li>
+    <li>Delete todo</li>
+    <li>Open Swagger</li>
+    <li>Test health endpoint</li>
+  </ul>
+  <p>This final test proves that the frontend, backend, authentication, and database are working together.</p>
+
+  <h2>Closing Script</h2>
+  <p>That is the full deployment of my TodoAppWasm project.</p>
+  <p>In this project, I practiced Blazor WebAssembly, ASP.NET Core Web API, JWT authentication, Entity Framework Core, Docker, GitHub Actions, GitHub Container Registry, Render, PostgreSQL, and GitHub Pages.</p>
+  <p>The most important part for me was not only writing code, but learning how to connect everything together and debug real deployment problems.</p>
+  <p>Thank you for watching.</p>
+
+  <h2>YouTube Upload Checklist</h2>
+  <p><strong>Title:</strong></p>
+  <pre>Deploy a Full-Stack .NET 8 Blazor App to GitHub Pages and Render</pre>
+  <p><strong>Description:</strong></p>
+  <pre>In this video I show my full-stack TodoAppWasm portfolio project built with Blazor WebAssembly, ASP.NET Core Web API, Entity Framework Core, JWT authentication, PostgreSQL, Docker, GitHub Actions, Render, and GitHub Pages.
+
+Live demo:
+https://umarsalem.github.io/TodoAppWasm/
+
+Backend health:
+https://todoappwasm-api.onrender.com/health
+
+Swagger:
+https://todoappwasm-api.onrender.com/swagger</pre>
+  <p><strong>Chapters:</strong></p>
+  <pre>00:00 Introduction
+01:30 Live demo
+04:00 Architecture overview
+06:00 Backend code
+10:00 Database and EF Core
+13:00 Docker and GitHub Actions
+17:00 Render deployment
+22:00 GitHub Pages deployment
+26:00 Deployment bug fix
+30:00 Final test
+33:00 Summary</pre>
+
+  <h2>Final Reminder</h2>
+  <p>Do not show secrets on screen:</p>
+  <ul>
+    <li>Render database password</li>
+    <li>Full database connection string</li>
+    <li>JWT secret key</li>
+    <li>GitHub secrets</li>
+    <li>Personal access tokens</li>
+  </ul>
+  <p>If a secret appears in the recording, blur it before uploading or record that part again.</p>
+</body>
+</html>
