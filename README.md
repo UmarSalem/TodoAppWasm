@@ -1,34 +1,45 @@
 # TodoAppWasm
 
-TodoAppWasm is a full-stack .NET 8 portfolio project built with Blazor WebAssembly, ASP.NET Core Web API, Entity Framework Core, PostgreSQL, JWT authentication, and role-based authorization.
+TodoAppWasm is a deployed full-stack .NET 8 portfolio project that demonstrates a real Blazor WebAssembly frontend, ASP.NET Core Web API backend, PostgreSQL persistence, JWT authentication, Docker deployment, and CI/CD automation.
 
-The project demonstrates a realistic frontend/backend workflow: users can create accounts, log in, receive a JWT token, and manage protected Todo data through both the Blazor UI and Swagger.
+Recruiters and reviewers can open the live app, test the backend health endpoint, inspect Swagger, create a demo user, log in, and verify protected Todo API flows.
 
-## Live demo
+## Live demo links
 
 - **Frontend:** https://umarsalem.github.io/TodoAppWasm/
-- **Backend health check:** https://todoappwasm-api.onrender.com/health
-- **Swagger API docs:** https://todoappwasm-api.onrender.com/swagger
+- **Backend health:** https://todoappwasm-api.onrender.com/health
+- **Swagger:** https://todoappwasm-api.onrender.com/swagger
 
-The backend is hosted on Render's free tier, so the first request may take several seconds if the service has been idle.
+The API is hosted on Render free tier, so the first request may take a moment after idle time.
 
 ## Screenshots
 
-### Blazor WebAssembly UI
+Screenshots are stored in `docs/screenshots/`. Existing screenshots are used below; missing screenshots are marked with TODO placeholders instead of fake images.
 
-![TodoApp home](docs/screenshots/01-home.png)
+### Login/Register screen
 
-![Login page](docs/screenshots/02-login.png)
+![Login screen](docs/screenshots/02-login.png)
 
-![Users overview](docs/screenshots/03-users.png)
+![Register user screen](docs/screenshots/08-createusers.png)
 
-![Todo list](docs/screenshots/05-view-todos.png)
+### Todo list screen
 
-![Todo filtering](docs/screenshots/09-TodoWithFilter.png)
+![Todo list screen](docs/screenshots/05-view-todos.png)
 
-### Swagger and JWT authorization
+![Todo filtering screen](docs/screenshots/09-TodoWithFilter.png)
 
-![Swagger authentication](docs/screenshots/06-swagger-auth.png)
+### Create/Edit todo screen
+
+TODO: Add deployed app screenshots for creating and editing Todo items.
+
+Suggested paths:
+
+- `docs/screenshots/04-create-todo.png`
+- `docs/screenshots/05-edit-todo.png`
+
+### Swagger/API screen
+
+![Swagger authentication screen](docs/screenshots/06-swagger-auth.png)
 
 ![Swagger login token response](docs/screenshots/07-swagger-loginWithToken.png)
 
@@ -36,164 +47,185 @@ The backend is hosted on Render's free tier, so the first request may take sever
 
 ![Swagger protected Todo endpoint](docs/screenshots/11-Swagger_GetTodo_with_valid_Auth.png)
 
-## Features
+## Architecture overview
 
-- Blazor WebAssembly frontend hosted on GitHub Pages
-- ASP.NET Core Web API backend hosted on Render
-- Entity Framework Core data access
-- SQLite for local development
+```text
+Blazor WebAssembly frontend
+  Hosted on GitHub Pages
+  Reads ApiBase from appsettings
+  Sends JWT-authenticated requests to the API
+
+ASP.NET Core Web API backend
+  Hosted on Render
+  Exposes REST endpoints and Swagger
+  Validates JWT tokens and role-based authorization
+
+PostgreSQL database
+  Used by the hosted backend through Entity Framework Core
+
+GitHub Actions CI/CD
+  Builds and tests the solution
+  Publishes the Web API Docker image to GitHub Container Registry
+  Deploys the Blazor WebAssembly frontend to GitHub Pages
+  Triggers Render deployment for the backend image
+```
+
+## Tech stack
+
+- .NET 8
+- Blazor WebAssembly
+- ASP.NET Core Web API
+- Entity Framework Core
 - PostgreSQL for hosted deployment
-- JWT login flow
+- SQLite for local development
+- JWT authentication
+- Role-based authorization
+- Swagger/OpenAPI
+- Docker
+- GitHub Actions
+- GitHub Container Registry
+- GitHub Pages
+- Render
+- xUnit tests
+
+## Key features
+
+- User registration and login
+- JWT token generation and validation
+- Protected Todo endpoints
+- Todo create, read, update, delete, and filtering flows
 - Password hashing with PBKDF2
 - Role support for `User` and `Admin`
-- Protected Todo endpoints
-- Swagger support for authenticated API testing
-- Dockerized backend
-- GitHub Actions workflows for CI/CD
-- GitHub Container Registry image publishing
+- Central API error handling
+- Swagger support for testing authenticated endpoints
+- Configurable database provider for local and hosted environments
+- Dockerized backend service
+- Automated build, test, image publish, and deployment workflows
 
-## Architecture
+## Local setup instructions
 
-```text
-GitHub Pages frontend
-  -> calls Render Web API
-  -> Web API validates JWT tokens
-  -> Entity Framework Core stores data in PostgreSQL
+Prerequisites:
 
-GitHub Actions
-  -> builds and tests the solution
-  -> publishes the backend Docker image to GHCR
-  -> deploys the Blazor frontend to GitHub Pages
+- .NET 8 SDK
+- Optional: Docker Desktop
+- Optional: PostgreSQL, if you want to test the hosted database provider locally
+
+Restore, build, and test the solution:
+
+```bash
+dotnet restore TodoAppWasm.sln
+dotnet build TodoAppWasm.sln
+dotnet test TodoAppWasm.sln
 ```
 
-## Solution structure
-
-```text
-TodoAppWasm
-|-- BlazorApp       # Blazor WebAssembly frontend
-|-- WebAPI          # ASP.NET Core Web API
-|-- Application     # Business logic
-|-- EfcDataAccess   # EF Core DbContext, DAOs, SQLite migrations
-|-- EfcDataAccess.Postgres # PostgreSQL migrations
-|-- HttpClients     # Frontend HTTP client services
-|-- Shared          # Shared DTOs, models, auth constants
-|-- Tests           # Test project
-`-- docs            # Portfolio, deployment, and screenshot docs
-```
-
-## Local development
-
-Run the backend:
+Run the backend API:
 
 ```bash
 dotnet run --project WebAPI/WebAPI.csproj
 ```
 
-Run the frontend:
+Run the Blazor WebAssembly frontend:
 
 ```bash
 dotnet run --project BlazorApp/BlazorApp.csproj
 ```
 
-Open the Blazor app:
+Local URLs:
 
-```text
-http://localhost:5101
-```
+- **Frontend:** `http://localhost:5101`
+- **Swagger:** `https://localhost:7161/swagger`
 
-Open Swagger:
+After both projects are running, create a demo user, log in, and use the Todo screens from the Blazor frontend. You can also test the same flow through Swagger by calling `POST /Users/login`, copying the JWT token, and using Swagger's Authorize button.
 
-```text
-https://localhost:7161/swagger
-```
+## Configuration/environment notes
 
-## Authentication flow
+Do not commit real production connection strings, database passwords, JWT signing keys, GitHub tokens, Render API keys, or other private values.
 
-1. Create a user from Blazor or Swagger.
-2. Log in through `POST /Users/login`.
-3. The API returns a JWT token.
-4. Blazor stores the token in browser local storage.
-5. Todo API requests send the token as `Authorization: Bearer <token>`.
-6. The backend reads the user id and role from the token before allowing Todo actions.
+Frontend configuration:
 
-## Swagger protected endpoint testing
+- `ApiBase` is the Blazor app setting used at runtime.
+- `API_BASE_URL` is the GitHub Actions secret used during GitHub Pages deployment.
+- The GitHub Pages workflow writes `API_BASE_URL` into `BlazorApp/wwwroot/appsettings.Production.json` as `ApiBase`.
 
-1. Open https://todoappwasm-api.onrender.com/swagger.
-2. Call `POST /Users/login`.
-3. Copy the returned token.
-4. Click **Authorize** in Swagger.
-5. Paste `Bearer <token>`.
-6. Test a protected Todo endpoint.
-
-## Deployment
-
-- **Frontend:** GitHub Pages
-- **Backend:** Render Web Service
-- **Docker image:** GitHub Container Registry
-- **Database:** Render PostgreSQL
-
-Render was selected for the backend because the WebAPI is prepared as a Dockerized ASP.NET Core service. GitHub Pages is used for the static Blazor WebAssembly frontend.
-
-## Important configuration
-
-Frontend production API URL:
+Example frontend value:
 
 ```bash
 API_BASE_URL=https://todoappwasm-api.onrender.com/
 ```
 
-Backend CORS:
+Backend database configuration:
 
 ```bash
-AllowedOrigins=https://umarsalem.github.io
+DatabaseProvider=Sqlite
+ConnectionStrings__TodoDatabase=Data Source=../EfcDataAccess/Todo.db
 ```
 
-Backend JWT settings:
+Hosted backend database configuration:
 
 ```bash
-Jwt__Key=<long-random-secret-at-least-32-characters>
+DatabaseProvider=Postgres
+ConnectionStrings__TodoDatabase=<postgres-connection-string>
+ApplyMigrationsOnStartup=true
+```
+
+JWT configuration:
+
+```bash
+Jwt__Key=<long-random-secret>
 Jwt__Issuer=TodoAppWasm.WebAPI
 Jwt__Audience=TodoAppWasm.BlazorApp
 Jwt__TokenLifetimeMinutes=60
 ```
 
-Local SQLite:
+Other hosted backend settings:
 
 ```bash
-DatabaseProvider=Sqlite
-ApplyMigrationsOnStartup=false
-ConnectionStrings__TodoDatabase=Data Source=../EfcDataAccess/Todo.db
+AllowedOrigins=https://umarsalem.github.io
 ```
 
-Hosted PostgreSQL:
+## Testing and CI/CD
 
-```bash
-DatabaseProvider=Postgres
-ApplyMigrationsOnStartup=true
-ConnectionStrings__TodoDatabase=<postgres-connection-string>
-```
+The repository includes automated tests in the `Tests` project. The CI workflows restore dependencies, build the solution, and run tests.
 
-Do not commit real production connection strings, database passwords, or JWT secrets.
+Workflow files:
 
-## CI/CD
+- `.github/workflows/ci.yml` runs restore, build, and test on push and pull request.
+- `.github/workflows/development-ci.yml` builds and tests the solution, builds the Web API Docker image, publishes it to GitHub Container Registry, and triggers the Render staging deployment on development branch pushes.
+- `.github/workflows/blazor-github-pages.yml` publishes the Blazor WebAssembly frontend to GitHub Pages from the main branch.
 
-- Generic CI: `.github/workflows/ci.yml`
-- Development CI and container publish: `.github/workflows/development-ci.yml`
-- GitHub Pages deploy: `.github/workflows/blazor-github-pages.yml`
+## Deployment explanation
 
-The development workflow builds and tests the solution, builds a Linux Docker image for the WebAPI, and pushes it to GitHub Container Registry.
+The frontend and backend are deployed separately because Blazor WebAssembly is a static frontend and the ASP.NET Core API is a server-side application.
 
-## Documentation
+- **GitHub Pages frontend:** hosts the published Blazor WebAssembly static files.
+- **Render backend:** runs the ASP.NET Core Web API as a Dockerized web service.
+- **GHCR Docker image:** stores the backend image built by GitHub Actions.
+- **PostgreSQL:** stores hosted application data for the Render API.
 
-- Portfolio strategy: [docs/PORTFOLIO_SHOWCASE_GUIDE.md](docs/PORTFOLIO_SHOWCASE_GUIDE.md)
-- Deployment details: [docs/DEPLOYMENT_PLAYBOOK.md](docs/DEPLOYMENT_PLAYBOOK.md)
-- Render deployment checklist: [docs/RENDER_DEPLOYMENT_CHECKLIST.md](docs/RENDER_DEPLOYMENT_CHECKLIST.md)
-- Frontend live backend checklist: [docs/FRONTEND_LIVE_BACKEND_CHECKLIST.md](docs/FRONTEND_LIVE_BACKEND_CHECKLIST.md)
-- PostgreSQL hosting guide: [docs/POSTGRES_HOSTING_GUIDE.md](docs/POSTGRES_HOSTING_GUIDE.md)
-- Project roadmap: [docs/PROJECT_ROADMAP.md](docs/PROJECT_ROADMAP.md)
-- Auth/JWT junior guide: [docs/AUTH_JWT_JUNIOR_GUIDE.html](docs/AUTH_JWT_JUNIOR_GUIDE.html)
-- Screenshot guide: [docs/screenshots/README.md](docs/screenshots/README.md)
+The deployed Blazor app calls the Render API through the configured `ApiBase` URL. The API validates JWT tokens, applies authorization rules, and stores Todo data through Entity Framework Core.
 
-## Current status
+## Known limitations
 
-The application is deployed and working end to end. The Blazor WebAssembly frontend is hosted on GitHub Pages, the ASP.NET Core Web API is hosted on Render, and hosted data is stored in PostgreSQL.
+- The API is hosted on Render free tier, so the first request may take a moment after idle time.
+- This is a portfolio/staging demo, not a production system.
+- Demo data may be reset or changed during development.
+- The UI and API are built to show full-stack capability, not to replace a production task management product.
+
+## Roadmap / next improvements
+
+- Add updated create/edit Todo screenshots from the deployed frontend.
+- Add a dedicated deployed Swagger screenshot with the live Render URL visible.
+- Improve form validation feedback in the Blazor UI.
+- Add refresh token support or token renewal.
+- Add pagination for larger Todo lists.
+- Add more end-to-end tests for the hosted authentication and Todo flows.
+- Add monitoring/logging notes for the Render deployment.
+
+## Author/contact section
+
+Created by **Umar Salem** as a full-stack .NET portfolio project.
+
+- **Live frontend:** https://umarsalem.github.io/TodoAppWasm/
+- **Swagger/API:** https://todoappwasm-api.onrender.com/swagger
+
+I used AI coding tools as a development assistant, but I reviewed, tested, debugged, deployed, and integrated the application myself.
